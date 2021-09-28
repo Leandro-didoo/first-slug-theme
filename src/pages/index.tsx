@@ -5,9 +5,10 @@ import styles from '../styles/Home.module.scss';
 import { Button, Card, Row, Col, Carousel } from 'react-materialize';
 import { Footer } from '../components/Footer';
 import { Banner } from '../components/Banner';
-import { AboutType, BannerType, CallToActionType, FooterType, Galerytype, ServiceType, SheduleType, TestimonialType, VideoType } from '../types/typesdef';
+import { AboutType, BannerType, CallToActionType, FooterType, Galerytype, PageData, ServiceType, SheduleType, TestimonialType, VideoType } from '../types/typesdef';
 import { Carrousel } from '../components/Carrosel';
 import { Heart, Stars } from '../components/Icons';
+import cms from '../services/cms';
 if (process.browser) {
   require('materialize-css');
 }
@@ -46,48 +47,34 @@ function Home({ banner, service, about, callToAction, testimonial, galery, video
       {service.active ? (
         <section
           id="services"
-          style={{
-            backgroundImage: `url(${service.background})`
-          }}
+          style={{ backgroundImage: `url(${service.background})` }}
           className={styles.service}
         >
           <div className="container">
-            <h2 style={{
-              color: service.color_title
-            }} className="center-align">Nossos serviços </h2>
+            <h2 style={{ color: service.color_title }} className="center-align">Nossos serviços </h2>
             <div className="row">
-              {service.data.map(content => {
+              {service.services.map((content, index) => {
                 return (
-                  <div key={content.id} className="col s12 m4">
+                  <div key={index} className="col s12 m4">
                     <div
                       className="card cardService"
-                      style={{
-                        backgroundColor: service.card.background,
-
-                      }}
+                      style={{ backgroundColor: service.card_background }}
                     >
                       <div className="card-content white-text">
                         <div className={styles.containerIco}>
                           <i
-                            style={{
-                              color: service.card.color_ico
-                            }}
-                            className="fas fa-map-signs center-align"></i>
+                            style={{ color: service.card_color_ico }}
+                            className="fas fa-map-signs center-align"
+                          ></i>
                         </div>
                         <span
                           className="card-title center-align"
-                          style={{
-                            color: service.card.color
-                          }}
+                          style={{ color: service.card_color }}
                         >{content.title}</span>
-                        <p
-                          style={{
-                            color: service.card.color
-                          }}
-
-                          className="center-align">{content.txt}</p>
+                        <p style={{ color: service.card_color }} className="center-align">
+                          {content.txt}
+                        </p>
                       </div>
-
                     </div>
                   </div>
                 )
@@ -133,7 +120,7 @@ function Home({ banner, service, about, callToAction, testimonial, galery, video
                 <div className={styles.aboutTxt} dangerouslySetInnerHTML={{ __html: `${about.txt}` }} />
                 <button
                   style={{
-                    backgroundColor: about.backgorundButon
+                    backgroundColor: about.backgroundButton
                   }}
                   className="btn">{about.button}</button>
               </div>
@@ -155,15 +142,15 @@ function Home({ banner, service, about, callToAction, testimonial, galery, video
         <section id="call-to-action"
           className={styles.callToAction}
           style={{
-            backgroundImage: `url(${callToAction.backGround})`
+            backgroundImage: `url(${callToAction.background})`
           }}
         >
           <div className="container">
             <div className={styles.content}>
-              <h2 style={{ color: callToAction.colorTile }} className="center-align">{callToAction.title}</h2>
+              <h2 style={{ color: callToAction.colorTitle }} className="center-align">{callToAction.title}</h2>
               {callToAction.subTitle.trim.length != 0 && <h3 style={{ color: callToAction.colorTxt }} className="center-align">{callToAction.subTitle}</h3>}
               <div style={{ color: callToAction.colorTxt }} className="center-align" dangerouslySetInnerHTML={{ __html: `${callToAction.txt}` }} />
-              {callToAction.button.trim.length != 0 && <button style={{ backgroundColor: callToAction.background_buton, color: callToAction.color_button }} className="btn">{callToAction.button}</button>}
+              {callToAction.button.trim.length != 0 && <button style={{ backgroundColor: callToAction.background_button, color: callToAction.color_button }} className="btn">{callToAction.button}</button>}
             </div>
           </div>
 
@@ -191,7 +178,7 @@ function Home({ banner, service, about, callToAction, testimonial, galery, video
         <section id="testimonial"
           className={styles.testimonial}
           style={{
-            backgroundImage: `url(${testimonial.backGround})`
+            backgroundImage: `url(${testimonial.background})`
           }}
         >
           <div className="container">
@@ -199,9 +186,9 @@ function Home({ banner, service, about, callToAction, testimonial, galery, video
               <h2 style={{ color: testimonial.colorTitle }} className="center-align">{testimonial.title}</h2>
               <h4 style={{ color: testimonial.colorTitle }} className="center-align">{testimonial.subTitle} <Heart width={20} color="red" /><span></span><Heart width={20} color="red" /><span></span><Heart width={20} color="red" /></h4>
               <div className="row ">
-                {testimonial.data.map(content => {
+                {testimonial.clients.map((content, index) => {
                   return (
-                    <div key={content.id} className="col s12 m4">
+                    <div key={index} className="col s12 m4">
                       <div className="card">
                         <div className={`card-content ${styles.topCard}`}>
                           <div className={styles.imgProfile}>
@@ -367,197 +354,36 @@ function Home({ banner, service, about, callToAction, testimonial, galery, video
 
 export default Home
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const banner = {
-    img: "slider-fundo.png",
-    overlay: "rgba(21, 11, 31, 0.678)",
-    title: "Seguros",
-    caption: "E Planos de Saúde",
-    txt: "A Corretora que faz a diferença <br/>  na sua vida e da sua família",
-    png_img: "agendar-medico.png",
-    txt_button: "Solicitar Contato",
-    button_background: "#52AA5E",
-    button_color: "#fff",
-    color_title: "#e67f0d",
-    color_caption: "#0892A5",
-    color_txt: "#fff",
-  }
-  const service = {
-    active: true,
-    background: "nossos-servicos.png",
-    overlay: "",
-    title: "Nossos serviços",
-    color_title: "#52AA5E",
-    buttonOne: "Ver catálogo",
-    buttonOne_background: "#52AA5E",
-    buttonOne_color: '#fff',
-    buttonTwo: "Agendar Horário",
-    buttonTwo_background: "#0892A5",
-    buttonTwo_color: "#fff",
-    card: {
-      background: "#cecece",
-      color: "#333",
-      color_ico: "#333",
-      hover_background: "green",
-      hover_color: "blue"
-    },
-    data: [
-      {
-        id: 0,
-        ico: '',
-        title: 'Seguro Empresarial',
-        subTitulo: 'sub',
-        txt: `odos os serviços que você
-        precisa utilizar, organizados de
-        maneira intuitiva e em uma
-        plataforma que favorece a
-        experiência do usuário: Seja
-        muito bem-vindo ao Nosso
-        Sistema!`,
-      },
-      {
-        id: 1,
-        ico: '',
-        title: 'Seguro Empresarial',
-        subTitulo: 'sub',
-        txt: `odos os serviços que você
-        precisa utilizar, organizados de
-        maneira intuitiva e em uma
-        plataforma que favorece a
-        experiência do usuário: Seja
-        muito bem-vindo ao Nosso
-        Sistema!`,
-        txt_color: '#333'
-      },
-      {
-        id: 2,
-        ico: '',
-        title: 'Seguro Empresarial',
-        subTitulo: 'sub',
-        txt: `odos os serviços que você
-        precisa utilizar, organizados de
-        maneira intuitiva e em uma
-        plataforma que favorece a
-        experiência do usuário: Seja
-        muito bem-vindo ao Nosso
-        Sistema!`,
-        txt_color: '#333'
-      }
+  const theme_slug = 'padrao';
+  const access_token = 'Q9yLqJ9Xocp4JAd';
 
-    ]
-  }
-  const about = {
-    active: true,
-    background: 'quem-somos.png',
-    title: 'Quem Somos',
-    subTitle: '',
-    txt: `Todos os serviços que você precisa utilizar,<br/>
-    organizados de maneira intuitiva e em uma<br/>
-    plataforma que favorece a experiência do<br/>
-    usuário: Seja muito bem-vindo ao Nosso
-    Sistema!<br/>
-    Todos os serviços que você precisa utilizar,`,
-    button: 'Solicitar contato',
-    backgorundButon: '#0892A5',
-    button_color: '#fff',
-    imgPng: 'agendar-medico.png'
+  const response = await cms.get(`page/data/${theme_slug}`, {
+    headers: { 'access-token': access_token }
+  });
 
+  if (!response || !response.data.result) throw new Error('Impossível carregar a página.');
+  const page = response.data.response;
+  // END:: REQUEST PAGE | BEGIN:: PARSE PAGE
+  const page_data = page.datas[0] as PageData;
 
-  }
-  const callToAction = {
-    active: true,
-    backGround: 'divisor_texto.png',
-    title: 'Divisor texto e botão',
-    colorTile: '#fff',
-    colorTxt: '#fff',
-    subTitle: '',
-    txt: `Todos os serviços que você precisa utilizar, organizados de maneira
-    intuitiva e em uma plataforma que favorece a experiência do
-    usuário: Seja muito bem-vindo ao Nosso Sistema!<br/>
-    Todos os serviços que você precisa utilizar, organizados de maneira
-    intuitiva e em uma plataforma que favorece a experiência do
-    usuário: Seja muito bem-vindo ao Nosso Sistema!`,
-    button: '',
-    color_button: '#fff',
-    background_buton: '#333',
-    overlay: 'rgba(48, 25, 71, 0.644)'
-  }
-  const products = {
-    active: true,
-    title: '',
-    subTitle: '',
-    colorTitle: '',
-    backGround: '',
-    txt: '',
-    colorTxt: '',
-    button: '',
-    colorButton: '',
-    backgroundButton: '',
-    ovelay: '',
-    linkButton: '',
-    data: [
-      {
-        id: 0,
-        img: 'download.png',
-        name: 'produto one',
-        price: 15.99,
-      },
-      {
-        id: 1,
-        img: 'download.png',
-        name: 'produto tow',
-        price: 15.99,
-      },
-      {
-        id: 2,
-        img: 'download.png',
-        name: 'produto tree',
-        price: 15.99,
-      },
+  let parseElement = {} as any;
+  page.elements.forEach((element: { class_name: string, datas: any[] }) => {
+    let tempData = element.datas[0] ?? null;
+    if (tempData) {
+      tempData.data = JSON.parse(tempData.data);
+    }
+    parseElement[element.class_name] = tempData;
+  });
 
-    ]
+  const elements = parseElement;
+  // END:: PARSE PAGE
 
-
-  }
-  const testimonial = {
-    active: true,
-    title: 'Depoimentos',
-    subTitle: 'O que nossos clientes dizem',
-    colorTitle: '#fff',
-    backGround: 'profile.jpg',
-    txt: '',
-    colorTxt: '',
-    button: '',
-    colorButton: '',
-    backgroundButton: '',
-    ovelay: '',
-    data: [
-      {
-        id: 0,
-        thumbnail: 'images.jpeg',
-        name: 'Maria',
-        address: 'Brasil - Campinas',
-        stars: 5,
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
-      },
-      {
-        id: 1,
-        thumbnail: 'images.jpeg',
-        name: 'Ana',
-        address: 'Brasil - São paulo',
-        stars: 5,
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
-      },
-      {
-        id: 2,
-        thumbnail: 'images.jpeg',
-        name: 'beatriz',
-        address: 'Brasil - londrina',
-        stars: 5,
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
-      }
-    ]
-
-  }
+  const banner = elements.banner.data;
+  const service = { ...elements.service.data, active: elements.service.active };
+  const about = { ...elements.about.data, active: elements.about.active };
+  const callToAction = { ...elements.callToAction.data, active: elements.callToAction.active };
+  const products = { ...elements.cms_catalog.data, active: elements.cms_catalog.active };
+  const testimonial = { ...elements.testimonial.data, active: elements.testimonial.active };
   const galery = {
     active: true,
     overlay: '#fff',
@@ -620,7 +446,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const schedule = {
     active: true,
     background: 'profile.jpg',
-    ovelay: '#fff',
+    overlay: '#fff',
     title: 'Agendar Horário',
     colorSubtitle: '#fff',
     colorTitle: 'red',

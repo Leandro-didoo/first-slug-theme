@@ -40,7 +40,7 @@ export const Banner = (banner: props) => {
                         color: banner.banner.button_color
                     }}
                     className="btn">{banner.banner.txt_button}</button>
-                {/* ovelay */}
+                {/* overlay */}
 
 
             </div>
