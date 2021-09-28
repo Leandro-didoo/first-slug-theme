@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.scss';
 import { Button, Card, Row, Col, Carousel } from 'react-materialize';
 import { Footer } from '../components/Footer';
 import { Banner } from '../components/Banner';
-import { AboutType, BannerType, CallToActionType, FooterType, Galerytype, ServiceType, SheduleType, TestimonialType, VideoType } from '../types/typesdef';
+import { AboutType, BannerType, BlogType, CallToActionType, FooterType, Galerytype, InstagramType, ServiceType, SheduleType, TestimonialType, VideoType } from '../types/typesdef';
 import { Carrousel } from '../components/Carrosel';
 import { Heart, Stars } from '../components/Icons';
 if (process.browser) {
@@ -21,11 +21,13 @@ type Props = {
   testimonial: TestimonialType,
   galery: Galerytype,
   video: VideoType,
+  instagram: InstagramType,
+  blog: BlogType,
   schedule: SheduleType,
   footer: FooterType
 }
 
-function Home({ banner, service, about, callToAction, testimonial, galery, video, footer, schedule }: Props) {
+function Home({ banner, service, about, callToAction, testimonial, galery, video, footer, schedule, instagram, blog}: Props) {
   const srcImagens = galery.data.map(image => image.src)
   return (
     <div className={styles.container}>
@@ -293,9 +295,51 @@ function Home({ banner, service, about, callToAction, testimonial, galery, video
         </section>
       ) : ''}
       {/* instagram */}
-      <section id="instagram" ></section>
+      {instagram.active ? (
+        <section id="instagram" 
+        className={styles.instagram}
+        >
+          <div className="container">
+            <div className="row center">
+              <h2 style={{color: instagram.colorTitle}}>{instagram.title}</h2>
+              <h4 style={{color: instagram.colorSubTitle}}>{instagram.subtitle}</h4>
+            </div>
+            <div className="row">
+              {instagram.data.map(content =>{
+                return(
+                  <div key={content.id} className="col s12 m6 l4">
+                      <div className={`card ${styles.cardImgInsta}`}>
+                        <div className={styles.contentImg}/>
+                      </div>
+                  </div>
+                )
+              })}
+              
+            </div>
+          </div>
+        </section>
+      ) : ''}
+
       {/* blog */}
-      <section id="blog" ></section>
+      {blog.active? (
+         <section id="blog"
+         className={styles.blog}
+         >
+           <div className="container">
+             <div className="row center">
+              <h2 style={{color: blog.colorTitle}}>{blog.title}</h2>
+              <h4 style={{color: blog.colorSubtitle}}>{blog.subTitle}</h4>
+             </div>
+             <div className="row">
+               <Carrousel />
+
+             </div>
+
+           </div>
+
+         </section>
+      ):''}
+     
       {/*schedule */}
       {schedule.active ? (
         <section id="schedule"
@@ -304,15 +348,12 @@ function Home({ banner, service, about, callToAction, testimonial, galery, video
         >
           <div className="container">
             <div className="row center">
-              <h2>{schedule.title}</h2>
-              <h4>{schedule.subTitle}</h4>
+              <h2 style={{ color: schedule.colorTitle }}>{schedule.title}</h2>
+              <h4 style={{ color: schedule.colorSubtitle }}>{schedule.subTitle}</h4>
             </div>
             <div className={styles.contentForm}>
               <div className={styles.imgShedule}>
-              
-                  <img src={schedule.imgPng} alt="" />
-
-               
+                <img src={schedule.imgPng} alt="" />
               </div>
               <div className={styles.containerForm}>
                 <form className="grey lighten-5">
@@ -344,12 +385,12 @@ function Home({ banner, service, about, callToAction, testimonial, galery, video
                     </div>
                   </div>
                   <textarea
-                  placeholder="Descreva seu pedido"
-                   name="" ></textarea>
+                    placeholder="Descreva seu pedido"
+                    name="" ></textarea>
                   <div className={styles.containerBtn}>
                     <button className="btn" type="submit">Enviar</button>
                   </div>
-                  
+
 
                 </form>
               </div>
@@ -598,6 +639,124 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     src: ''
 
   }
+  const instagram = {
+    active: true,
+    background: '',
+    overlay: '',
+    title: 'Instagram',
+    colorTitle: '#52AA5E',
+    subtitle: 'Siga o Instagram da nossa Empresa',
+    colorSubTitle: '#333',
+    data: [
+      {
+        id: 0,
+        alt: '',
+        src: 'download.png'
+      },
+      {
+        id: 1,
+        alt: '',
+        src: 'download.png'
+      },
+      {
+        id: 2,
+        alt: '',
+        src: 'download.png'
+      },
+      {
+        id: 3,
+        alt: '',
+        src: 'download.png'
+      },
+      {
+        id: 4,
+        alt: '',
+        src: 'download.png'
+      },
+      {
+        id: 5,
+        alt: '',
+        src: 'download.png'
+      }
+    ]
+  }
+  const blog ={
+    active: true,
+     background: '',
+     ovelay: '',
+     title: 'Blog',
+     colorTitle: '#52AA5E',
+     subTitle: 'Veja Dicas da nossa Empresa ',
+     colorSubtitle:'#333',
+     data:[
+       {
+        author: 'Yury',
+        content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        created_at: '',
+        date_formatted: '',
+        excerpt: '',
+        id: 0,
+        image: 'download.png',
+        published: 0,
+        slug: '',
+        title: 'item 1',
+        updated_at: '',
+        user_id: 0,
+        wallpaper: 'nossos-servicos.png',
+       },
+       {
+        author: 'Yury',
+        content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        created_at: '',
+        date_formatted: '',
+        excerpt: '',
+        id: 2,
+        image: 'download.png',
+        published: 2,
+        slug: '',
+        title: 'item 2',
+        updated_at: '',
+        user_id: 0,
+        wallpaper: 'nossos-servicos.png',
+       },
+       {
+        author: 'Yury',
+        content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        created_at: '',
+        date_formatted: '',
+        excerpt: '',
+        id: 3,
+        image: 'download.png',
+        published: 3,
+        slug: '',
+        title: 'item 3',
+        updated_at: '',
+        user_id: 0,
+        wallpaper: 'nossos-servicos.png',
+       }
+     ]
+  }
+  const schedule = {
+    active: true,
+    background: 'profile.jpg',
+    ovelay: '#fff',
+    title: 'Agendar Horário',
+    colorSubtitle: '#fff',
+    colorTitle: '#fff',
+    subTitle: 'Aqui Você Agenda um horário ou apenas faz um contato!',
+    imgPng: 'agendar-medico.png',
+    button: 'enviar',
+    colorButton: '#fff',
+    backgroundButton: '#333',
+    placheHouder: {
+      name: 'nome',
+      email: 'email',
+      whatsapp: 'whatsapp',
+      data: 'data',
+      hora: 'hora',
+      textarea: 'Descriva seu pedido',
+    }
+  }
   const footer = {
     backgroundColor: '#3e3ef0',
     address: {
@@ -617,27 +776,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     tiktok: 'xxxx',
     colorTxt: '#fff',
   }
-  const schedule = {
-    active: true,
-    background: 'profile.jpg',
-    ovelay: '#fff',
-    title: 'Agendar Horário',
-    colorSubtitle: '#fff',
-    colorTitle: 'red',
-    subTitle: 'Aqui Você Agenda um horário ou apenas faz um contato!',
-    imgPng: 'agendar-medico.png',
-    button: 'enviar',
-    colorButton: '#fff',
-    backgroundButton: '#333',
-    placheHouder: {
-      name: 'nome',
-      email: 'email',
-      whatsapp: 'whatsapp',
-      data: 'data',
-      hora: 'hora',
-      textarea: 'Descriva seu pedido',
-    }
-  }
   return {
     props: {
       banner,
@@ -647,6 +785,8 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       testimonial,
       galery,
       video,
+      instagram,
+      blog,
       schedule,
       footer
     },
