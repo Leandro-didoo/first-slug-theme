@@ -1,3 +1,11 @@
+export type PageData = {
+  css?: string;
+  fonts?: string;
+  icon: string;
+  metadescription: string;
+  theme_colors: string;
+  title: string;
+}
 
 export type BannerType = {
   img: string,
@@ -25,17 +33,14 @@ export type ServiceType = {
   buttonOne_color: string,
   buttonTwo: string,
   buttonTwo_background: string,
-  buttonTwo_color: string,
-  card: {
-    background: string,
-    color: string,
-    hover_background: string,
-    hover_color: string,
-    color_ico: string
-  },
-  data: [
+  buttonTwo_color: string,  
+  card_background: string,
+  card_color: string,
+  card_hover_background: string,
+  card_hover_color: string,
+  card_color_ico: string,
+  services: [
     {
-      id: number,
       ico: string,
       title: string,
       subTitulo: string,
@@ -52,7 +57,7 @@ export type AboutType = {
   subTitle: string,
   txt: string,
   button: string,
-  backgorundButon: string,
+  backgroundButton: string,
   button_color: string,
   imgPng: string
 
@@ -60,15 +65,15 @@ export type AboutType = {
 }
 export type CallToActionType = {
   active: boolean,
-  backGround: string,
+  background: string,
   title: string,
   subTitle: string,
   txt: string,
   button: string,
   color_button: string,
-  background_buton: string,
+  background_button: string,
   overlay: string,
-  colorTile: string,
+  colorTitle: string,
   colorTxt: string
 }
 
@@ -84,16 +89,15 @@ export type TestimonialType = {
   title: string,
   subTitle: string,
   colorTitle: string,
-  backGround: string,
+  background: string,
   txt: string,
   colorTxt: string,
   button: string,
   colorButton: string,
   backgroundButton: string,
-  ovelay: string,
-  data: [
+  overlay: string,
+  clients: [
     {
-      id: number,
       thumbnail: string,
       name: string,
       address: string,
@@ -154,7 +158,7 @@ export type FooterType = {
 export type SheduleType = {
   active: true,
   background: string,
-  ovelay: string,
+  overlay: string,
   title: string,
   colorSubtitle: string,
   colorTitle: string,
