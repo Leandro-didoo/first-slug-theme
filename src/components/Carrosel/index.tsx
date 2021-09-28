@@ -16,8 +16,6 @@ export const Carrousel = () => {
                         <div className={style.itemContent}>
 
                         </div>
-
-
                     </div>
 
                 </div>

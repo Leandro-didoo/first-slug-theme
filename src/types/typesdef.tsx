@@ -125,35 +125,35 @@ export type Galerytype = {
 }
 
 export type VideoType = {
-  active: boolean ,
-  overlay: string ,
-  title: string ,
-  background: string ,
-  colorTitle: string ,
-  subtitulo: string ,
-  colorSubTitulo: string ,
-  txt: string ,
-  src: string ,
+  active: boolean,
+  overlay: string,
+  title: string,
+  background: string,
+  colorTitle: string,
+  subtitulo: string,
+  colorSubTitulo: string,
+  txt: string,
+  src: string,
 }
 
 export type FooterType = {
-    backgroundColor: string,
-    address: {
-      logradouro: string,
-      numero: string,
-      bairro: string,
-      cep: string,
-      cidade: string,
-      estado: string
-    },
-    phoneOne: string,
-    phoneTwo: string,
-    whatsapp: string,
-    email: string,
-    facebook: string,
-    instagram: string,
-    tiktok: string,
-    colorTxt: string,
+  backgroundColor: string,
+  address: {
+    logradouro: string,
+    numero: string,
+    bairro: string,
+    cep: string,
+    cidade: string,
+    estado: string
+  },
+  phoneOne: string,
+  phoneTwo: string,
+  whatsapp: string,
+  email: string,
+  facebook: string,
+  instagram: string,
+  tiktok: string,
+  colorTxt: string,
 }
 export type SheduleType = {
   active: true,
@@ -163,16 +163,58 @@ export type SheduleType = {
   colorSubtitle: string,
   colorTitle: string,
   subTitle: string,
-  imgPng:string,
+  imgPng: string,
   button: string,
   colorButton: string,
   backgroundButton: string,
-  placheHouder:{
+  placheHouder: {
     name: string,
     email: string,
-    whatsapp:string,
+    whatsapp: string,
     data: string,
     hora: string,
     textarea: string,
   }
+}
+export type InstagramType = {
+  active: boolean,
+  background: string,
+  overlay: string,
+  title: string,
+  colorTitle: string,
+  subtitle: string,
+  colorSubTitle: string,
+  data: [
+    {
+      id: number,
+      alt: string,
+      src: string
+    }
+  ]
+}
+export type BlogType = {
+  active: boolean,
+  background: string,
+  ovelay: string,
+  title: string,
+  colorTitle: string,
+  subTitle: string,
+  colorSubtitle: string,
+  data: [
+    {
+      author: string ,
+      content: string ,
+      created_at: Date ,
+      date_formatted: string ,
+      excerpt: string ,
+      id: string ,
+      image: string ,
+      published: number ,
+      slug: string ,
+      title: string ,
+      updated_at: Date ,
+      user_id: string ,
+      wallpaper: string ,
+    }
+  ]
 }
