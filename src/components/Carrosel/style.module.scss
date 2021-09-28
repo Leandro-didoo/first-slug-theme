@@ -10,12 +10,27 @@
         border: none;
         outline: none;
         cursor: pointer;
+        z-index: 77 ;
+        display: none;
+        @media(min-width: 400px){
+            display: block;
+        }
+        
     }
     .btnLeft{
-        left: -50px;
+        left: 0px;
+        @media(min-width: 600px){
+            left: -25px;
+        }
+        @media(min-width: 700px){
+            left: -40px;
+        }
     }
     .btnRight{
-        right: -50px;
+        right: 0px;
+        @media(min-width: 700px){
+            right: -40px;
+        }
     }
    
     .content{

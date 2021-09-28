@@ -1,46 +1,48 @@
 .containerBanner{
-    height: 100vh;
+    min-height: 100vh;
     background-color: #333;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
+    padding-bottom: 2rem;
     nav{
         background-color: transparent;
     }
-    .contentBanner{
-        height: 100%;
+    .content{
+        height: calc(100% - 64px);
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        z-index: 1;
-        position: relative;
-        h2{
-            font-size: 6rem;
-            margin-left: 1rem;
+        width: 70%;
+        margin: 0 auto;
+        .cotentLeft{
+            order: 2;
+           min-width: 50%;
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           h1{
+               font-weight: bolder;
+           }
+           h2{
+               font-weight: 400;
+           }
+           .txt{
+               font-size: 1.2rem;
+               margin-top: 1rem;
+           }
+           button{
+               border-radius: 2rem;
+               margin-top: 2rem;
+           }
         }
-        h3{
-            font-size: 2.5rem;
-            margin-left: 1rem;
+        .contentRight{
+            order: 1;
+            min-width: 50%;
+             img{
+                 height: 100%;
+                 max-height: 250px;
+             }
         }
-        .contentTxt{
-            font-size: 1.2rem;
-            margin-left: 1rem;
-        }
-        button{
-            max-width: 300px;
-            border-radius: 2rem;
-            margin-top: 2rem;
-            margin-left: 2rem;
-        }
-       
-    }
-    .overlay{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
     }
 }

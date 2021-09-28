@@ -423,7 +423,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     color_txt: "#fff",
   }
   const service = {
-    active: true,
+    active: false,
     background: "nossos-servicos.png",
     overlay: "",
     title: "Nossos serviços",
@@ -487,7 +487,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     ]
   }
   const about = {
-    active: true,
+    active: false,
     background: 'quem-somos.png',
     title: 'Quem Somos',
     subTitle: '',
@@ -505,7 +505,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   }
   const callToAction = {
-    active: true,
+    active: false,
     backGround: 'divisor_texto.png',
     title: 'Divisor texto e botão',
     colorTile: '#fff',
@@ -523,7 +523,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     overlay: 'rgba(48, 25, 71, 0.644)'
   }
   const products = {
-    active: true,
+    active: false,
     title: '',
     subTitle: '',
     colorTitle: '',
@@ -560,7 +560,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   }
   const testimonial = {
-    active: true,
+    active: false,
     title: 'Depoimentos',
     subTitle: 'O que nossos clientes dizem',
     colorTitle: '#fff',
@@ -600,7 +600,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   }
   const galery = {
-    active: true,
+    active: false,
     overlay: '#fff',
     title: 'Galeria',
     colorTitle: '#52AA5E',
@@ -628,7 +628,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     ]
   }
   const video = {
-    active: true,
+    active: false,
     overlay: '#fff',
     title: 'Galeria',
     background: 'gg.png',
@@ -640,7 +640,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   }
   const instagram = {
-    active: true,
+    active: false,
     background: '',
     overlay: '',
     title: 'Instagram',
@@ -681,7 +681,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     ]
   }
   const blog ={
-    active: true,
+    active: false,
      background: '',
      ovelay: '',
      title: 'Blog',
@@ -737,7 +737,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
      ]
   }
   const schedule = {
-    active: true,
+    active: false,
     background: 'profile.jpg',
     ovelay: '#fff',
     title: 'Agendar Horário',
