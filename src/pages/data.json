@@ -1,0 +1,21 @@
+{
+    "header":{
+        "logo": "",
+        "name": "Tudo Seguro",
+        "descripition": " ",
+        "txt_buton": "",
+        "button_background":"",
+        "button_color":""
+    },
+    "banner":{
+        "img": "slider-fundo.png",
+        "overlay": "",
+        "title":"Seguros",
+        "caption": "E Planos de Saúde",
+        "txt":"A Corretora que faz a diferença <br/>  na sua vida e da sua família",
+        "png_img":"agendar-medico.png",
+        "txt_button": "Solicitar Contato",
+        "button_background": "",
+        "button_color":""
+    }
+}

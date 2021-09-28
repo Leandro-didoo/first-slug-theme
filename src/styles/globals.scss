@@ -1,0 +1,32 @@
+html{
+    scroll-behavior: smooth;
+}
+h1, h2,h3,h4{
+    margin: 0;
+}
+
+section{
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    h2{
+        margin-bottom: 2rem;
+    }
+}
+button{
+    cursor: pointer;
+}
+// input[type=text], input[type=email]{
+// height: 2rem !important;
+// background-color: white !important;
+// border: none;
+// }
+
+#about{
+    position: relative;
+}
+.card .card-content{
+    padding: 15px;
+}
+#Carousel-31{
+   margin-top: -60px;
+}

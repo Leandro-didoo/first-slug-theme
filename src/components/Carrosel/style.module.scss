@@ -1,0 +1,61 @@
+.cotaniner{
+    width: 100%;
+    position: relative;
+    height: auto;
+    .btnLeft, .btnRight{
+        position: absolute;
+        top: 0;
+        background-color: transparent;
+        height: 100%;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+    .btnLeft{
+        left: -50px;
+    }
+    .btnRight{
+        right: -50px;
+    }
+   
+    .content{
+        display: flex;
+        height: 100%;
+        overflow-y: hidden;
+        overflow-x: scroll;
+        scroll-behavior: smooth;
+    //    -webkit-overflow-scrolling:auto;
+        &::-webkit-scrollbar{
+            color: transparent;
+            width: 1px;
+        }
+       
+        .scroll{
+            height: 100%;
+            width: auto;
+            display: flex;
+            gap: 10px;
+            
+          .item{
+              flex: 1 1;
+              min-width: 200px;
+              max-width: 250px;
+                transform: scale(0.97);
+              position: relative;
+              &::after{
+                  content: '';
+                  display: block;
+                  padding-top: 115%;
+              }
+              .itemContent{
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background-color: rgb(212, 211, 211);
+              }
+          }
+        }
+    }
+}
