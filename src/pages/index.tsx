@@ -44,6 +44,7 @@ function Home({
   blog
 }: Props) {
   const srcImagens = galery.data.map(image => image.name)
+  console.log(about)
   return (
     <div className={styles.container}>
       <Head>
@@ -122,34 +123,38 @@ function Home({
           id="about"
           className={styles.containerAbout}
         >
+          <div className="container">
+            <div className="row">
 
-          <div
-            style={{
-              backgroundImage: `url(${about.background})`
-            }}
-            className={styles.about}
-          >
-            <div className={`container ${styles.contentAbout}`}>
-              <div className={styles.item}>
-                <h2>{about.title}</h2>
-                <h3>{about.subTitle}</h3>
-                <div className={styles.aboutTxt} dangerouslySetInnerHTML={{ __html: `${about.txt}` }} />
-                <button
-                  style={{
-                    backgroundColor: about.backgroundButton
-                  }}
-                  className="btn">{about.button}</button>
+              <div className="col s12 m6">
+                <div className={styles.itemLeft}>
+                  <div
+                    style={{
+                      backgroundImage: `url(${about.imgPng})`
+                    }}
+                    className={styles.item}>
+
+                  </div>
+                </div>
               </div>
+              <div className="col s12 m6">
+                <div className={styles.itemRigth}>
+                  <div className={styles.item}>
+                    <h2 style={{}}>{about.title}</h2>
+                    <h3>{about.subTitle}</h3>
+                    <div className={styles.aboutTxt} dangerouslySetInnerHTML={{ __html: `${about.txt}` }} />
+                    <button style={{ backgroundColor: about.backgroundButton }}
+                      className="btn">{about.button}
+                    </button>
+                  </div>
+                </div>
 
+              </div>
             </div>
           </div>
-          <div
-            style={{
+        <div style={{backgroundImage: `url(${about.background})`}} className={styles.bkgAbout} />
 
-            }}
-            className={styles.elementPng}>
-            <img src={about.imgPng} alt="" />
-          </div>
+       
         </section>
       ) : ''}
 
@@ -292,47 +297,47 @@ function Home({
       ) : ''}
       {/* instagram */}
       {instagram.active ? (
-        <section id="instagram" 
-        className={styles.instagram}
+        <section id="instagram"
+          className={styles.instagram}
         >
           <div className="container">
             <div className="row center">
-              <h2 style={{color: instagram.colorTitle}}>{instagram.title}</h2>
-              <h4 style={{color: instagram.colorSubTitle}}>{instagram.subtitle}</h4>
+              <h2 style={{ color: instagram.colorTitle }}>{instagram.title}</h2>
+              <h4 style={{ color: instagram.colorSubTitle }}>{instagram.subtitle}</h4>
             </div>
             <div className="row">
-              {instagram.data.map(content =>{
-                return(
+              {instagram.data.map(content => {
+                return (
                   <div key={content.id} className="col s12 m6 l4">
-                      <div className={`card ${styles.cardImgInsta}`}>
-                        <div className={styles.contentImg} style={{ backgroundImage: `url('${content.name}')`}}/>
-                      </div>
+                    <div className={`card ${styles.cardImgInsta}`}>
+                      <div className={styles.contentImg} style={{ backgroundImage: `url('${content.name}')` }} />
+                    </div>
                   </div>
                 )
               })}
-              
+
             </div>
           </div>
         </section>
       ) : ''}
 
       {/* blog */}
-      {blog.active? (
-         <section id="blog"
-         className={styles.blog}
-         >
-           <div className="container">
-             <div className="row center">
-              <h2 style={{color: blog.colorTitle}}>{blog.title}</h2>
-              <h4 style={{color: blog.colorSubtitle}}>{blog.subTitle}</h4>
-             </div>
-             <div className="row">
-               <Carrousel />
-             </div>
-           </div>
-         </section>
-      ):''}
-     
+      {blog.active ? (
+        <section id="blog"
+          className={styles.blog}
+        >
+          <div className="container">
+            <div className="row center">
+              <h2 style={{ color: blog.colorTitle }}>{blog.title}</h2>
+              <h4 style={{ color: blog.colorSubtitle }}>{blog.subTitle}</h4>
+            </div>
+            <div className="row">
+              <Carrousel />
+            </div>
+          </div>
+        </section>
+      ) : ''}
+
       {/*schedule */}
       {schedule.active ? (
         <section id="schedule"
@@ -369,16 +374,16 @@ function Home({
                     placeholder={schedule.placeholder_whatsapp ?? "whatsapp"}
                   />
                   <div className="row">
-                    <div className="col s6 m6">
+                    <div className="col s12 m6">
                       <input
                         type="date"
                         name=""
-                        id="" 
+                        id=""
                         placeholder={schedule.placeholder_data}
                       />
 
                     </div>
-                    <div className="col s6 m6">
+                    <div className="col s12 m6">
                       <input
                         type="datetime"
                         placeholder={schedule.placeholder_hora ?? "Hora"}
@@ -439,11 +444,11 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   // BEGIN:: HANDLE GALLERY
   let dataGallery = [];
-  if(elements.cms_gallery.active){
-    const responseGallery = await cms.get(`/gallery/show/${elements.cms_gallery.data.slug}`,{
+  if (elements.cms_gallery.active) {
+    const responseGallery = await cms.get(`/gallery/show/${elements.cms_gallery.data.slug}`, {
       headers: { 'access-token': access_token, 'take': elements.cms_gallery.data.take }
     });
-    if(responseGallery.data.result){
+    if (responseGallery.data.result) {
       dataGallery = responseGallery.data.response.images;
     }
   }
@@ -453,16 +458,16 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     data: dataGallery
   };
   // END:: HANDLE GALLERY
-  
+
   const video = { ...elements.video.data, active: elements.video.active };
 
   // BEGIN:: HANDLE INSTAGRAM
   let dataInstagram = []
-  if(elements.cms_instagram.active){
-    const responseInstagram = await cms.get(`/gallery/show/instagram`,{
+  if (elements.cms_instagram.active) {
+    const responseInstagram = await cms.get(`/gallery/show/instagram`, {
       headers: { 'access-token': access_token, 'take': elements.cms_instagram.data.take }
     });
-    if(responseInstagram.data.result){
+    if (responseInstagram.data.result) {
       dataInstagram = responseInstagram.data.response.images;
     }
   }
@@ -473,11 +478,11 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   };
   // END:: HANDLE INSTAGRAM | BEGIN:: HANDLE BLOG
   let dataBlog = [];
-  if(elements.cms_blog.active){
+  if (elements.cms_blog.active) {
     const responseBlog = await cms.get(`post/feed`, {
       headers: { 'access-token': access_token, 'take': elements.cms_blog.data.take }
     });
-    if(responseBlog.data.result){
+    if (responseBlog.data.result) {
       dataBlog = responseBlog.data.response.posts
     }
   }
@@ -490,7 +495,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   const schedule = { ...elements.schedule.data, active: elements.schedule.active };
   const footer = elements.footer.data;
-  
+
   return {
     props: {
       page_data,

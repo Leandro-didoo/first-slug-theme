@@ -30,48 +30,73 @@
 }
 .containerAbout{
     position: relative;
-    display: none;
-    .about{
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        
-        .contentAbout{
-            display: flex;
-            justify-content: center ;
-          height: 50vh;
-            .item{
-                margin-right: -250px;
-               
-                display: flex;
-                flex-direction: column;
-                height: 100%;
-                align-items: center;
-                justify-content: center;
-                .aboutTxt{
-                    text-align: center;
-                }
-                button{
-                    margin-top: 1rem;
-                    border-radius: 2rem;
-                }
+    margin-bottom: -20px;
+    padding: 0;
+    .itemLeft, .itemRigth{
+        position: relative;
+        z-index: 1;
+        &::after{
+            content: '';
+            display: block;
+            padding-top: 70%;
+            @media(min-width: 450px){
+                padding-top: 50%;
+            }
+            @media(min-width: 600px){
+                padding-top: 100%;
             }
         }
-    }
-    .elementPng{
-        position: absolute;
-        top: 0;
-        left: 20%;
-        width: auto;
-        height: 100%;
-        img{
+        .item{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
         }
     }
+    .itemLeft{
+        .item{
+
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+    }
+    .itemRigth{
+        .item{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            button{
+                border-radius: 2rem;
+                margin-top: 1rem;
+            }
+            h2{
+                font-weight: bolder;
+                margin-bottom: 1rem;
+            }
+        }
+    }
+    .bkgAbout{
+        position: absolute;
+        width: 100%;
+        height: 80%;
+        top: 10%;
+        left: 0;
+        z-index: 0;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+  
 
 }
 
 .callToAction{
+    display: none;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -205,13 +230,25 @@
    .contentForm{
        display: flex;
        align-items: center;
-       
+       @media(max-width: 600px){
+           padding-bottom: 2rem;
+       }
+       textarea{
+           min-height: 100px;
+           resize: vertical;
+       }
+       input[type =date]{
+          
+       }
        .imgShedule{
-           flex: 1 1;
+           flex: 1 ;
            margin-bottom: -6px;
            img{
                width: 100%;
                max-width: 300px;
+           }
+           @media(max-width: 600px){
+               display: none;
            }
         }
         .containerForm{
