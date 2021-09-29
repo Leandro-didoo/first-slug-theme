@@ -5,10 +5,11 @@ import styles from '../styles/Home.module.scss';
 import { Button, Card, Row, Col, Carousel } from 'react-materialize';
 import { Footer } from '../components/Footer';
 import { Banner } from '../components/Banner';
-import { PageData, AboutType, BannerType, BlogType, CallToActionType, FooterType, Galerytype, InstagramType, ServiceType, SheduleType, TestimonialType, VideoType } from '../types/typesdef';
+import { PageData, AboutType, BannerType, BlogType, CallToActionType, FooterType, Galerytype, InstagramType, ServiceType, SheduleType, TestimonialType, VideoType, Products } from '../types/typesdef';
 import { Carrousel } from '../components/Carrosel';
 import { Heart, Stars } from '../components/Icons';
 import cms from '../services/cms';
+import axios from 'axios';
 if (process.browser) {
   require('materialize-css');
 }
@@ -20,6 +21,22 @@ type Props = {
   service: ServiceType,
   about: AboutType,
   callToAction: CallToActionType,
+  products: {
+    active: boolean,
+    take: number,
+    title: string,
+    colorTitle: string,
+    subTitle: string,
+    background: string,
+    txt: string,
+    colorTxt: string,
+    button: string,
+    colorButton: string,
+    backgroundButton: string,
+    linkButton: string,
+    overlay: string,
+    data: Products[]
+  },
   testimonial: TestimonialType,
   galery: Galerytype,
   video: VideoType,
@@ -35,6 +52,7 @@ function Home({
   service,
   about,
   callToAction,
+  products,
   testimonial,
   galery,
   video,
@@ -409,7 +427,8 @@ function Home({
   )
 }
 
-export default Home
+export default Home;
+
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const theme_slug = 'padrao';
   const access_token = 'Q9yLqJ9Xocp4JAd';
@@ -439,9 +458,30 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const service = { ...elements.service.data, active: elements.service.active };
   const about = { ...elements.about.data, active: elements.about.active };
   const callToAction = { ...elements.callToAction.data, active: elements.callToAction.active };
-  const products = { ...elements.cms_catalog.data, active: elements.cms_catalog.active };
-  const testimonial = { ...elements.testimonial.data, active: elements.testimonial.active };
+  // BEGIN:: HANDLE PRODUCTS
+  let dataProducts = [];
+  if(elements.cms_catalog.active && elements.cms_catalog.data.api_url){
+    const take = elements.cms_catalog.data.take ?? '';
+    const responseProducts = await axios.get(`${elements.cms_catalog.data.api_url}/${take}`);
 
+    if(responseProducts.data.result){
+      dataProducts = responseProducts.data.response.map((product: any) => {
+        return {
+          id: product.id,
+          img: elements.cms_catalog.data.origin + product.logom,
+          name: product.name,
+          price: Number(product.price),
+        }
+      });
+    }
+  }
+  const products = {
+    ...elements.cms_catalog.data,
+    active: elements.cms_catalog.active,
+    data: dataProducts
+  };
+  // END:: HANDLE PRODUCTS
+  const testimonial = { ...elements.testimonial.data, active: elements.testimonial.active };
   // BEGIN:: HANDLE GALLERY
   let dataGallery = [];
   if (elements.cms_gallery.active) {
@@ -458,9 +498,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     data: dataGallery
   };
   // END:: HANDLE GALLERY
-
   const video = { ...elements.video.data, active: elements.video.active };
-
   // BEGIN:: HANDLE INSTAGRAM
   let dataInstagram = []
   if (elements.cms_instagram.active) {
@@ -492,7 +530,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     data: dataBlog
   };
   // END:: BLOG
-
   const schedule = { ...elements.schedule.data, active: elements.schedule.active };
   const footer = elements.footer.data;
 
@@ -503,6 +540,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       service,
       about,
       callToAction,
+      products,
       testimonial,
       galery,
       video,
