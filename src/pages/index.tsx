@@ -73,7 +73,6 @@ function Home({
         <link rel="icon" href="/favicon.ico" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         {/* <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" /> */}
-
       </Head>
       <header id="init">
         <Banner banner={banner} >
