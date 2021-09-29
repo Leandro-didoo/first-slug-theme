@@ -12,6 +12,7 @@ import cms from '../services/cms';
 import axios from 'axios';
 import { Nav } from '../components/Nav';
 import { CardProdutct } from '../components/CardProduct';
+import { CardBlog } from '../components/CardBlog';
 if (process.browser) {
   require('materialize-css');
 }
@@ -360,7 +361,7 @@ function Home({
                 {blog.data.map(content => {
                   return (
                     <CardContent key={content.id}>
-
+                      <CardBlog  post={content}/>
                     </CardContent>
 
                   )
