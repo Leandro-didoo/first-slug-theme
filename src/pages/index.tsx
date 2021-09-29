@@ -465,8 +465,8 @@ function Home({
 export default Home;
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const theme_slug = 'padrao';
-  const access_token = 'Q9yLqJ9Xocp4JAd';
+  const theme_slug = process.env.THEME_SLUG;
+  const access_token = process.env.USER_ACCESS_TOKEN;
 
   const response = await cms.get(`page/data/${theme_slug}`, {
     headers: { 'access-token': access_token }
