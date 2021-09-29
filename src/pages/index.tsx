@@ -305,7 +305,7 @@ function Home({
                 return(
                   <div key={content.id} className="col s12 m6 l4">
                       <div className={`card ${styles.cardImgInsta}`}>
-                        <div className={styles.contentImg}/>
+                        <div className={styles.contentImg} style={{ backgroundImage: `url('${content.name}')`}}/>
                       </div>
                   </div>
                 )
@@ -328,11 +328,8 @@ function Home({
              </div>
              <div className="row">
                <Carrousel />
-
              </div>
-
            </div>
-
          </section>
       ):''}
      
@@ -357,27 +354,37 @@ function Home({
                     type="text"
                     name=""
                     id=""
-                    placeholder="nome"
+                    placeholder={schedule.placeholder_name ?? "nome"}
                   />
                   <input
                     type="email"
                     name=""
                     id=""
-                    placeholder="e-mail"
+                    placeholder={schedule.placeholder_email ?? "e-mail"}
                   />
                   <input
                     type="tel"
                     name=""
                     id=""
-                    placeholder="whatsapp"
+                    placeholder={schedule.placeholder_whatsapp ?? "whatsapp"}
                   />
                   <div className="row">
                     <div className="col s6 m6">
-                      <input type="date" name="" id="" />
+                      <input
+                        type="date"
+                        name=""
+                        id="" 
+                        placeholder={schedule.placeholder_data}
+                      />
 
                     </div>
                     <div className="col s6 m6">
-                      <input type="datetime" placeholder="Hora" name="" id="" />
+                      <input
+                        type="datetime"
+                        placeholder={schedule.placeholder_hora ?? "Hora"}
+                        name=""
+                        id=""
+                      />
                     </div>
                   </div>
                   <textarea
@@ -386,17 +393,12 @@ function Home({
                   <div className={styles.containerBtn}>
                     <button className="btn" type="submit">Enviar</button>
                   </div>
-
-
                 </form>
               </div>
             </div>
           </div>
-
         </section>
-
       ) : ''}
-
       <Footer content={footer} />
     </div>
   )
@@ -436,7 +438,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const testimonial = { ...elements.testimonial.data, active: elements.testimonial.active };
 
   // BEGIN:: HANDLE GALLERY
-  let dataGallery = []
+  let dataGallery = [];
   if(elements.cms_gallery.active){
     const responseGallery = await cms.get(`/gallery/show/${elements.cms_gallery.data.slug}`,{
       headers: { 'access-token': access_token, 'take': elements.cms_gallery.data.take }
@@ -453,143 +455,42 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   // END:: HANDLE GALLERY
   
   const video = { ...elements.video.data, active: elements.video.active };
-  const instagram = {
-    active: false,
-    background: '',
-    overlay: '',
-    title: 'Instagram',
-    colorTitle: '#52AA5E',
-    subtitle: 'Siga o Instagram da nossa Empresa',
-    colorSubTitle: '#333',
-    data: [
-      {
-        id: 0,
-        alt: '',
-        src: 'download.png'
-      },
-      {
-        id: 1,
-        alt: '',
-        src: 'download.png'
-      },
-      {
-        id: 2,
-        alt: '',
-        src: 'download.png'
-      },
-      {
-        id: 3,
-        alt: '',
-        src: 'download.png'
-      },
-      {
-        id: 4,
-        alt: '',
-        src: 'download.png'
-      },
-      {
-        id: 5,
-        alt: '',
-        src: 'download.png'
-      }
-    ]
-  }
-  const blog ={
-    active: false,
-     background: '',
-     ovelay: '',
-     title: 'Blog',
-     colorTitle: '#52AA5E',
-     subTitle: 'Veja Dicas da nossa Empresa ',
-     colorSubtitle:'#333',
-     data:[
-       {
-        author: 'Yury',
-        content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-        created_at: '',
-        date_formatted: '',
-        excerpt: '',
-        id: 0,
-        image: 'download.png',
-        published: 0,
-        slug: '',
-        title: 'item 1',
-        updated_at: '',
-        user_id: 0,
-        wallpaper: 'nossos-servicos.png',
-       },
-       {
-        author: 'Yury',
-        content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-        created_at: '',
-        date_formatted: '',
-        excerpt: '',
-        id: 2,
-        image: 'download.png',
-        published: 2,
-        slug: '',
-        title: 'item 2',
-        updated_at: '',
-        user_id: 0,
-        wallpaper: 'nossos-servicos.png',
-       },
-       {
-        author: 'Yury',
-        content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-        created_at: '',
-        date_formatted: '',
-        excerpt: '',
-        id: 3,
-        image: 'download.png',
-        published: 3,
-        slug: '',
-        title: 'item 3',
-        updated_at: '',
-        user_id: 0,
-        wallpaper: 'nossos-servicos.png',
-       }
-     ]
-  }
-  const schedule = {
-    active: false,
-    background: 'profile.jpg',
-    overlay: '#fff',
-    title: 'Agendar Horário',
-    colorSubtitle: '#fff',
-    colorTitle: '#fff',
-    subTitle: 'Aqui Você Agenda um horário ou apenas faz um contato!',
-    imgPng: 'agendar-medico.png',
-    button: 'enviar',
-    colorButton: '#fff',
-    backgroundButton: '#333',
-    placheHouder: {
-      name: 'nome',
-      email: 'email',
-      whatsapp: 'whatsapp',
-      data: 'data',
-      hora: 'hora',
-      textarea: 'Descriva seu pedido',
+
+  // BEGIN:: HANDLE INSTAGRAM
+  let dataInstagram = []
+  if(elements.cms_instagram.active){
+    const responseInstagram = await cms.get(`/gallery/show/instagram`,{
+      headers: { 'access-token': access_token, 'take': elements.cms_instagram.data.take }
+    });
+    if(responseInstagram.data.result){
+      dataInstagram = responseInstagram.data.response.images;
     }
   }
-  const footer = {
-    backgroundColor: '#3e3ef0',
-    address: {
-      logradouro: 'Rua: Antônio fonsechi',
-      numero: '391',
-      bairro: 'Satélite ires 2',
-      cep: '130589643',
-      cidade: 'Campinas',
-      estado: 'sp'
-    },
-    phoneOne: '19992465788',
-    phoneTwo: '19992465788',
-    whatsapp: '19992465788',
-    email: 'xxxxxx@gmail.com',
-    facebook: 'xxxxx',
-    instagram: 'xxxx',
-    tiktok: 'xxxx',
-    colorTxt: '#fff',
+  const instagram = {
+    ...elements.cms_instagram.data,
+    active: elements.cms_instagram.active,
+    data: dataInstagram
+  };
+  // END:: HANDLE INSTAGRAM | BEGIN:: HANDLE BLOG
+  let dataBlog = [];
+  if(elements.cms_blog.active){
+    const responseBlog = await cms.get(`post/feed`, {
+      headers: { 'access-token': access_token, 'take': elements.cms_blog.data.take }
+    });
+    if(responseBlog.data.result){
+      dataBlog = responseBlog.data.response.posts
+    }
   }
+  const blog = {
+    ...elements.cms_blog.data,
+    active: elements.cms_blog.active,
+    data: dataBlog
+  };
+  // END:: BLOG
+
+  const schedule = { ...elements.schedule.data, active: elements.schedule.active };
+  const footer = elements.footer.data;
+  
   return {
     props: {
       page_data,

@@ -22,9 +22,9 @@ export const Footer = ({content}:FooterProps) => {
                     </div>
                     <div className="col s12 m3">
                         <h5>Endereço</h5>
-                        <p className=" text-lighten-4">{content.address.logradouro}</p>
-                        <p className=" text-lighten-4">CEP: {content.address.cep}</p>
-                        <p className=" text-lighten-4">CEP: {content.address.cidade} - {content.address.estado}</p>
+                        <p className=" text-lighten-4">{content.address_logradouro}</p>
+                        <p className=" text-lighten-4">CEP: {content.address_cep}</p>
+                        <p className=" text-lighten-4">CEP: {content.address_cidade} - {content.address_estado}</p>
                     </div>
                     <div className="col s12 m3">
                         <h5>Fale conosco</h5>
