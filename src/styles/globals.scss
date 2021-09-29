@@ -1,6 +1,9 @@
 html{
     scroll-behavior: smooth;
-    scroll-snap-type: both proximity;
+    @media(min-width: 600px){
+        scroll-snap-type: both proximity;
+
+    }
 }
 h1, h2,h3,h4{
     margin: 0;
@@ -9,9 +12,12 @@ h1, h2,h3,h4{
 section{
     padding-top: 4rem;
     padding-bottom: 4rem;
-    scroll-snap-align: center;
     h2{
         margin-bottom: 2rem;
+    }
+    @media(min-width: 600px){
+        scroll-snap-align: center;
+        
     }
 }
 button{
