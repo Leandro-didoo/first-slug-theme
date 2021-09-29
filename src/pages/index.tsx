@@ -453,19 +453,8 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   // END:: HANDLE GALLERY
   
   const video = { ...elements.video.data, active: elements.video.active };
-  // {
-  //   active: true,
-  //   overlay: '#fff',
-  //   title: 'Galeria',
-  //   background: 'gg.png',
-  //   colorTitle: '#52AA5E',
-  //   subtitulo: 'Veja fotos de nossa galeria',
-  //   colorSubTitulo: '#333',
-  //   txt: '',
-  //   src: ''
-  // }
   const instagram = {
-    active: true,
+    active: false,
     background: '',
     overlay: '',
     title: 'Instagram',
@@ -506,7 +495,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     ]
   }
   const blog ={
-    active: true,
+    active: false,
      background: '',
      ovelay: '',
      title: 'Blog',
@@ -562,7 +551,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
      ]
   }
   const schedule = {
-    active: true,
+    active: false,
     background: 'profile.jpg',
     overlay: '#fff',
     title: 'Agendar Horário',
