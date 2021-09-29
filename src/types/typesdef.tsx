@@ -33,7 +33,7 @@ export type ServiceType = {
   buttonOne_color: string,
   buttonTwo: string,
   buttonTwo_background: string,
-  buttonTwo_color: string,  
+  buttonTwo_color: string,
   card_background: string,
   card_color: string,
   card_hover_background: string,
@@ -78,10 +78,26 @@ export type CallToActionType = {
 }
 
 export type Products = {
-  id: number,
-  img: string,
-  name: string,
-  price: number,
+  active: boolean,
+  take: number,
+  title: string,
+  colorTitle: string,
+  subTitle: string,
+  background: string,
+  txt: string,
+  colorTxt: string,
+  button: string,
+  colorButton: string,
+  backgroundButton: string,
+  linkButton: string,
+  overlay: string,
+  data: [{
+    id: number
+    img: string,
+    name: string
+    price: number,
+  }],
+
 }
 
 export type TestimonialType = {
@@ -198,19 +214,19 @@ export type BlogType = {
   colorSubtitle: string,
   data: [
     {
-      author: string ,
-      content: string ,
-      created_at: Date ,
-      date_formatted: string ,
-      excerpt: string ,
-      id: string ,
-      image: string ,
-      published: number ,
-      slug: string ,
-      title: string ,
-      updated_at: Date ,
-      user_id: string ,
-      wallpaper: string ,
+      author: string,
+      content: string,
+      created_at: Date,
+      date_formatted: string,
+      excerpt: string,
+      id: string,
+      image: string,
+      published: number,
+      slug: string,
+      title: string,
+      updated_at: Date,
+      user_id: string,
+      wallpaper: string,
     }
   ]
 }

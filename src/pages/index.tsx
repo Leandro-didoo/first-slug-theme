@@ -6,10 +6,13 @@ import { Button, Card, Row, Col, Carousel } from 'react-materialize';
 import { Footer } from '../components/Footer';
 import { Banner } from '../components/Banner';
 import { PageData, AboutType, BannerType, BlogType, CallToActionType, FooterType, Galerytype, InstagramType, ServiceType, SheduleType, TestimonialType, VideoType, Products } from '../types/typesdef';
-import { Carrousel } from '../components/Carrosel';
+import { CardContent, Carrousel } from '../components/Carrosel';
 import { Heart, Stars } from '../components/Icons';
 import cms from '../services/cms';
 import axios from 'axios';
+import { Nav } from '../components/Nav';
+import { CardProdutct } from '../components/CardProduct';
+import { CardBlog } from '../components/CardBlog';
 if (process.browser) {
   require('materialize-css');
 }
@@ -21,22 +24,7 @@ type Props = {
   service: ServiceType,
   about: AboutType,
   callToAction: CallToActionType,
-  products: {
-    active: boolean,
-    take: number,
-    title: string,
-    colorTitle: string,
-    subTitle: string,
-    background: string,
-    txt: string,
-    colorTxt: string,
-    button: string,
-    colorButton: string,
-    backgroundButton: string,
-    linkButton: string,
-    overlay: string,
-    data: Products[]
-  },
+  products: Products,
   testimonial: TestimonialType,
   galery: Galerytype,
   video: VideoType,
@@ -62,6 +50,7 @@ function Home({
   blog
 }: Props) {
   const srcImagens = galery.data.map(image => image.name)
+  console.log(products)
   return (
     <div className={styles.container}>
       <Head>
@@ -74,7 +63,19 @@ function Home({
 
       </Head>
       <header>
-        <Banner banner={banner} />
+        <Banner banner={banner} >
+          <Nav
+            logo={<a className="brand-logo" href="#">Logo</a>}
+          >
+            {about.active && <li><a href="#about">sobre</a></li>}
+            {service.active && <li><a href="#services">Serviços</a></li>}
+            {products.active && <li><a href="#products">produtos</a></li>}
+            {galery.active && <li><a href="#gallery">galeria</a></li>}
+            {blog.active && <li><a href="#blog">blog</a></li>}
+            <li><a href="#schedule">contato</a></li>
+            <li><a style={{ borderRadius: '2rem' }} href="#schedule" className="btn">Agendar horario</a></li>
+          </Nav>
+        </Banner>
       </header>
 
       {/* services  */}
@@ -140,34 +141,38 @@ function Home({
           id="about"
           className={styles.containerAbout}
         >
+          <div className="container">
+            <div className="row">
 
-          <div
-            style={{
-              backgroundImage: `url(${about.background})`
-            }}
-            className={styles.about}
-          >
-            <div className={`container ${styles.contentAbout}`}>
-              <div className={styles.item}>
-                <h2>{about.title}</h2>
-                <h3>{about.subTitle}</h3>
-                <div className={styles.aboutTxt} dangerouslySetInnerHTML={{ __html: `${about.txt}` }} />
-                <button
-                  style={{
-                    backgroundColor: about.backgroundButton
-                  }}
-                  className="btn">{about.button}</button>
+              <div className="col s12 m6">
+                <div className={styles.itemLeft}>
+                  <div
+                    style={{
+                      backgroundImage: `url(${about.imgPng})`
+                    }}
+                    className={styles.item}>
+
+                  </div>
+                </div>
               </div>
+              <div className="col s12 m6">
+                <div className={styles.itemRigth}>
+                  <div className={styles.item}>
+                    <h2 style={{}}>{about.title}</h2>
+                    <h3>{about.subTitle}</h3>
+                    <div className={styles.aboutTxt} dangerouslySetInnerHTML={{ __html: `${about.txt}` }} />
+                    <button style={{ backgroundColor: about.backgroundButton }}
+                      className="btn">{about.button}
+                    </button>
+                  </div>
+                </div>
 
+              </div>
             </div>
           </div>
-          <div
-            style={{
+          <div style={{ backgroundImage: `url(${about.background})` }} className={styles.bkgAbout} />
 
-            }}
-            className={styles.elementPng}>
-            <img src={about.imgPng} alt="" />
-          </div>
+
         </section>
       ) : ''}
 
@@ -190,23 +195,30 @@ function Home({
 
           <div style={{ backgroundColor: callToAction.overlay }} className={styles.overlay} />
         </section>) : ''}
-
       {/*products  */}
-      <section id="products">
-        <div className="container">
-          <h2 className="center-align">Nossos Produtos</h2>
-
-          <Carrousel />
-          <div className="row center">
-            <button
-              style={{
-                borderRadius: '2rem'
-              }}
-              className="btn">Ver catalogo</button>
+      {products.active ? (
+        <section id="products">
+          <div className="container">
+            <h2 className="center-align">Nossos Produtos</h2>
+            <Carrousel qtd={products.data.length}>
+              {products.data.map(content => {
+                return (
+                  <CardContent key={content.id}>
+                    <CardProdutct product={content}/>
+                  </CardContent>
+                )
+              })}
+            </Carrousel>
+            <div className="row center">
+              <button style={{ borderRadius: '2rem' }}
+                className="btn">Ver catalogo</button>
+            </div>
           </div>
-        </div>
 
-      </section>
+        </section>
+
+      ) : ''}
+
       {/* testimonial */}
       {testimonial.active ? (
         <section id="testimonial"
@@ -310,47 +322,56 @@ function Home({
       ) : ''}
       {/* instagram */}
       {instagram.active ? (
-        <section id="instagram" 
-        className={styles.instagram}
+        <section id="instagram"
+          className={styles.instagram}
         >
           <div className="container">
             <div className="row center">
-              <h2 style={{color: instagram.colorTitle}}>{instagram.title}</h2>
-              <h4 style={{color: instagram.colorSubTitle}}>{instagram.subtitle}</h4>
+              <h2 style={{ color: instagram.colorTitle }}>{instagram.title}</h2>
+              <h4 style={{ color: instagram.colorSubTitle }}>{instagram.subtitle}</h4>
             </div>
             <div className="row">
-              {instagram.data.map(content =>{
-                return(
+              {instagram.data.map(content => {
+                return (
                   <div key={content.id} className="col s12 m6 l4">
-                      <div className={`card ${styles.cardImgInsta}`}>
-                        <div className={styles.contentImg} style={{ backgroundImage: `url('${content.name}')`}}/>
-                      </div>
+                    <div className={`card ${styles.cardImgInsta}`}>
+                      <div className={styles.contentImg} style={{ backgroundImage: `url('${content.name}')` }} />
+                    </div>
                   </div>
                 )
               })}
-              
+
             </div>
           </div>
         </section>
       ) : ''}
 
       {/* blog */}
-      {blog.active? (
-         <section id="blog"
-         className={styles.blog}
-         >
-           <div className="container">
-             <div className="row center">
-              <h2 style={{color: blog.colorTitle}}>{blog.title}</h2>
-              <h4 style={{color: blog.colorSubtitle}}>{blog.subTitle}</h4>
-             </div>
-             <div className="row">
-               <Carrousel />
-             </div>
-           </div>
-         </section>
-      ):''}
-     
+      {blog.active ? (
+        <section id="blog"
+          className={styles.blog}
+        >
+          <div className="container">
+            <div className="row center">
+              <h2 style={{ color: blog.colorTitle }}>{blog.title}</h2>
+              <h4 style={{ color: blog.colorSubtitle }}>{blog.subTitle}</h4>
+            </div>
+            <div className="row">
+              <Carrousel qtd={blog.data.length}>
+                {blog.data.map(content => {
+                  return (
+                    <CardContent key={content.id}>
+                      <CardBlog  post={content}/>
+                    </CardContent>
+
+                  )
+                })}
+              </Carrousel>
+            </div>
+          </div>
+        </section>
+      ) : ''}
+
       {/*schedule */}
       {schedule.active ? (
         <section id="schedule"
@@ -387,16 +408,16 @@ function Home({
                     placeholder={schedule.placeholder_whatsapp ?? "whatsapp"}
                   />
                   <div className="row">
-                    <div className="col s6 m6">
+                    <div className="col s12 m6">
                       <input
                         type="date"
                         name=""
-                        id="" 
+                        id=""
                         placeholder={schedule.placeholder_data}
                       />
 
                     </div>
-                    <div className="col s6 m6">
+                    <div className="col s12 m6">
                       <input
                         type="datetime"
                         placeholder={schedule.placeholder_hora ?? "Hora"}
@@ -455,11 +476,11 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const callToAction = { ...elements.callToAction.data, active: elements.callToAction.active };
   // BEGIN:: HANDLE PRODUCTS
   let dataProducts = [];
-  if(elements.cms_catalog.active && elements.cms_catalog.data.api_url){
+  if (elements.cms_catalog.active && elements.cms_catalog.data.api_url) {
     const take = elements.cms_catalog.data.take ?? '';
     const responseProducts = await axios.get(`${elements.cms_catalog.data.api_url}/${take}`);
 
-    if(responseProducts.data.result){
+    if (responseProducts.data.result) {
       dataProducts = responseProducts.data.response.map((product: any) => {
         return {
           id: product.id,
@@ -479,11 +500,11 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const testimonial = { ...elements.testimonial.data, active: elements.testimonial.active };
   // BEGIN:: HANDLE GALLERY
   let dataGallery = [];
-  if(elements.cms_gallery.active){
-    const responseGallery = await cms.get(`/gallery/show/${elements.cms_gallery.data.slug}`,{
+  if (elements.cms_gallery.active) {
+    const responseGallery = await cms.get(`/gallery/show/${elements.cms_gallery.data.slug}`, {
       headers: { 'access-token': access_token, 'take': elements.cms_gallery.data.take }
     });
-    if(responseGallery.data.result){
+    if (responseGallery.data.result) {
       dataGallery = responseGallery.data.response.images;
     }
   }
@@ -496,11 +517,11 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const video = { ...elements.video.data, active: elements.video.active };
   // BEGIN:: HANDLE INSTAGRAM
   let dataInstagram = []
-  if(elements.cms_instagram.active){
-    const responseInstagram = await cms.get(`/gallery/show/instagram`,{
+  if (elements.cms_instagram.active) {
+    const responseInstagram = await cms.get(`/gallery/show/instagram`, {
       headers: { 'access-token': access_token, 'take': elements.cms_instagram.data.take }
     });
-    if(responseInstagram.data.result){
+    if (responseInstagram.data.result) {
       dataInstagram = responseInstagram.data.response.images;
     }
   }
@@ -511,11 +532,11 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   };
   // END:: HANDLE INSTAGRAM | BEGIN:: HANDLE BLOG
   let dataBlog = [];
-  if(elements.cms_blog.active){
+  if (elements.cms_blog.active) {
     const responseBlog = await cms.get(`post/feed`, {
       headers: { 'access-token': access_token, 'take': elements.cms_blog.data.take }
     });
-    if(responseBlog.data.result){
+    if (responseBlog.data.result) {
       dataBlog = responseBlog.data.response.posts
     }
   }
@@ -527,7 +548,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   // END:: BLOG
   const schedule = { ...elements.schedule.data, active: elements.schedule.active };
   const footer = elements.footer.data;
-  
+
   return {
     props: {
       page_data,
