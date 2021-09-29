@@ -11,6 +11,7 @@ import { Heart, Stars } from '../components/Icons';
 import cms from '../services/cms';
 import axios from 'axios';
 import { Nav } from '../components/Nav';
+import { CardProdutct } from '../components/CardProduct';
 if (process.browser) {
   require('materialize-css');
 }
@@ -202,7 +203,7 @@ function Home({
               {products.data.map(content => {
                 return (
                   <CardContent key={content.id}>
-
+                    <CardProdutct product={content}/>
                   </CardContent>
                 )
               })}

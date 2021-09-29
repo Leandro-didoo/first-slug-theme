@@ -43,10 +43,9 @@ export const Carrousel = ({children, qtd}:CarrouSelProps) => {
     }
     const handleRigthArrow = () => {
         let x = scrollX - Math.round(deviceWidth / 2);
-        let listW =  qtd * 200;
+        let listW =  qtd * 250;
         if ((deviceWidth - listW) > x) {
             x = (deviceWidth - listW) - 100;
-
         }
         setScrollX(x);
     }
@@ -62,7 +61,7 @@ export const Carrousel = ({children, qtd}:CarrouSelProps) => {
                 <div className={style.scroll}
                     style={{
                         marginLeft: scrollX,
-                        width: qtd * 200
+                        width: qtd * 250
                     }}
                 >
                         {children}
