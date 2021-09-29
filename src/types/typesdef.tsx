@@ -119,7 +119,7 @@ export type Galerytype = {
     {
       id: number,
       alt: string,
-      src: string
+      name: string
     }
   ]
 }
