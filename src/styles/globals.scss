@@ -37,6 +37,17 @@ button{
 #Carousel-31{
    margin-top: -60px;
 }
+.upPage{
+    position: fixed;
+    top: 80%;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.658);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 @media (max-width: 1080px){
     html{

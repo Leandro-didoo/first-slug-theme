@@ -7,12 +7,13 @@ import { Footer } from '../components/Footer';
 import { Banner } from '../components/Banner';
 import { PageData, AboutType, BannerType, BlogType, CallToActionType, FooterType, Galerytype, InstagramType, ServiceType, SheduleType, TestimonialType, VideoType, Products } from '../types/typesdef';
 import { CardContent, Carrousel } from '../components/Carrosel';
-import { Heart, Stars } from '../components/Icons';
+import { ChevronDoubleUp, Heart, Stars } from '../components/Icons';
 import cms from '../services/cms';
 import axios from 'axios';
 import { Nav } from '../components/Nav';
 import { CardProdutct } from '../components/CardProduct';
 import { CardBlog } from '../components/CardBlog';
+import { useState } from 'react';
 if (process.browser) {
   require('materialize-css');
 }
@@ -50,7 +51,19 @@ function Home({
   blog
 }: Props) {
   const srcImagens = galery.data.map(image => image.name)
-  console.log(products)
+
+  const [scroll, setScroll] = useState(0);
+
+  const animeScroll = () => {
+    const windowTop = window.pageYOffset;
+    setScroll(windowTop)
+  }
+  if (process.browser) {
+    window.addEventListener('scroll', () => {
+      animeScroll();
+    })
+
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -62,13 +75,13 @@ function Home({
         {/* <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" /> */}
 
       </Head>
-      <header>
+      <header id="init">
         <Banner banner={banner} >
           <Nav
             logo={<a className="brand-logo" href="#">Logo</a>}
           >
-            {about.active && <li><a href="#about">sobre</a></li>}
             {service.active && <li><a href="#services">Serviços</a></li>}
+            {about.active && <li><a href="#about">sobre</a></li>}
             {products.active && <li><a href="#products">produtos</a></li>}
             {galery.active && <li><a href="#gallery">galeria</a></li>}
             {blog.active && <li><a href="#blog">blog</a></li>}
@@ -204,7 +217,7 @@ function Home({
               {products.data.map(content => {
                 return (
                   <CardContent key={content.id}>
-                    <CardProdutct product={content}/>
+                    <CardProdutct product={content} />
                   </CardContent>
                 )
               })}
@@ -361,7 +374,7 @@ function Home({
                 {blog.data.map(content => {
                   return (
                     <CardContent key={content.id}>
-                      <CardBlog  post={content}/>
+                      <CardBlog post={content} />
                     </CardContent>
 
                   )
@@ -438,6 +451,13 @@ function Home({
           </div>
         </section>
       ) : ''}
+
+      {scroll > 700 ? (
+        <a href="#init" className="upPage">
+          <ChevronDoubleUp width={18} color="white" />
+        </a>
+      ) : ''}
+
       <Footer content={footer} />
     </div>
   )
