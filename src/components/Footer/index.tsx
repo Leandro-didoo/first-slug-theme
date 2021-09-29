@@ -59,6 +59,7 @@ export const Footer = ({content}:FooterProps) => {
                                 type="email"
                                 name=""
                                 id=""
+                                placeholder="e-mail"
                             />
                             <button style={{backgroundColor: 'transparent', border: 'none', color: content.colorTxt}} type="submit">Enviar</button>
                         </form>

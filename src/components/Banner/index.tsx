@@ -1,27 +1,30 @@
+import { ReactNode } from "react"
 import { BannerType } from "../../types/typesdef"
 import { Nav } from "../Nav"
 import style from './style.module.scss'
 type props = {
-    banner: BannerType
+    banner: BannerType,
+    children: ReactNode,
 }
 
-export const Banner = (banner: props) => {
+export const Banner = ({banner, children}: props) => {
     return (
         <div
             style={{
-                backgroundImage: `url(${banner.banner.img})`
+                backgroundImage: `url(${banner.img})`
             }}
             className={style.containerBanner}
         >
-            <Nav />
+           
+            {children}
             <div className="container">
                 <div className="row">
-                <div className={`col s12 m6 ${style.ordem2}`}>
+                    <div className={`col s12 m6 ${style.ordem2}`}>
                         <div className={style.itemRight}>
                             <div
-                            style={{backgroundImage: `url(${banner.banner.png_img})`}}
-                            className={style.content}>
-                              
+                                style={{ backgroundImage: `url(${banner.png_img})` }}
+                                className={style.content}>
+
 
                             </div>
                         </div>
@@ -29,23 +32,23 @@ export const Banner = (banner: props) => {
                     <div className={`col s12 m6`}>
                         <div className={style.itemLeft}>
                             <div className={style.content}>
-                                <h2 style={{ color: `${banner.banner.color_title}` }} >
-                                    {banner.banner.title}
+                                <h2 style={{ color: `${banner.color_title}` }} >
+                                    {banner.title}
                                 </h2>
-                                <h3 style={{ color: banner.banner.color_caption }} >
-                                    {banner.banner.caption}
+                                <h3 style={{ color:banner.color_caption }} >
+                                    {banner.caption}
                                 </h3>
                                 {/* texto alternativo iterpletando tag html */}
-                                <div style={{ color: banner.banner.color_txt }}
+                                <div style={{ color: banner.color_txt }}
                                     className={style.contentTxt}
-                                    dangerouslySetInnerHTML={{ __html: `${banner.banner.txt}` }}
+                                    dangerouslySetInnerHTML={{ __html: `${banner.txt}` }}
                                 />
                                 <button
                                     style={{
-                                        backgroundColor: banner.banner.button_background,
-                                        color: banner.banner.button_color
+                                        backgroundColor: banner.button_background,
+                                        color: banner.button_color
                                     }}
-                                    className="btn waves-effect waves-light">{banner.banner.txt_button}
+                                    className="btn waves-effect waves-light">{banner.txt_button}
                                 </button>
 
                             </div>
@@ -55,9 +58,9 @@ export const Banner = (banner: props) => {
                     <div className={`col s12 m6 ${style.ordem1}`}>
                         <div className={style.itemRight}>
                             <div
-                            style={{backgroundImage: `url(${banner.banner.png_img})`}}
-                            className={style.content}>
-                              
+                                style={{ backgroundImage: `url(${banner.png_img})` }}
+                                className={style.content}>
+
 
                             </div>
                         </div>
@@ -69,7 +72,7 @@ export const Banner = (banner: props) => {
 
             <div
                 style={{
-                    backgroundColor: banner.banner.overlay
+                    backgroundColor: banner.overlay
                 }}
                 className={style.overlay}>
 

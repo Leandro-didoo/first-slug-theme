@@ -10,6 +10,7 @@ import { Carrousel } from '../components/Carrosel';
 import { Heart, Stars } from '../components/Icons';
 import cms from '../services/cms';
 import axios from 'axios';
+import { Nav } from '../components/Nav';
 if (process.browser) {
   require('materialize-css');
 }
@@ -75,7 +76,19 @@ function Home({
 
       </Head>
       <header>
-        <Banner banner={banner} />
+        <Banner banner={banner} >
+          <Nav 
+          logo={<a className="brand-logo" href="#">Logo</a>}
+          >
+           {about.active &&  <li><a href="#about">sobre</a></li> }
+           {service.active && <li><a href="#services">Serviços</a></li>} 
+           {products.active && <li><a href="#products">produtos</a></li>} 
+           {galery.active && <li><a href="#gallery">galeria</a></li>} 
+           {blog.active && <li><a href="#blog">blog</a></li>}
+            <li><a href="#schedule">contato</a></li>
+            <li><a style={{ borderRadius: '2rem' }} href="#schedule" className="btn">Agendar horario</a></li>
+          </Nav>
+        </Banner>
       </header>
 
       {/* services  */}
@@ -170,9 +183,9 @@ function Home({
               </div>
             </div>
           </div>
-        <div style={{backgroundImage: `url(${about.background})`}} className={styles.bkgAbout} />
+          <div style={{ backgroundImage: `url(${about.background})` }} className={styles.bkgAbout} />
 
-       
+
         </section>
       ) : ''}
 
@@ -460,11 +473,11 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const callToAction = { ...elements.callToAction.data, active: elements.callToAction.active };
   // BEGIN:: HANDLE PRODUCTS
   let dataProducts = [];
-  if(elements.cms_catalog.active && elements.cms_catalog.data.api_url){
+  if (elements.cms_catalog.active && elements.cms_catalog.data.api_url) {
     const take = elements.cms_catalog.data.take ?? '';
     const responseProducts = await axios.get(`${elements.cms_catalog.data.api_url}/${take}`);
 
-    if(responseProducts.data.result){
+    if (responseProducts.data.result) {
       dataProducts = responseProducts.data.response.map((product: any) => {
         return {
           id: product.id,
