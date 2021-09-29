@@ -119,7 +119,7 @@ export type Galerytype = {
     {
       id: number,
       alt: string,
-      src: string
+      name: string
     }
   ]
 }
@@ -138,14 +138,12 @@ export type VideoType = {
 
 export type FooterType = {
   backgroundColor: string,
-  address: {
-    logradouro: string,
-    numero: string,
-    bairro: string,
-    cep: string,
-    cidade: string,
-    estado: string
-  },
+  address_logradouro: string,
+  address_numero: string,
+  address_bairro: string,
+  address_cep: string,
+  address_cidade: string,
+  address_estado: string
   phoneOne: string,
   phoneTwo: string,
   whatsapp: string,
@@ -167,14 +165,12 @@ export type SheduleType = {
   button: string,
   colorButton: string,
   backgroundButton: string,
-  placheHouder: {
-    name: string,
-    email: string,
-    whatsapp: string,
-    data: string,
-    hora: string,
-    textarea: string,
-  }
+  placeholder_name: string,
+  placeholder_email: string,
+  placeholder_whatsapp: string,
+  placeholder_data: string,
+  placeholder_hora: string,
+  placeholder_textarea: string,
 }
 export type InstagramType = {
   active: boolean,
@@ -188,14 +184,14 @@ export type InstagramType = {
     {
       id: number,
       alt: string,
-      src: string
+      name: string
     }
   ]
 }
 export type BlogType = {
   active: boolean,
   background: string,
-  ovelay: string,
+  overlay: string,
   title: string,
   colorTitle: string,
   subTitle: string,
