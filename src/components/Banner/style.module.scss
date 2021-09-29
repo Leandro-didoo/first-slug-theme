@@ -1,5 +1,5 @@
 .containerBanner{
-    height: 100vh;
+    height: auto;
     background-color: #333;
     background-position: center;
     background-size: cover;
@@ -8,33 +8,79 @@
     nav{
         background-color: transparent;
     }
-    .contentBanner{
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        z-index: 1;
-        position: relative;
-        h2{
-            font-size: 6rem;
-            margin-left: 1rem;
+   .itemLeft{
+       width: 100%;
+       position: relative;
+       z-index: 2;
+      
+       &::after{
+           content: '';
+           display: block;
+           padding-top: 100%;
+         
+           @media(min-width: 400px){
+            padding-top: 50%;
         }
-        h3{
-            font-size: 2.5rem;
-            margin-left: 1rem;
-        }
-        .contentTxt{
-            font-size: 1.2rem;
-            margin-left: 1rem;
-        }
-        button{
-            max-width: 300px;
-            border-radius: 2rem;
-            margin-top: 2rem;
-            margin-left: 2rem;
-        }
-       
+            @media(min-width:600px){
+                padding-top: 125%;
+            }
+                            
+          
+           
+       }
+       .content{
+           position: absolute;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           align-items: center;
+           h2{
+               font-size: 6rem;
+           }
+           @media(min-width: 600px){
+            align-items: flex-start;
+           }
+       }
+       button{
+           border-radius: 2rem;
+           margin-top: 2rem;
+           max-width: 200px;
+       }
+
+   }
+//    container da imagem png
+   .itemRight{
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    &::after{
+        content: '';
+        display: block;
+        padding-top: 100%;
+            @media(min-width: 400px){
+                padding-top: 50%;
+            }
+            @media(min-width:600px){
+                padding-top: 125%;
+            }
+          
     }
+    .content{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+      
+   }
     .overlay{
         position: absolute;
         top: 0;
@@ -42,5 +88,20 @@
         width: 100%;
         height: 100%;
         z-index: 0;
+    }
+}
+.ordem1{
+    display: none;
+}
+.ordem2{
+    display: block;
+}
+
+@media(min-width: 601px){
+    .ordem1{
+        display: block;
+    }
+    .ordem2{
+        display: none;
     }
 }

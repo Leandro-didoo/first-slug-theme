@@ -426,7 +426,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const products = { ...elements.cms_catalog.data, active: elements.cms_catalog.active };
   const testimonial = { ...elements.testimonial.data, active: elements.testimonial.active };
   const galery = {
-    active: false,
+    active: true,
     overlay: '#fff',
     title: 'Galeria',
     colorTitle: '#52AA5E',
@@ -454,7 +454,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     ]
   }
   const video = {
-    active: false,
+    active: true,
     overlay: '#fff',
     title: 'Galeria',
     background: 'gg.png',
@@ -466,7 +466,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   }
   const instagram = {
-    active: false,
+    active: true,
     background: '',
     overlay: '',
     title: 'Instagram',
@@ -507,7 +507,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     ]
   }
   const blog ={
-    active: false,
+    active: true,
      background: '',
      ovelay: '',
      title: 'Blog',
@@ -563,7 +563,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
      ]
   }
   const schedule = {
-    active: false,
+    active: true,
     background: 'profile.jpg',
     overlay: '#fff',
     title: 'Agendar Horário',
