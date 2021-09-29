@@ -6,7 +6,7 @@ import { Button, Card, Row, Col, Carousel } from 'react-materialize';
 import { Footer } from '../components/Footer';
 import { Banner } from '../components/Banner';
 import { PageData, AboutType, BannerType, BlogType, CallToActionType, FooterType, Galerytype, InstagramType, ServiceType, SheduleType, TestimonialType, VideoType, Products } from '../types/typesdef';
-import { Carrousel } from '../components/Carrosel';
+import { CardContent, Carrousel } from '../components/Carrosel';
 import { Heart, Stars } from '../components/Icons';
 import cms from '../services/cms';
 import axios from 'axios';
@@ -22,22 +22,7 @@ type Props = {
   service: ServiceType,
   about: AboutType,
   callToAction: CallToActionType,
-  products: {
-    active: boolean,
-    take: number,
-    title: string,
-    colorTitle: string,
-    subTitle: string,
-    background: string,
-    txt: string,
-    colorTxt: string,
-    button: string,
-    colorButton: string,
-    backgroundButton: string,
-    linkButton: string,
-    overlay: string,
-    data: Products[]
-  },
+  products: Products,
   testimonial: TestimonialType,
   galery: Galerytype,
   video: VideoType,
@@ -63,7 +48,7 @@ function Home({
   blog
 }: Props) {
   const srcImagens = galery.data.map(image => image.name)
-  console.log(about)
+  console.log(products)
   return (
     <div className={styles.container}>
       <Head>
@@ -77,14 +62,14 @@ function Home({
       </Head>
       <header>
         <Banner banner={banner} >
-          <Nav 
-          logo={<a className="brand-logo" href="#">Logo</a>}
+          <Nav
+            logo={<a className="brand-logo" href="#">Logo</a>}
           >
-           {about.active &&  <li><a href="#about">sobre</a></li> }
-           {service.active && <li><a href="#services">Serviços</a></li>} 
-           {products.active && <li><a href="#products">produtos</a></li>} 
-           {galery.active && <li><a href="#gallery">galeria</a></li>} 
-           {blog.active && <li><a href="#blog">blog</a></li>}
+            {about.active && <li><a href="#about">sobre</a></li>}
+            {service.active && <li><a href="#services">Serviços</a></li>}
+            {products.active && <li><a href="#products">produtos</a></li>}
+            {galery.active && <li><a href="#gallery">galeria</a></li>}
+            {blog.active && <li><a href="#blog">blog</a></li>}
             <li><a href="#schedule">contato</a></li>
             <li><a style={{ borderRadius: '2rem' }} href="#schedule" className="btn">Agendar horario</a></li>
           </Nav>
@@ -208,23 +193,30 @@ function Home({
 
           <div style={{ backgroundColor: callToAction.overlay }} className={styles.overlay} />
         </section>) : ''}
-
       {/*products  */}
-      <section id="products">
-        <div className="container">
-          <h2 className="center-align">Nossos Produtos</h2>
+      {products.active ? (
+        <section id="products">
+          <div className="container">
+            <h2 className="center-align">Nossos Produtos</h2>
+            <Carrousel qtd={products.data.length}>
+              {products.data.map(content => {
+                return (
+                  <CardContent key={content.id}>
 
-          <Carrousel />
-          <div className="row center">
-            <button
-              style={{
-                borderRadius: '2rem'
-              }}
-              className="btn">Ver catalogo</button>
+                  </CardContent>
+                )
+              })}
+            </Carrousel>
+            <div className="row center">
+              <button style={{ borderRadius: '2rem' }}
+                className="btn">Ver catalogo</button>
+            </div>
           </div>
-        </div>
 
-      </section>
+        </section>
+
+      ) : ''}
+
       {/* testimonial */}
       {testimonial.active ? (
         <section id="testimonial"
@@ -363,7 +355,16 @@ function Home({
               <h4 style={{ color: blog.colorSubtitle }}>{blog.subTitle}</h4>
             </div>
             <div className="row">
-              <Carrousel />
+              <Carrousel qtd={blog.data.length}>
+                {blog.data.map(content => {
+                  return (
+                    <CardContent key={content.id}>
+
+                    </CardContent>
+
+                  )
+                })}
+              </Carrousel>
             </div>
           </div>
         </section>
