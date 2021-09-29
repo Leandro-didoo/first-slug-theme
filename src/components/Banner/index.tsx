@@ -24,8 +24,6 @@ export const Banner = ({banner, children}: props) => {
                             <div
                                 style={{ backgroundImage: `url(${banner.png_img})` }}
                                 className={style.content}>
-
-
                             </div>
                         </div>
                     </div>
