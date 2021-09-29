@@ -47,8 +47,7 @@ export const Banner = ({banner, children}: props) => {
                                         color: banner.button_color
                                     }}
                                     className="btn">
-                                        teste
-                                        {/* {banner.txt_button} */}
+                                        {banner.txt_button}
                                 </button>
 
                             </div>
