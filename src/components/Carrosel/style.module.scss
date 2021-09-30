@@ -15,7 +15,6 @@
         @media(min-width: 400px){
             display: block;
         }
-        
     }
     .btnLeft{
         left: 0px;
@@ -39,13 +38,13 @@
         overflow-y: hidden;
         overflow-x: scroll;
         scroll-behavior: smooth;
-    //    -webkit-overflow-scrolling:auto;
+       
         &::-webkit-scrollbar{
             color: transparent;
             width: 1px;
         }
-       
         .scroll{
+            scroll-snap-type: both proximity;
             height: 100%;
             width: auto;
             display: flex;
@@ -56,6 +55,7 @@
               flex: 1 1;
               min-width: 250px;
               position: relative;
+              scroll-snap-align: center;
               &::after{
                   content: '';
                   display: block;

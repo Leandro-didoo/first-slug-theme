@@ -23,7 +23,9 @@ export const CardContent = ({children}:Props) => {
 
 export const Carrousel = ({children, qtd}:CarrouSelProps) => {
     const [scrollX, setScrollX] = useState(0);
-    const [deviceWidth, setDeviceWidth] = useState(0)
+    const [deviceWidth, setDeviceWidth] = useState(0);
+    const [btn, setBtn] = useState(false);
+    const [btnL, setbtnL] = useState(false);
 
     useEffect(()=>{
         let item : any;
@@ -32,29 +34,32 @@ export const Carrousel = ({children, qtd}:CarrouSelProps) => {
 
     },[])
 
-  
-
     const handleLeftArrow = () => {
         let x = scrollX + Math.round(deviceWidth / 2);
-        if (x > 0) {
+        if (x >= 0) {
             x = 0
+            setbtnL(true)
         }
         setScrollX(x)
+        setBtn(false)
     }
     const handleRigthArrow = () => {
         let x = scrollX - Math.round(deviceWidth / 2);
         let listW =  qtd * 250;
-        if ((deviceWidth - listW) > x) {
+        if (deviceWidth - listW > x) {
+            setBtn(true)
             x = (deviceWidth - listW) - 100;
         }
+        setbtnL(false)
         setScrollX(x);
     }
     return (
         <div id="carouselContainer" className={style.cotaniner}>
-            <button className={style.btnLeft} onClick={handleLeftArrow}>
+            <button style={{display: btnL? 'none':'block'}}  className={style.btnLeft} onClick={handleLeftArrow}>
                 <AngleLeft width={20} color="#333" />
             </button>
-            <button className={style.btnRight} onClick={handleRigthArrow}>
+           
+            <button style={{display: btn? 'none':'block'}} className={style.btnRight} onClick={handleRigthArrow}>
                 <AngleRight width={20} color="#333" />
             </button>
             <div className={style.content}>

@@ -6,7 +6,17 @@ export type PageData = {
   theme_colors: string;
   title: string;
 }
-
+export type Appearance = {
+  title: string,
+  size_title: string,
+  name: string,
+  nav_background: string,
+  description: string,
+  button: string,
+  imgLogo: string,
+  backgroundImg: string,
+  overlay: string
+}
 export type BannerType = {
   img: string,
   overlay: string,
@@ -204,6 +214,21 @@ export type InstagramType = {
     }
   ]
 }
+export type Posts = {
+  author: string,
+  content: string,
+  created_at: Date,
+  date_formatted: Date,
+  excerpt: string,
+  id: number,
+  image: string,
+  published: number,
+  slug: string,
+  title: string,
+  updated_at: Date,
+  user_id: number,
+  wallpaper: string,
+}
 export type BlogType = {
   active: boolean,
   background: string,
@@ -212,21 +237,46 @@ export type BlogType = {
   colorTitle: string,
   subTitle: string,
   colorSubtitle: string,
-  data: [
-    {
-      author: string,
-      content: string,
-      created_at: Date,
-      date_formatted: string,
-      excerpt: string,
-      id: string,
-      image: string,
-      published: number,
-      slug: string,
-      title: string,
-      updated_at: Date,
-      user_id: string,
-      wallpaper: string,
-    }
-  ]
+  data: Posts[]
+}
+export type CommentRating = {
+  id: number,
+  like: '-1' | '0' | '1',
+  comment_post_id: number,
+  post_lead_id: number,
+  created_at: string,
+  updated_at: string,
+}
+export type Comment = {
+  id: number;
+  content: string;
+  author: string;
+
+  num_answers: number;
+  num_likes: number;
+  num_unlikes: number;
+  ratings: CommentRating[];
+
+  depth: number;
+  answer_id: number;
+  breadcrumbs: string | null;
+  
+  post_id: number;
+  post_lead_id: number;
+  
+  created_at: string;
+  date_formatted: string;
+  updated_at: string;
+
+  answers?: DataComment;
+}
+export type DataComment = {
+  total: number;
+  comments: Comment[];
+}
+export type PostLead = {
+  id: number,
+  name: string,
+  email: string,
+  thumbnail?: string;
 }

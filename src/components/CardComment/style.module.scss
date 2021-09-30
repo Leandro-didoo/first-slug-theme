@@ -1,0 +1,78 @@
+.contentComment{
+  display: grid;
+  grid-template-columns: 3.2rem auto;
+  border-radius: .5rem;
+  transition: .2s;
+  padding: .5rem;
+  
+  &:hover{  background: #00000005; }
+
+  .commentTagUser{
+    height: 2.4rem;
+    width: 2.4rem;
+    padding: 0;
+    border-radius: 99rem;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    color: #e2e8f0;
+    background: #212529;
+  }
+
+  .commentInfo{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    
+    .commentTimestamp, #hover-answer .commentTimestamp{
+      font-size: .7rem;
+      color: #99a;
+      display: block;
+    }
+
+    .commentBody{
+      color: #747480;
+    }
+
+    .commentActions{
+      margin: .6rem 0 0;
+      display: flex;
+      gap: .6rem;
+    
+      color: #747480;
+      font-weight: bold;
+      font-size: .85rem;
+    }
+  }
+}
+.commentAnswer:hover{ text-decoration: underline; }
+.commentLike{
+  display: flex;
+  align-items: flex-top;
+  gap: .2rem;
+}
+.commentUnlike{
+  display: flex;
+  align-items: flex-top;
+  gap: .2rem;
+}
+.commentResponses{
+  margin: .8rem 0;
+  border-left: 1px dotted #dde;
+  padding: 0 .4rem;
+}
+.commentTrash{
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 99rem;
+  font-size: 0;
+  padding: .3rem;
+}
+.btnLogin{
+  font-size: 0.7rem;
+  color: rgb(136, 136, 136);
+  cursor: pointer;
+}

@@ -74,7 +74,7 @@ function Home({
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         {/* <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" /> */}
       </Head>
-      <header id="init">
+      <header id="inicio">
         <Banner banner={banner} >
           <Nav
             logo={<a className="brand-logo" href="#">Logo</a>}
@@ -85,7 +85,7 @@ function Home({
             {galery.active && <li><a href="#gallery">galeria</a></li>}
             {blog.active && <li><a href="#blog">blog</a></li>}
             <li><a href="#schedule">contato</a></li>
-            <li><a style={{ borderRadius: '2rem' }} href="#schedule" className="btn">Agendar horario</a></li>
+            <li><a style={{ borderRadius: '2rem', backgroundColor: banner.button_background, color: banner.button_color  }} href="#schedule" className="btn">Agendar horario</a></li>
           </Nav>
         </Banner>
       </header>
@@ -452,7 +452,7 @@ function Home({
       ) : ''}
 
       {scroll > 700 ? (
-        <a href="#init" className="upPage">
+        <a href="#inicio" className="upPage">
           <ChevronDoubleUp width={18} color="white" />
         </a>
       ) : ''}
