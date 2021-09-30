@@ -1,7 +1,7 @@
 import { Posts } from '../../types/typesdef';
 import { Clock } from '../Icons';
 import style from './style.module.scss';
-
+import Link from 'next/link';
 
 type Props = {
     post: Posts
@@ -19,7 +19,9 @@ export const CardBlog = ({post}:Props) => {
                   {post.date_formatted}
                   {post.slug}
               </small>
-              <p className={style.title}>{post.title}</p>
+              <Link href={`/blog/${post.slug}`}>
+                <a className={style.title}>{post.title}</a>
+              </Link>
               <div className={style.contnt} dangerouslySetInnerHTML={{ __html: `${post.content}` }} />
           </div>
 

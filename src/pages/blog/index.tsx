@@ -7,6 +7,7 @@ import style from '../../styles/Blog.module.scss';
 import {  ChevronCircleLeft, Clock } from "../../components/Icons";
 import { CardBlog } from "../../components/CardBlog";
 import {Footer} from '../../components/Footer'
+import Link from 'next/link';
 
 if (process.browser) {
     require('materialize-css');
@@ -81,7 +82,9 @@ export default function Blog({ blog, footer }: BlogProps) {
                                                 <Clock width={10} color="red" />
                                                 {content.date_formatted}
                                             </small>
-                                            <p className={style.title}>{content.title}</p>
+                                            <Link href={`/blog/${content.slug}`}>
+                                                <a className={style.title}>{content.title}</a>
+                                            </Link>
                                             <div className={style.contnt} dangerouslySetInnerHTML={{ __html: `${content.content}` }} />
                                         </div>
                                     </div>
@@ -131,13 +134,13 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
         }
     }
 
-    // 
     const blog = {
         ...elements.cms_blog.data,
         active: elements.cms_blog.active,
         data: dataBlog
     };
     const footer = elements.footer.data;
+    
     return {
         props: {
             blog,
