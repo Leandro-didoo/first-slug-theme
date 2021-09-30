@@ -230,3 +230,8 @@ export type BlogType = {
     }
   ]
 }
+
+export type JivochatType = {
+  active: boolean,
+  widget?: string
+}

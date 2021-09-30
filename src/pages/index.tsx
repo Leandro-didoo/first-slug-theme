@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.scss';
 import { Button, Card, Row, Col, Carousel } from 'react-materialize';
 import { Footer } from '../components/Footer';
 import { Banner } from '../components/Banner';
-import { PageData, AboutType, BannerType, BlogType, CallToActionType, FooterType, Galerytype, InstagramType, ServiceType, SheduleType, TestimonialType, VideoType, Products } from '../types/typesdef';
+import { PageData, AboutType, BannerType, BlogType, CallToActionType, FooterType, Galerytype, InstagramType, ServiceType, SheduleType, TestimonialType, VideoType, Products, JivochatType } from '../types/typesdef';
 import { CardContent, Carrousel } from '../components/Carrosel';
 import { Heart, Stars } from '../components/Icons';
 import cms from '../services/cms';
@@ -31,7 +31,8 @@ type Props = {
   instagram: InstagramType,
   blog: BlogType,
   schedule: SheduleType,
-  footer: FooterType
+  footer: FooterType,
+  jivochat: JivochatType
 }
 
 function Home({
@@ -47,10 +48,11 @@ function Home({
   footer,
   schedule,
   instagram,
-  blog
+  blog,
+  jivochat
 }: Props) {
   const srcImagens = galery.data.map(image => image.name)
-  console.log(products)
+  
   return (
     <div className={styles.container}>
       <Head>
@@ -60,7 +62,9 @@ function Home({
         <link rel="icon" href="/favicon.ico" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         {/* <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" /> */}
-
+        {jivochat.active && jivochat.widget && jivochat.widget.trim() ? (
+          <script src={`//code-sa1.jivosite.com/widget/${jivochat.widget}`} async></script>
+        ):''}
       </Head>
       <header>
         <Banner banner={banner} >
@@ -549,6 +553,8 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const schedule = { ...elements.schedule.data, active: elements.schedule.active };
   const footer = elements.footer.data;
 
+  const jivochat = { active: elements.jivochat.active, ...elements.jivochat.data };
+
   return {
     props: {
       page_data,
@@ -563,7 +569,8 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       instagram,
       blog,
       schedule,
-      footer
+      footer,
+      jivochat
     },
     revalidate: 60 * 60 * 8,
   }
