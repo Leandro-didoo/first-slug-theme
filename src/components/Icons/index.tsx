@@ -133,3 +133,41 @@ export const Clock = ({ width, color }: PropsIco) => {
         </svg>
     )
 }
+export const ChevronDoubleUp = ({ width, color }: PropsIco) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+            width={width}
+        >
+            <g className="fa-group">
+                <path
+                    fill={color}
+                    d="M435 420.86a24 24 0 0 1 0 33.94l-22.63 22.67a23.93 23.93 0 0 1-33.85 0L224 323.5l-154.5 154a23.93 23.93 0 0 1-33.85 0L13 454.8a24 24 0 0 1 0-33.94l194-194.33a23.93 23.93 0 0 1 33.88 0z"
+                    className="fa-secondary"
+                />
+                <path
+                    fill={color}
+                    d="M435 228.86a24 24 0 0 1 0 33.94l-22.63 22.67a23.93 23.93 0 0 1-33.85 0L224 131.5l-154.5 154a23.93 23.93 0 0 1-33.85 0L13 262.8a24 24 0 0 1 0-33.94L207 34.53a23.93 23.93 0 0 1 33.88 0z"
+                    className="fa-primary"
+                />
+            </g>
+        </svg>
+    )
+}
+
+export const ChevronCircleLeft = ({ width, color }: PropsIco) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            width={width}
+        >
+            <path
+                fill={color}
+                d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zM256 472c-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216 0 118.7-96.1 216-216 216zm-86.6-224.5l115.1-115c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L209 256l99.5 99.5c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0l-115.1-115c-4.6-4.8-4.6-12.4.1-17.1z"
+            />
+        </svg>
+    )
+}
+

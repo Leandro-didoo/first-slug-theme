@@ -7,12 +7,13 @@ import { Footer } from '../components/Footer';
 import { Banner } from '../components/Banner';
 import { PageData, AboutType, BannerType, BlogType, CallToActionType, FooterType, Galerytype, InstagramType, ServiceType, SheduleType, TestimonialType, VideoType, Products, JivochatType } from '../types/typesdef';
 import { CardContent, Carrousel } from '../components/Carrosel';
-import { Heart, Stars } from '../components/Icons';
+import { ChevronDoubleUp, Heart, Stars } from '../components/Icons';
 import cms from '../services/cms';
 import axios from 'axios';
 import { Nav } from '../components/Nav';
 import { CardProdutct } from '../components/CardProduct';
 import { CardBlog } from '../components/CardBlog';
+import { useState } from 'react';
 if (process.browser) {
   require('materialize-css');
 }
@@ -52,7 +53,19 @@ function Home({
   jivochat
 }: Props) {
   const srcImagens = galery.data.map(image => image.name)
-  
+
+  const [scroll, setScroll] = useState(0);
+
+  const animeScroll = () => {
+    const windowTop = window.pageYOffset;
+    setScroll(windowTop)
+  }
+  if (process.browser) {
+    window.addEventListener('scroll', () => {
+      animeScroll();
+    })
+
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -66,18 +79,18 @@ function Home({
           <script src={`//code-sa1.jivosite.com/widget/${jivochat.widget}`} async></script>
         ):''}
       </Head>
-      <header>
+      <header id="inicio">
         <Banner banner={banner} >
           <Nav
             logo={<a className="brand-logo" href="#">Logo</a>}
           >
-            {about.active && <li><a href="#about">sobre</a></li>}
             {service.active && <li><a href="#services">Serviços</a></li>}
+            {about.active && <li><a href="#about">sobre</a></li>}
             {products.active && <li><a href="#products">produtos</a></li>}
             {galery.active && <li><a href="#gallery">galeria</a></li>}
             {blog.active && <li><a href="#blog">blog</a></li>}
             <li><a href="#schedule">contato</a></li>
-            <li><a style={{ borderRadius: '2rem' }} href="#schedule" className="btn">Agendar horario</a></li>
+            <li><a style={{ borderRadius: '2rem', backgroundColor: banner.button_background, color: banner.button_color  }} href="#schedule" className="btn">Agendar horario</a></li>
           </Nav>
         </Banner>
       </header>
@@ -208,7 +221,7 @@ function Home({
               {products.data.map(content => {
                 return (
                   <CardContent key={content.id}>
-                    <CardProdutct product={content}/>
+                    <CardProdutct product={content} />
                   </CardContent>
                 )
               })}
@@ -365,7 +378,7 @@ function Home({
                 {blog.data.map(content => {
                   return (
                     <CardContent key={content.id}>
-                      <CardBlog  post={content}/>
+                      <CardBlog post={content} />
                     </CardContent>
 
                   )
@@ -442,6 +455,13 @@ function Home({
           </div>
         </section>
       ) : ''}
+
+      {scroll > 700 ? (
+        <a href="#inicio" className="upPage">
+          <ChevronDoubleUp width={18} color="white" />
+        </a>
+      ) : ''}
+
       <Footer content={footer} />
     </div>
   )
