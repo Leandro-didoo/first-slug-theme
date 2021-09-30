@@ -338,13 +338,18 @@ export default function ContentBlog({
                 color="#333"
                 logo={<a className="brand-logo" href="#">Logo</a>}
             >
+                <li>
+                    <Link href="/">
+                        <a>Inicio</a>
+                    </Link>
+                </li>
             </Nav>
             <div className="container">
                 <div className="row">
                     <div className="col s12">
                         {/* title */}
                         <div className={style.postTop}>
-                            <button onClick={()=>router.back()}><ChevronCircleLeft width={27} color="#333" /></button>
+                            <button onClick={() => router.back()}><ChevronCircleLeft width={27} color="#333" /></button>
                             <h1 className={style.postTitle}>{post.post.title}</h1>
 
                         </div>
@@ -375,7 +380,7 @@ export default function ContentBlog({
                     <div className="row">
                         {post.outhers && post.outhers.map(content => {
                             return (
-                                <div className="col s12 m3">
+                                <div key={content.id} className="col s12 m3">
                                     <div className={style.cardBlog}>
                                         <div className={style.img}>
                                             <img src={content.image} alt={content.title} />

@@ -1,6 +1,6 @@
 import { FormEvent } from 'react'
 import { FooterType } from '../../types/typesdef'
-import { Facebook, Instagram, Tiktok, Whatsapp } from '../Icons'
+import { Facebook, Instagram, Tiktok, WhatsappIco } from '../Icons'
 import style from './style.module.scss'
 
 type FooterProps ={
@@ -43,7 +43,7 @@ export const Footer = ({content}:FooterProps) => {
                                 <Instagram width={20} color={content.colorTxt} />
                             </div>
                             <div className="col">
-                                <Whatsapp width={20} color={content.colorTxt} />
+                                <WhatsappIco width={20} color={content.colorTxt} />
                             </div>
                             <div className="col">
                                 <Tiktok  width={20} color={content.colorTxt}/>

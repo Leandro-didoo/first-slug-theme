@@ -10,11 +10,14 @@ import { CardContent, Carrousel } from '../components/Carrosel';
 import { ChevronDoubleUp, Heart, Stars } from '../components/Icons';
 import cms from '../services/cms';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link'
 import { Nav } from '../components/Nav';
 import { CardProdutct } from '../components/CardProduct';
 import { CardBlog } from '../components/CardBlog';
 import { FormEvent, useState } from 'react';
+import { Whatsapp } from '../components/Whatsapp';
 if (process.browser) {
   const M = require('materialize-css');
 }
@@ -74,14 +77,14 @@ function Home({
       animeScroll();
     })
   }
-
+  const notify = () => toast("Enviado com sucesso!");
   function handleShedule(event: FormEvent) {
-    let phone = '5519995446606'
+    let phone = footer.whatsapp;
     event.preventDefault();
     let userMessage = ` *NOME:* ${name} \n\n*E-MAIL:* ${email}\n\n*DATA:* ${data}\n\n*HORÁRIO:* ${hour}\n\n*MENSAGEM:* \n\n ${mesage}`
     userMessage = window.encodeURIComponent(userMessage);
     window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${userMessage}`)
-    alert('ok')
+    notify()
   }
 
   return (
@@ -505,7 +508,23 @@ function Home({
           <ChevronDoubleUp width={18} color="white" />
         </a>
       ) : ''}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      
+      
+    
 
+
+      <Whatsapp phone={footer.whatsapp} />
       <Footer content={footer} />
     </div>
   )

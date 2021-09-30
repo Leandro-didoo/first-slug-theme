@@ -4,9 +4,9 @@ import cms from "../../services/cms";
 import { BlogType, FooterType, PageData } from "../../types/typesdef";
 import { Button, Card, Row, Col, Carousel, } from 'react-materialize';
 import style from '../../styles/Blog.module.scss';
-import {  ChevronCircleLeft, Clock } from "../../components/Icons";
+import { ChevronCircleLeft, Clock } from "../../components/Icons";
 import { CardBlog } from "../../components/CardBlog";
-import {Footer} from '../../components/Footer'
+import { Footer } from '../../components/Footer'
 import { useRouter } from 'next/router'
 import Link from 'next/link';
 
@@ -29,6 +29,12 @@ export default function Blog({ blog, footer }: BlogProps) {
                 colorTxt=""
                 logo={<a className="brand-logo" href="#">Logo</a>}
             >
+                <li>
+                    <Link href="/">
+                        <a>Inicio</a>
+
+                    </Link>
+                </li>
             </Nav>
             <div className="container">
 
@@ -38,13 +44,13 @@ export default function Blog({ blog, footer }: BlogProps) {
                     <div className="row">
                         <div className="col">
                             <div className={style.titleBlog}>
-                               <h1>{blog.title}</h1>
+                                <h1>{blog.title}</h1>
                             </div>
                         </div>
                         <div className="col s12">
                             <div className={style.subTitle}>
-                            <button onClick={()=>router.back()}><ChevronCircleLeft width={27} color="#333" /></button>
-                            <h2>{blog.subTitle}</h2>
+                                <button onClick={() => router.back()}><ChevronCircleLeft width={27} color="#333" /></button>
+                                <h2>{blog.subTitle}</h2>
 
                             </div>
                         </div>
@@ -100,8 +106,8 @@ export default function Blog({ blog, footer }: BlogProps) {
 
                 </main>
             </div>
-            <Footer content={footer}/>
-         
+            <Footer content={footer} />
+
         </div>
     )
 }
@@ -144,7 +150,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
         data: dataBlog
     };
     const footer = elements.footer.data;
-    
+
     return {
         props: {
             blog,

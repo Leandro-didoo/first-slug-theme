@@ -90,7 +90,7 @@ export const Instagram = ({ width, color }: PropsIco) => {
         </svg>
     )
 }
-export const Whatsapp = ({ width, color }: PropsIco) => {
+export const WhatsappIco = ({ width, color }: PropsIco) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
