@@ -6,11 +6,12 @@ import style from './style.module.scss'
 type Props = {
     children: ReactNode,
     logo: ReactChild,
-
+    color: string,
+    colorTxt: string
   }
   
 
-export const Nav = ({children, logo}:Props) => {
+export const Nav = ({children, logo, color}:Props) => {
     const [scroll, setScroll] = useState(0);
    
     const animeScroll = () => {
@@ -21,10 +22,11 @@ export const Nav = ({children, logo}:Props) => {
         window.addEventListener('scroll', () => {
             animeScroll();
         })
-
     }
     return (
-        <div>
+        <div 
+    
+        className={style.contentnav}>
             <Navbar
                 alignLinks="right"
                 brand={logo}
@@ -34,11 +36,10 @@ export const Nav = ({children, logo}:Props) => {
                 fixed={true}
                 className={`z-depth-0 ${style.custonNav}`}
                 style={{
-                    backgroundColor: scroll > 100? '#333':''
+                    backgroundColor: scroll > 100? color :''
                 }}
             >
                {children}
-                
             </Navbar>
         </div>
     )

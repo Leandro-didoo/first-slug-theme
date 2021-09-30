@@ -31,7 +31,6 @@ export type BannerType = {
   color_caption: string,
   color_txt: string
 }
-
 export type ServiceType = {
   active: boolean,
   background: string,
@@ -59,7 +58,6 @@ export type ServiceType = {
     }
   ]
 }
-
 export type AboutType = {
   active: boolean,
   background: string,
@@ -69,9 +67,7 @@ export type AboutType = {
   button: string,
   backgroundButton: string,
   button_color: string,
-  imgPng: string
-
-
+  imgPng: string,
 }
 export type CallToActionType = {
   active: boolean,
@@ -86,7 +82,6 @@ export type CallToActionType = {
   colorTitle: string,
   colorTxt: string
 }
-
 export type Products = {
   active: boolean,
   take: number,
@@ -109,7 +104,6 @@ export type Products = {
   }],
 
 }
-
 export type TestimonialType = {
   active: boolean,
   title: string,
@@ -132,7 +126,6 @@ export type TestimonialType = {
     }
   ],
 }
-
 export type Galerytype = {
   active: boolean,
   overlay: string,
@@ -149,7 +142,6 @@ export type Galerytype = {
     }
   ]
 }
-
 export type VideoType = {
   active: boolean,
   overlay: string,

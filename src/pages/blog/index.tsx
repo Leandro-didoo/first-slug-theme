@@ -22,6 +22,8 @@ export default function Blog({ blog, footer }: BlogProps) {
     return (
         <div className={style.blogPage}>
             <Nav
+                color='red'
+                colorTxt=""
                 logo={<a className="brand-logo" href="#">Logo</a>}
             >
             </Nav>

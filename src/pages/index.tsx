@@ -2,7 +2,7 @@ import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.scss';
-import { Button, Card, Row, Col, Carousel } from 'react-materialize';
+import { Button, Card, Row, Col, Carousel, Modal } from 'react-materialize';
 import { Footer } from '../components/Footer';
 import { Banner } from '../components/Banner';
 import { PageData, AboutType, BannerType, BlogType, CallToActionType, FooterType, Galerytype, InstagramType, ServiceType, SheduleType, TestimonialType, VideoType, Products } from '../types/typesdef';
@@ -13,11 +13,10 @@ import axios from 'axios';
 import { Nav } from '../components/Nav';
 import { CardProdutct } from '../components/CardProduct';
 import { CardBlog } from '../components/CardBlog';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 if (process.browser) {
-  require('materialize-css');
+  const M = require('materialize-css');
 }
-
 
 type Props = {
   page_data: PageData,
@@ -50,9 +49,18 @@ function Home({
   instagram,
   blog
 }: Props) {
-  const srcImagens = galery.data.map(image => image.name)
 
+  const srcImagens = galery.data.map(image => image.name)
   const [scroll, setScroll] = useState(0);
+
+  // START: SHEDULE
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [whatsapp, setWhatsapp] = useState('');
+  const [data, setData] = useState('');
+  const [hour, setHour] = useState('');
+  const [mesage, setMesage] = useState('');
+  // END: SHEDULLE
 
   const animeScroll = () => {
     const windowTop = window.pageYOffset;
@@ -62,8 +70,17 @@ function Home({
     window.addEventListener('scroll', () => {
       animeScroll();
     })
-
   }
+ 
+  function handleShedule(event: FormEvent) {
+    let phone = '5519995446606'
+    event.preventDefault();
+    let userMessage = ` *NOME:* ${name} \n\n*E-MAIL:* ${email}\n\n*DATA:* ${data}\n\n*HORÁRIO:* ${hour}\n\n*MENSAGEM:* \n\n ${mesage}`
+    userMessage = window.encodeURIComponent(userMessage);
+    window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${userMessage}`)
+    alert('ok')
+  }
+  
   return (
     <div className={styles.container}>
       <Head>
@@ -77,6 +94,8 @@ function Home({
       <header id="inicio">
         <Banner banner={banner} >
           <Nav
+            color="blue"
+            colorTxt=""
             logo={<a className="brand-logo" href="#">Logo</a>}
           >
             {service.active && <li><a href="#services">Serviços</a></li>}
@@ -85,7 +104,7 @@ function Home({
             {galery.active && <li><a href="#gallery">galeria</a></li>}
             {blog.active && <li><a href="#blog">blog</a></li>}
             <li><a href="#schedule">contato</a></li>
-            <li><a style={{ borderRadius: '2rem', backgroundColor: banner.button_background, color: banner.button_color  }} href="#schedule" className="btn">Agendar horario</a></li>
+            <li><a style={{ borderRadius: '2rem', backgroundColor: banner.button_background, color: banner.button_color }} href="#schedule" className="btn">Agendar horario</a></li>
           </Nav>
         </Banner>
       </header>
@@ -144,6 +163,7 @@ function Home({
                 className="btn">{service.buttonTwo}</button>
             </div>
           </div>
+          <div style={{ backgroundColor: service.overlay }} className="overlay" />
         </section>
       ) : ''}
 
@@ -184,10 +204,10 @@ function Home({
           </div>
           <div style={{ backgroundImage: `url(${about.background})` }} className={styles.bkgAbout} />
 
+          {/* <div style={{backgroundColor: about.about}} className="overlay"/> */}
 
         </section>
       ) : ''}
-
       {/* call-to-action */}
       {callToAction.active ? (
         <section id="call-to-action"
@@ -205,7 +225,8 @@ function Home({
             </div>
           </div>
 
-          <div style={{ backgroundColor: callToAction.overlay }} className={styles.overlay} />
+
+          <div style={{ backgroundColor: callToAction.overlay }} className="overlay" />
         </section>) : ''}
       {/*products  */}
       {products.active ? (
@@ -226,7 +247,7 @@ function Home({
                 className="btn">Ver catalogo</button>
             </div>
           </div>
-
+          <div style={{ backgroundColor: products.overlay }} className="overlay" />
         </section>
 
       ) : ''}
@@ -276,9 +297,10 @@ function Home({
             </div>
 
           </div>
+          <div style={{ backgroundColor: testimonial.overlay }} className="overlay" />
         </section>
       ) : ''}
-
+  
       {/* gallery */}
       {galery.active ? (
         <section id="gallery"
@@ -308,7 +330,7 @@ function Home({
               }}
             />
           </div>
-
+          <div style={{ backgroundColor: galery.overlay }} className="overlay" />
         </section>
       ) : ''}
 
@@ -330,6 +352,7 @@ function Home({
               ></iframe>
             </div>
           </div>
+          <div style={{ backgroundColor: video.overlay }} className="overlay" />
         </section>
       ) : ''}
       {/* instagram */}
@@ -355,6 +378,7 @@ function Home({
 
             </div>
           </div>
+          <div style={{ backgroundColor: instagram.overlay }} className="overlay" />
         </section>
       ) : ''}
 
@@ -381,6 +405,7 @@ function Home({
               </Carrousel>
             </div>
           </div>
+          <div style={{ backgroundColor: blog.overlay }} className="overlay" />
         </section>
       ) : ''}
 
@@ -400,22 +425,28 @@ function Home({
                 <img src={schedule.imgPng} alt="" />
               </div>
               <div className={styles.containerForm}>
-                <form className="grey lighten-5">
+                <form onSubmit={handleShedule} className="grey lighten-5">
                   <input
                     type="text"
                     name=""
+                    onChange={event => setName(event.target.value)}
+                    value={name}
                     id=""
                     placeholder={schedule.placeholder_name ?? "nome"}
                   />
                   <input
                     type="email"
                     name=""
+                    onChange={event => setEmail(event.target.value)}
+                    value={email}
                     id=""
                     placeholder={schedule.placeholder_email ?? "e-mail"}
                   />
                   <input
                     type="tel"
                     name=""
+                    onChange={event => setWhatsapp(event.target.value)}
+                    value={whatsapp}
                     id=""
                     placeholder={schedule.placeholder_whatsapp ?? "whatsapp"}
                   />
@@ -424,6 +455,8 @@ function Home({
                       <input
                         type="date"
                         name=""
+                        onChange={event => setData(event.target.value)}
+                        value={data}
                         id=""
                         placeholder={schedule.placeholder_data}
                       />
@@ -431,16 +464,22 @@ function Home({
                     </div>
                     <div className="col s12 m6">
                       <input
-                        type="datetime"
+                        type="time"
                         placeholder={schedule.placeholder_hora ?? "Hora"}
                         name=""
+                        onChange={event => setHour(event.target.value)}
+                        value={hour}
                         id=""
                       />
                     </div>
                   </div>
                   <textarea
                     placeholder="Descreva seu pedido"
-                    name="" ></textarea>
+                    name=""
+                    onChange={event => setMesage(event.target.value)}
+                    value={mesage}
+                  >
+                  </textarea>
                   <div className={styles.containerBtn}>
                     <button className="btn" type="submit">Enviar</button>
                   </div>
@@ -448,9 +487,9 @@ function Home({
               </div>
             </div>
           </div>
+          <div style={{ backgroundColor: schedule.overlay }} className="overlay" />
         </section>
       ) : ''}
-
       {scroll > 700 ? (
         <a href="#inicio" className="upPage">
           <ChevronDoubleUp width={18} color="white" />
