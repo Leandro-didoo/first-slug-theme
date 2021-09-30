@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const cms = axios.create({
-  baseURL: 'http://codewriters.space/didoo-cms/api/'
+  baseURL: 'https://site.didoo.com.br/api/'
 });
 
 export default cms;

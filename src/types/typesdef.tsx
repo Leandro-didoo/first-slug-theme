@@ -272,3 +272,7 @@ export type PostLead = {
   email: string,
   thumbnail?: string;
 }
+export type JivochatType = {
+  active: boolean,
+  widget?: string
+}
