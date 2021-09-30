@@ -41,14 +41,15 @@ export const Banner = ({banner, children}: props) => {
                                     className={style.contentTxt}
                                     dangerouslySetInnerHTML={{ __html: `${banner.txt}` }}
                                 />
-                                <button
+                                <a
+                                href="#schedule"
                                     style={{
                                         backgroundColor: banner.button_background,
                                         color: banner.button_color
                                     }}
                                     className="btn">
                                         {banner.txt_button}
-                                </button>
+                                </a>
 
                             </div>
                         </div>

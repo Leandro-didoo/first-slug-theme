@@ -87,6 +87,7 @@ function Home({
     notify()
   }
 
+
   return (
     <div className={styles.container}>
       <Head>
@@ -203,9 +204,9 @@ function Home({
               <div className="col s12 m6">
                 <div className={styles.itemRigth}>
                   <div className={styles.item}>
-                    <h2 style={{}}>{about.title}</h2>
-                    <h3>{about.subTitle}</h3>
-                    <div className={styles.aboutTxt} dangerouslySetInnerHTML={{ __html: `${about.txt}` }} />
+                    <h2 style={{color: 'white'}}>{about.title}</h2>
+                    <h3  style={{color: 'white'}}>{about.subTitle}</h3>
+                    <div  style={{color: 'white'}} className={styles.aboutTxt} dangerouslySetInnerHTML={{ __html: `${about.txt}` }} />
                     <button style={{ backgroundColor: about.backgroundButton }}
                       className="btn">{about.button}
                     </button>
