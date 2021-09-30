@@ -104,7 +104,7 @@ function Home({
       <header id="inicio">
         <Banner banner={banner} >
           <Nav
-            color="blue"
+            color="#333"
             colorTxt=""
             logo={<a className="brand-logo" href="#">Logo</a>}
           >
