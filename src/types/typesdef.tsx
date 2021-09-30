@@ -209,7 +209,7 @@ export type InstagramType = {
 export type Posts = {
   author: string,
   content: string,
-  created_at: Date,
+  created_at: string,
   date_formatted: Date,
   excerpt: string,
   id: number,

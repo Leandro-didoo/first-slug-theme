@@ -1,3 +1,4 @@
+import { FormEvent } from 'react'
 import { FooterType } from '../../types/typesdef'
 import { Facebook, Instagram, Tiktok, Whatsapp } from '../Icons'
 import style from './style.module.scss'
@@ -6,6 +7,10 @@ type FooterProps ={
     content: FooterType
 }
 export const Footer = ({content}:FooterProps) => {
+
+    function handlNewLester(event: FormEvent){
+        event.preventDefault();
+    }
     return (
         <div style={{ backgroundColor: 'blue' }} className={style.container}>
             <div className="container">
@@ -48,7 +53,7 @@ export const Footer = ({content}:FooterProps) => {
                     </div>
                     <div className="col s12 m3">
                         <h5>Receba nossas novidades</h5>
-                        <form>
+                        <form onSubmit={handlNewLester}>
                             <input
                                 type="text"
                                 name=""
@@ -65,6 +70,7 @@ export const Footer = ({content}:FooterProps) => {
                         </form>
 
                     </div>
+                
                 </div>
                 <hr />
                 <div style={{color: content.colorTxt}} className="row center">

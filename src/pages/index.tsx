@@ -10,6 +10,7 @@ import { CardContent, Carrousel } from '../components/Carrosel';
 import { ChevronDoubleUp, Heart, Stars } from '../components/Icons';
 import cms from '../services/cms';
 import axios from 'axios';
+import Link from 'next/link'
 import { Nav } from '../components/Nav';
 import { CardProdutct } from '../components/CardProduct';
 import { CardBlog } from '../components/CardBlog';
@@ -73,7 +74,7 @@ function Home({
       animeScroll();
     })
   }
- 
+
   function handleShedule(event: FormEvent) {
     let phone = '5519995446606'
     event.preventDefault();
@@ -82,19 +83,19 @@ function Home({
     window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${userMessage}`)
     alert('ok')
   }
-  
+
   return (
     <div className={styles.container}>
       <Head>
         <title>{page_data.title}</title>
-        <meta name="description" content={page_data.metadescription}/>
+        <meta name="description" content={page_data.metadescription} />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossOrigin="anonymous" />
         <link rel="icon" href={page_data.icon ?? "/favicon.ico"} />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         {/* <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" /> */}
         {jivochat.active && jivochat.widget && jivochat.widget.trim() ? (
           <script src={`//code-sa1.jivosite.com/widget/${jivochat.widget}`} async></script>
-        ):''}
+        ) : ''}
       </Head>
       <header id="inicio">
         <Banner banner={banner} >
@@ -107,7 +108,11 @@ function Home({
             {about.active && <li><a href="#about">sobre</a></li>}
             {products.active && <li><a href="#products">produtos</a></li>}
             {galery.active && <li><a href="#gallery">galeria</a></li>}
-            {blog.active && <li><a href="#blog">blog</a></li>}
+            {blog.active && <li>
+              <Link href="/blog">
+                <a>blog</a>
+              </Link>
+            </li>}
             <li><a href="#schedule">contato</a></li>
             <li><a style={{ borderRadius: '2rem', backgroundColor: banner.button_background, color: banner.button_color }} href="#schedule" className="btn">Agendar horario</a></li>
           </Nav>
@@ -305,7 +310,7 @@ function Home({
           <div style={{ backgroundColor: testimonial.overlay }} className="overlay" />
         </section>
       ) : ''}
-  
+
       {/* gallery */}
       {galery.active ? (
         <section id="gallery"

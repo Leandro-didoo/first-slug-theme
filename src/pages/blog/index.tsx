@@ -7,6 +7,7 @@ import style from '../../styles/Blog.module.scss';
 import {  ChevronCircleLeft, Clock } from "../../components/Icons";
 import { CardBlog } from "../../components/CardBlog";
 import {Footer} from '../../components/Footer'
+import { useRouter } from 'next/router'
 import Link from 'next/link';
 
 if (process.browser) {
@@ -20,10 +21,11 @@ type BlogProps = {
 }
 
 export default function Blog({ blog, footer }: BlogProps) {
+    const router = useRouter()
     return (
         <div className={style.blogPage}>
             <Nav
-                color='red'
+                color='#333'
                 colorTxt=""
                 logo={<a className="brand-logo" href="#">Logo</a>}
             >
@@ -41,7 +43,7 @@ export default function Blog({ blog, footer }: BlogProps) {
                         </div>
                         <div className="col s12">
                             <div className={style.subTitle}>
-                            <button><ChevronCircleLeft width={27} color="#333" /></button>
+                            <button onClick={()=>router.back()}><ChevronCircleLeft width={27} color="#333" /></button>
                             <h2>{blog.subTitle}</h2>
 
                             </div>
