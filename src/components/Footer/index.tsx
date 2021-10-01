@@ -57,7 +57,6 @@ export const Footer = ({ content }: FooterProps) => {
                                         <Facebook width={20} color={content.colorTxt} />
                                     </a>
                                 ) : ''}
-
                             </div>
                             <div className="col">
                                 {content.instagram ? (
