@@ -1,15 +1,24 @@
 import { CookiesIco } from '../Icons'
 import style from './style.module.scss'
+import { useState, useEffect } from 'react';
 
 export const BtnCokies = () => {
+    const [acceptCookies, setAcceptCookies] = useState<boolean>(() => {
+        if (process.browser) {
+            return localStorage.getItem('@cms:accepted_cookies') === 'accepted';
+        }
+        return false;
+    });
 
-    function handleCookies(){
-        if(typeof(Storage) !== "undefined") {
-            localStorage.setItem("@cms:accepted_cookies", "true");
-        }else(
-            alert("seu navegador não suporta armazenamento na web")
-        )
-    }
+    useEffect(() => {
+        if (process.browser) {
+          return localStorage.setItem('@cms:accepted_cookies',acceptCookies ? 'accepted':'');
+        }
+    },[acceptCookies]);
+
+    function handleCookies(){ setAcceptCookies(true); }
+
+    if(!acceptCookies) return <></>;
     return (
         <div className={`${style.container} z-depth-3`}>
             <div className={style.content}>
