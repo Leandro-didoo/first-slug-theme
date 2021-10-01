@@ -1,18 +1,20 @@
 import { CookiesIco } from '../Icons';
 import style from './style.module.scss';
 import Link from 'next/link'
+import { useState } from 'react';
 
 export const BtnCokies = () => {
+    const [display, setDisplay] = useState(false)
 
     function handleCookies() {
-        if (typeof (Storage) !== "undefined") {
-            localStorage.setItem("@cms:accepted_cookies", "true");
-        } else (
-            alert("seu navegador não suporta armazenamento na web")
-        )
+        
+    localStorage.setItem("@cms:accepted_cookies", "teste");
+       
     }
     return (
-        <div className={`${style.container} z-depth-3`}>
+        <div
+        style={{display: display? 'none': 'block'}}
+          className={`${style.container} z-depth-3`}>
             <div className={style.content}>
                 <div className={style.titleCard}>
                     <strong>Esse site usa cookies</strong>
