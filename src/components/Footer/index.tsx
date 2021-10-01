@@ -1,16 +1,13 @@
-import { FormEvent } from 'react'
-import { FooterType } from '../../types/typesdef'
-import { Facebook, Instagram, Tiktok, WhatsappIco } from '../Icons'
-import style from './style.module.scss'
+import { FormEvent } from 'react';
+import { FooterType } from '../../types/typesdef';
+import { Facebook, Instagram, Tiktok, WhatsappIco } from '../Icons';
+import style from './style.module.scss';
+import Link from 'next/link';
 
 type FooterProps = {
     content: FooterType
 }
 export const Footer = ({ content }: FooterProps) => {
-
-    function handlNewLester(event: FormEvent) {
-        event.preventDefault();
-    }
     return (
         <div style={{ backgroundColor: content.backgroundColor }} className={style.container}>
             <div className="container">
@@ -20,9 +17,21 @@ export const Footer = ({ content }: FooterProps) => {
                     <div className="col s12 m3">
                         <h5>Acesso Rápido</h5>
                         <ul>
-                            <li> <a style={{ color: content.colorTxt }} className=" text-lighten-3" href="/">Home</a></li>
-                            <li> <a style={{ color: content.colorTxt }} className=" text-lighten-3" href="/blog">blog</a></li>
-                            <li> <a style={{ color: content.colorTxt }} className=" text-lighten-3" href="/politica-privacidade">Política de privacidade</a></li>
+                            <li>
+                                <Link href="/">
+                                    <a style={{ color: content.colorTxt }} className=" text-lighten-3">Home</a>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/blog">
+                                    <a style={{ color: content.colorTxt }} className=" text-lighten-3">blog</a>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/politica-privacidade">
+                                    <a style={{ color: content.colorTxt }} className=" text-lighten-3" >Política de privacidade</a>
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 
