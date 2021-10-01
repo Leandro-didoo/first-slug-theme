@@ -159,7 +159,7 @@ export default function ContentBlog({
         let num_unlikes = comment.num_unlikes;
 
         let old_like = '0';
-        if (comment.ratings.length > 0) old_like = comment.ratings[0].like;
+        if  (comment.ratings && comment.ratings.length > 0) old_like = comment.ratings[0].like;
 
         if (old_like !== '0') {
             if (old_like === '1') {
@@ -338,7 +338,6 @@ export default function ContentBlog({
             <Nav
                 colorTxt=""
                 color="#333"
-                logo={<a className="brand-logo" href="#">Logo</a>}
                 data={navBar}
             >
                 <li>

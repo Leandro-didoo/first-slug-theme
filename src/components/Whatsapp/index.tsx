@@ -6,11 +6,10 @@ type props = {
 }
 
 export const Whatsapp = ({phone}:props) =>{
-    const urlBases = `https://api.whatsapp.com/send?phone=55${phone}`;
+    const urlBases = `https://api.whatsapp.com/send?phone=${phone}`;
     return(
         <div onClick={()=> window.open(`${urlBases}`)} className={style.container}>
              <WhatsappIco width={30} color='white' />
-
         </div>
     )
 }
