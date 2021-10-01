@@ -28,7 +28,6 @@ export default function Blog({ blog, footer, navBar }: BlogProps) {
             <Nav
                 color='#333'
                 colorTxt=""
-                logo={<a className="brand-logo" href="#">Logo</a>}
                 data={navBar}
             >
                 <li>
