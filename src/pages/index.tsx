@@ -205,9 +205,9 @@ function Home({
               <div className="col s12 m6">
                 <div className={styles.itemRigth}>
                   <div className={styles.item}>
-                    <h2 style={{color: 'white'}}>{about.title}</h2>
-                    <h3  style={{color: 'white'}}>{about.subTitle}</h3>
-                    <div  style={{color: 'white'}} className={styles.aboutTxt} dangerouslySetInnerHTML={{ __html: `${about.txt}` }} />
+                    <h2 style={{ color: 'white' }}>{about.title}</h2>
+                    <h3 style={{ color: 'white' }}>{about.subTitle}</h3>
+                    <div style={{ color: 'white' }} className={styles.aboutTxt} dangerouslySetInnerHTML={{ __html: `${about.txt}` }} />
                     <button style={{ backgroundColor: about.backgroundButton }}
                       className="btn">{about.button}
                     </button>
@@ -510,6 +510,8 @@ function Home({
           <ChevronDoubleUp width={18} color="white" />
         </a>
       ) : ''}
+       
+      <BtnCokies />
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -521,11 +523,7 @@ function Home({
         draggable
         pauseOnHover
       />
-      
-      
-    
 
-      <BtnCokies />
       <Whatsapp phone={footer.whatsapp} />
       <Footer content={footer} />
     </div>
