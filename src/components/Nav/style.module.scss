@@ -2,4 +2,18 @@
  nav{
      background-color: transparent;
  }
+ .logo{
+     height: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     img{
+        width: auto;
+        height: 40px;
+        margin: 5px;
+
+
+     }
+    
+ }
 }

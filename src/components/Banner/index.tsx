@@ -45,9 +45,10 @@ export const Banner = ({banner, children}: props) => {
                                 href="#schedule"
                                     style={{
                                         backgroundColor: banner.button_background,
-                                        color: banner.button_color
+                                        color: banner.button_color,
+                                      
                                     }}
-                                    className="btn">
+                                    className={`${style.button} btn`}>
                                         {banner.txt_button}
                                 </a>
 

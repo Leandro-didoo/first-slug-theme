@@ -7,12 +7,11 @@ import style from './style.module.scss'
 
 type Props = {
     children: ReactNode,
-    logo: ReactChild,
     color: string,
     colorTxt: string,
     data: NavType,
   }
-export const Nav = ({children, logo, color, data}:Props) => {
+export const Nav = ({children, color, data}:Props) => {
     const [scroll, setScroll] = useState(0);
     const animeScroll = () => {
         const windowTop = window.pageYOffset;
@@ -29,7 +28,7 @@ export const Nav = ({children, logo, color, data}:Props) => {
         className={style.contentnav}>
             <Navbar
                 alignLinks="right"
-                brand={logo}
+                brand={ <a className={style.logo}><img  src={data.logo} alt="" /></a>}
                 id="mobile-nav"
                 menuIcon={<Icon>menu</Icon>}
                 centerChildren={true}
@@ -39,6 +38,7 @@ export const Nav = ({children, logo, color, data}:Props) => {
                     backgroundColor: scroll > 100? data.background :''
                 }}
             >
+               
                {children}
             </Navbar>
         </div>

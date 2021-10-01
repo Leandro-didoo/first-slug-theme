@@ -108,20 +108,19 @@ function Home({
           <Nav
             color="#333"
             colorTxt=""
-            logo={<a className="brand-logo" href="#">Logo</a>}
             data={navBar}
           >
-            {service.active && <li style={{color: navBar.link_color}}><a href="#services">Serviços</a></li>}
-            {about.active && <li style={{color: navBar.link_color}} ><a href="#about">sobre</a></li>}
-            {products.active && <li style={{color: navBar.link_color}}><a href="#products">produtos</a></li>}
-            {galery.active && <li style={{color: navBar.link_color}} ><a href="#gallery">galeria</a></li>}
-            {blog.active && <li style={{color: navBar.link_color}}>
+            {service.active && <li style={{ color: navBar.link_color }}><a href="#services">Serviços</a></li>}
+            {about.active && <li style={{ color: navBar.link_color }} ><a href="#about">sobre</a></li>}
+            {products.active && <li style={{ color: navBar.link_color }}><a href="#products">produtos</a></li>}
+            {galery.active && <li style={{ color: navBar.link_color }} ><a href="#gallery">galeria</a></li>}
+            {blog.active && <li style={{ color: navBar.link_color }}>
               <Link href="/blog">
-                <a style={{color: navBar.link_color}} >blog</a>
+                <a style={{ color: navBar.link_color }} >blog</a>
               </Link>
             </li>}
-            <li style={{color: navBar.link_color}}><a href="#schedule">contato</a></li>
-            <li style={{color: navBar.link_color}}><a style={{ borderRadius: '2rem', backgroundColor: banner.button_background, color: banner.button_color }} href="#schedule" className="btn">Agendar horario</a></li>
+            <li style={{ color: navBar.link_color }}><a href="#schedule">contato</a></li>
+            <li style={{ color: navBar.link_color }}><a style={{ borderRadius: '2rem', backgroundColor: banner.button_background, color: banner.button_color }} href="#schedule" className="btn">Agendar horario</a></li>
           </Nav>
         </Banner>
       </header>
@@ -262,8 +261,11 @@ function Home({
               })}
             </Carrousel>
             <div className="row center">
-              <button style={{ borderRadius: '2rem' }}
-                className="btn">Ver catalogo</button>
+              <a
+                href={products.linkButton}
+                style={{ borderRadius: '2rem', backgroundColor: products.backgroundButton, color:products.colorButton }}
+                className="btn">Ver catalogo
+              </a>
             </div>
           </div>
           <div style={{ backgroundColor: products.overlay }} className="overlay" />
