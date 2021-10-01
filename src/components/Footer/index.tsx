@@ -69,7 +69,7 @@ export const Footer = ({ content }: FooterProps) => {
                             </div>
                             <div className="col">
                                 {content.whatsapp ? (
-                                    <a href={`https://api.whatsapp.com/send?phone=${content.whatsapp}`} target="_blank">
+                                    <a rel="noreferrer" href={`https://api.whatsapp.com/send?phone=${content.whatsapp}`} target="_blank">
                                         <WhatsappIco width={20} color={content.colorTxt} />
                                     </a>
                                 ) : ''}
