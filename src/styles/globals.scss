@@ -1,9 +1,5 @@
 html{
-    scroll-behavior: smooth;
-    @media(min-width: 700px){
-        scroll-snap-type: both proximity;
-
-    }
+    overflow: auto;
 }
 nav {
     height: 10vh;
@@ -33,10 +29,7 @@ section{
         height: 100%;
         
     }
-    @media(min-width: 700px){
-        scroll-snap-align: center;
-        
-    }
+   
 }
 button{
     cursor: pointer;
