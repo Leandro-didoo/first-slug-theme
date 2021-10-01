@@ -1,0 +1,29 @@
+.container{
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    width: 100%;
+    max-width: 400px;
+    background-color: 
+    white;
+    z-index: 99999999;
+    padding: 1rem;
+   .content{
+       display: flex;
+       flex-direction: column;
+      .titleCard{
+          display: flex;
+          align-items: center;
+          strong{
+              font-weight: bold;
+              font-size: 1.2rem;
+          }
+          svg{
+              margin-left: 10px;
+          }
+      }
+      button{
+          margin-top: 1rem;
+      }
+   }
+}

@@ -18,6 +18,7 @@ import { CardProdutct } from '../components/CardProduct';
 import { CardBlog } from '../components/CardBlog';
 import { FormEvent, useState } from 'react';
 import { Whatsapp } from '../components/Whatsapp';
+import { BtnCokies } from '../components/BtnCokies';
 if (process.browser) {
   const M = require('materialize-css');
 }
@@ -524,7 +525,7 @@ function Home({
       
     
 
-
+      <BtnCokies />
       <Whatsapp phone={footer.whatsapp} />
       <Footer content={footer} />
     </div>
