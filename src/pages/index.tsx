@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.scss';
 import { Button, Card, Row, Col, Carousel, Modal } from 'react-materialize';
 import { Footer } from '../components/Footer';
 import { Banner } from '../components/Banner';
-import { PageData, AboutType, BannerType, BlogType, CallToActionType, FooterType, Galerytype, InstagramType, ServiceType, SheduleType, TestimonialType, VideoType, Products, JivochatType } from '../types/typesdef';
+import { PageData, AboutType, BannerType, BlogType, CallToActionType, FooterType, Galerytype, InstagramType, ServiceType, SheduleType, TestimonialType, VideoType, Products, JivochatType, NavType } from '../types/typesdef';
 import { CardContent, Carrousel } from '../components/Carrosel';
 import { ChevronDoubleUp, Heart, Stars } from '../components/Icons';
 import cms from '../services/cms';
@@ -25,6 +25,7 @@ if (process.browser) {
 
 type Props = {
   page_data: PageData,
+  navBar: NavType,
   banner: BannerType,
   service: ServiceType,
   about: AboutType,
@@ -42,6 +43,7 @@ type Props = {
 
 function Home({
   page_data,
+  navBar,
   banner,
   service,
   about,
@@ -59,7 +61,6 @@ function Home({
 
   const srcImagens = galery.data.map(image => image.name)
   const [scroll, setScroll] = useState(0);
-
   // START: SHEDULE
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -108,18 +109,19 @@ function Home({
             color="#333"
             colorTxt=""
             logo={<a className="brand-logo" href="#">Logo</a>}
+            data={navBar}
           >
-            {service.active && <li><a href="#services">Serviços</a></li>}
-            {about.active && <li><a href="#about">sobre</a></li>}
-            {products.active && <li><a href="#products">produtos</a></li>}
-            {galery.active && <li><a href="#gallery">galeria</a></li>}
-            {blog.active && <li>
+            {service.active && <li style={{color: navBar.link_color}}><a href="#services">Serviços</a></li>}
+            {about.active && <li style={{color: navBar.link_color}} ><a href="#about">sobre</a></li>}
+            {products.active && <li style={{color: navBar.link_color}}><a href="#products">produtos</a></li>}
+            {galery.active && <li style={{color: navBar.link_color}} ><a href="#gallery">galeria</a></li>}
+            {blog.active && <li style={{color: navBar.link_color}}>
               <Link href="/blog">
-                <a>blog</a>
+                <a style={{color: navBar.link_color}} >blog</a>
               </Link>
             </li>}
-            <li><a href="#schedule">contato</a></li>
-            <li><a style={{ borderRadius: '2rem', backgroundColor: banner.button_background, color: banner.button_color }} href="#schedule" className="btn">Agendar horario</a></li>
+            <li style={{color: navBar.link_color}}><a href="#schedule">contato</a></li>
+            <li style={{color: navBar.link_color}}><a style={{ borderRadius: '2rem', backgroundColor: banner.button_background, color: banner.button_color }} href="#schedule" className="btn">Agendar horario</a></li>
           </Nav>
         </Banner>
       </header>
@@ -205,12 +207,14 @@ function Home({
               <div className="col s12 m6">
                 <div className={styles.itemRigth}>
                   <div className={styles.item}>
-                    <h2 style={{ color: 'white' }}>{about.title}</h2>
-                    <h3 style={{ color: 'white' }}>{about.subTitle}</h3>
-                    <div style={{ color: 'white' }} className={styles.aboutTxt} dangerouslySetInnerHTML={{ __html: `${about.txt}` }} />
-                    <button style={{ backgroundColor: about.backgroundButton }}
-                      className="btn">{about.button}
-                    </button>
+                    <h2 style={{ color: about.title_color }}>{about.title}</h2>
+                    <h3 style={{ color: about.txt_color }}>{about.subTitle}</h3>
+                    <div style={{ color: about.txt_color }} className={styles.aboutTxt} dangerouslySetInnerHTML={{ __html: `${about.txt}` }} />
+                    <Link href="#">
+                      <a style={{ backgroundColor: about.backgroundButton }}
+                        className="btn">{about.button}
+                      </a>
+                    </Link>
                   </div>
                 </div>
 
@@ -219,7 +223,7 @@ function Home({
           </div>
           <div style={{ backgroundImage: `url(${about.background})` }} className={styles.bkgAbout} />
 
-          {/* <div style={{backgroundColor: about.about}} className="overlay"/> */}
+          <div style={{ backgroundColor: about.overlay }} className="overlay" />
 
         </section>
       ) : ''}
@@ -510,8 +514,9 @@ function Home({
           <ChevronDoubleUp width={18} color="white" />
         </a>
       ) : ''}
-       
+
       <BtnCokies />
+
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -556,6 +561,8 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   const elements = parseElement;
   // END:: PARSE PAGE
+
+  const navBar = elements.navbar.data
 
   const banner = elements.banner.data;
   const service = { ...elements.service.data, active: elements.service.active };
@@ -635,12 +642,12 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   // END:: BLOG
   const schedule = { ...elements.schedule.data, active: elements.schedule.active };
   const footer = elements.footer.data;
-
   const jivochat = { active: elements.jivochat.active, ...elements.jivochat.data };
 
   return {
     props: {
       page_data,
+      navBar,
       banner,
       service,
       about,

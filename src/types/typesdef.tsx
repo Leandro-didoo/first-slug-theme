@@ -68,6 +68,9 @@ export type AboutType = {
   backgroundButton: string,
   button_color: string,
   imgPng: string,
+  title_color: string,
+  txt_color: string,
+  overlay: string
 }
 export type CallToActionType = {
   active: boolean,
@@ -275,4 +278,11 @@ export type PostLead = {
 export type JivochatType = {
   active: boolean,
   widget?: string
+}
+export type NavType = {
+  logo: string,
+  background: string,
+  link_color: string,
+  button_background: string,
+  button_color: string,
 }

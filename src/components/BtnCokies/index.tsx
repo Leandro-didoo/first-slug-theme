@@ -4,29 +4,23 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link'
 
 export const BtnCokies = () => {
-    const [acceptCookies, setAcceptCookies] = useState<boolean>(() => {
-        if (process.browser) {
-            return localStorage.getItem('@cms:accepted_cookies') === 'accepted';
-        }
-        return false;
-    });
+    const [acceptCookies, setAcceptCookies] = useState(false)
 
-    useEffect(() => {
-        if (process.browser) {
-            return localStorage.setItem('@cms:accepted_cookies', acceptCookies ? 'accepted' : '');
-        }
-    }, [acceptCookies]);
+    useEffect(()=>{
+        if (localStorage.getItem("@cms:accepted_cookies") === 'accepted') {
+            setAcceptCookies(true)
+        }else   setAcceptCookies(false);
+    },[])
 
-    function handleCookies() { setAcceptCookies(true); }
-
-
+    function handleCookies() {
+        localStorage.setItem('@cms:accepted_cookies', 'accepted');
+        setAcceptCookies(true)
+    }
+    console.log(!process.browser, acceptCookies)
     return (
-        <>
-            {acceptCookies? '' : (
-                <div
+            <div
                 className={`${style.container} z-depth-3`}
-
-
+                style={{display: acceptCookies? 'none': 'block'}}
             >
                 <div className={style.content}>
                     <div className={style.titleCard}>
@@ -40,11 +34,10 @@ export const BtnCokies = () => {
                     <button onClick={handleCookies} className="btn grey darken-4 waves-effect waves-light">Ok</button>
                 </div>
             </div>
-            )}
 
 
 
-        </>
+
 
     )
 }

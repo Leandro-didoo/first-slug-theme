@@ -7,7 +7,7 @@ import ptBR from 'date-fns/locale/pt-BR'
 import cms from "../../../services/cms";
 import Link from 'next/link';
 import style from './style.module.scss'
-import { Comment, DataComment, FooterType, PageData, PostLead, Posts } from "../../../types/typesdef";
+import { Comment, DataComment, FooterType, NavType, PageData, PostLead, Posts } from "../../../types/typesdef";
 
 import { Footer } from '../../../components/Footer'
 import { ModalLoginLead } from '../../../components/ModalLoginLead';
@@ -27,11 +27,13 @@ type contetPost = {
 type BlogProps = {
     page_data: PageData,
     post: contetPost,
-    footer: FooterType
+    footer: FooterType,
+    navBar:NavType,
 }
 
 export default function ContentBlog({
     page_data,
+    navBar,
     footer,
     post,
 }: BlogProps) {
@@ -337,6 +339,7 @@ export default function ContentBlog({
                 colorTxt=""
                 color="#333"
                 logo={<a className="brand-logo" href="#">Logo</a>}
+                data={navBar}
             >
                 <li>
                     <Link href="/">
@@ -573,6 +576,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
         parseElement[element.class_name] = tempData;
     });
     const elements = parseElement;
+    const navBar = elements.navbar.data
     const footer = elements.footer.data;
 
     const reponsePost = await cms.get(`post/show/${ctx.params.id}`, {
@@ -585,6 +589,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     return {
         props: {
             page_data,
+            navBar,
             post,
             footer
         }

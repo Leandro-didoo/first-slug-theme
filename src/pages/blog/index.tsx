@@ -1,7 +1,7 @@
 import { GetStaticProps } from "next"
 import { Nav } from "../../components/Nav";
 import cms from "../../services/cms";
-import { BlogType, FooterType, PageData } from "../../types/typesdef";
+import { BlogType, FooterType, NavType, PageData } from "../../types/typesdef";
 import { Button, Card, Row, Col, Carousel, } from 'react-materialize';
 import style from '../../styles/Blog.module.scss';
 import { ChevronCircleLeft, Clock } from "../../components/Icons";
@@ -17,10 +17,11 @@ if (process.browser) {
 
 type BlogProps = {
     blog: BlogType,
-    footer: FooterType
+    footer: FooterType,
+    navBar: NavType,
 }
 
-export default function Blog({ blog, footer }: BlogProps) {
+export default function Blog({ blog, footer, navBar }: BlogProps) {
     const router = useRouter()
     return (
         <div className={style.blogPage}>
@@ -28,6 +29,7 @@ export default function Blog({ blog, footer }: BlogProps) {
                 color='#333'
                 colorTxt=""
                 logo={<a className="brand-logo" href="#">Logo</a>}
+                data={navBar}
             >
                 <li>
                     <Link href="/">
@@ -143,6 +145,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
             dataBlog = responseBlog.data.response.posts
         }
     }
+    const navBar = elements.navbar.data
 
     const blog = {
         ...elements.cms_blog.data,
@@ -154,6 +157,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     return {
         props: {
             blog,
+            navBar,
             footer
         },
         revalidate: 60 * 60 * 8,

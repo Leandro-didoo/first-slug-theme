@@ -12,7 +12,7 @@ export const Footer = ({content}:FooterProps) => {
         event.preventDefault();
     }
     return (
-        <div style={{ backgroundColor: 'blue' }} className={style.container}>
+        <div style={{ backgroundColor: content.backgroundColor}} className={style.container}>
             <div className="container">
                 <div className="row" 
                 style={{color: content.colorTxt}}
@@ -20,9 +20,9 @@ export const Footer = ({content}:FooterProps) => {
                     <div className="col s12 m3">
                         <h5>Acesso Rápido</h5>
                         <ul>
-                            <li> <a style={{color: content.colorTxt}} className=" text-lighten-3" href="#!">Link 1</a></li>
-                            <li> <a style={{color: content.colorTxt}} className=" text-lighten-3" href="#!">Link 2</a></li>
-                            <li> <a style={{color: content.colorTxt}} className=" text-lighten-3" href="#!">Link 3</a></li>
+                            <li> <a style={{color: content.colorTxt}} className=" text-lighten-3" href="/">Home</a></li>
+                            <li> <a style={{color: content.colorTxt}} className=" text-lighten-3" href="/blog">blog</a></li>
+                            <li> <a style={{color: content.colorTxt}} className=" text-lighten-3" href="/politica-privacidade">Política de privacidade</a></li>
                         </ul>
                     </div>
                     <div className="col s12 m3">
