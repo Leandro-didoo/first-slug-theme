@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from 'next'
+import type { GetServerSideProps, GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.scss';
@@ -539,7 +539,9 @@ function Home({
 
 export default Home;
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const theme_slug = process.env.THEME_SLUG;
   const access_token = process.env.USER_ACCESS_TOKEN;
 
@@ -667,6 +669,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       footer,
       jivochat
     },
-    revalidate: 60 * 60 * 8,
+   
   }
 }
