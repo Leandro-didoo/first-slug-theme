@@ -546,10 +546,11 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const response = await cms.get(`page/data/${theme_slug}`, {
     headers: { 'access-token': access_token }
   });
-
+  
   if (!response || !response.data.result) throw new Error('Impossível carregar a página.');
   const page = response.data.response;
   // END:: REQUEST PAGE | BEGIN:: PARSE PAGE
+  
   const page_data = page.datas[0] as PageData;
 
   let parseElement = {} as any;
@@ -560,16 +561,17 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     }
     parseElement[element.class_name] = tempData;
   });
-
   const elements = parseElement;
   // END:: PARSE PAGE
 
-  const navBar = elements.navbar.data
 
+  
+  const navBar = elements.navbar.data;
   const banner = elements.banner.data;
   const service = { ...elements.service.data, active: elements.service.active };
   const about = { ...elements.about.data, active: elements.about.active };
   const callToAction = { ...elements.callToAction.data, active: elements.callToAction.active };
+  
   // BEGIN:: HANDLE PRODUCTS
   let dataProducts = [];
   if (elements.cms_catalog.active && elements.cms_catalog.data.api_url) {
