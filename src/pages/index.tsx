@@ -550,8 +550,8 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   if (!response || !response.data.result) throw new Error('Impossível carregar a página.');
   const page = response.data.response;
   // END:: REQUEST PAGE | BEGIN:: PARSE PAGE
+  if (!Array.isArray(page.datas) || page.datas.length === 0) throw new Error('Configure sua página.');
   const page_data = page.datas[0] as PageData;
-
   let parseElement = {} as any;
   page.elements.forEach((element: { class_name: string, datas: any[] }) => {
     let tempData = element.datas[0] ?? null;
@@ -563,7 +563,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   const elements = parseElement;
   // END:: PARSE PAGE
-
   const navBar = elements.navbar.data
 
   const banner = elements.banner.data;
@@ -589,14 +588,14 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   }
   const products = {
     ...elements.cms_catalog.data,
-    active: elements.cms_catalog.active,
+    active: dataProducts.length === 0 ? false : elements.cms_catalog.active,
     data: dataProducts
   };
   // END:: HANDLE PRODUCTS
   const testimonial = { ...elements.testimonial.data, active: elements.testimonial.active };
   // BEGIN:: HANDLE GALLERY
   let dataGallery = [];
-  if (elements.cms_gallery.active) {
+  if (elements.cms_gallery.active && elements.cms_gallery.data.slug) {
     const responseGallery = await cms.get(`/gallery/show/${elements.cms_gallery.data.slug}`, {
       headers: { 'access-token': access_token, 'take': elements.cms_gallery.data.take }
     });
@@ -604,26 +603,29 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       dataGallery = responseGallery.data.response.images;
     }
   }
+
   const galery = {
     ...elements.cms_gallery.data,
-    active: elements.cms_gallery.active,
+    active: dataGallery.length === 0 ? false : elements.cms_gallery.active,
     data: dataGallery
   };
   // END:: HANDLE GALLERY
   const video = { ...elements.video.data, active: elements.video.active };
   // BEGIN:: HANDLE INSTAGRAM
   let dataInstagram = []
-  if (elements.cms_instagram.active) {
-    const responseInstagram = await cms.get(`/gallery/show/instagram`, {
-      headers: { 'access-token': access_token, 'take': elements.cms_instagram.data.take }
-    });
-    if (responseInstagram.data.result) {
-      dataInstagram = responseInstagram.data.response.images;
-    }
+  if (elements.cms_instagram && elements.cms_instagram.active) {
+    try{
+      const responseInstagram = await cms.get(`/gallery/show/instagram`, {
+        headers: { 'access-token': access_token, 'take': elements.cms_instagram.data.take }
+      });
+      if (responseInstagram.data.result) {
+        dataInstagram = responseInstagram.data.response.images;
+      }
+    }catch{}
   }
   const instagram = {
-    ...elements.cms_instagram.data,
-    active: elements.cms_instagram.active,
+    ...elements.cms_instagram?.data,
+    active:  dataInstagram.length === 0 ? false : elements.cms_instagram.active,
     data: dataInstagram
   };
   // END:: HANDLE INSTAGRAM | BEGIN:: HANDLE BLOG
@@ -638,7 +640,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   }
   const blog = {
     ...elements.cms_blog.data,
-    active: elements.cms_blog.active,
+    active: dataBlog.length === 0 ? false : elements.cms_blog.active,
     data: dataBlog
   };
   // END:: BLOG
