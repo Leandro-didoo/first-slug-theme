@@ -1,5 +1,5 @@
 import { ChevronCircleLeft } from '../../../components/Icons';
-import style from '../../../style.module.scss';
+import style from './style.module.scss';
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import cms from '../../../services/cms';
