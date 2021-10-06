@@ -1,12 +1,12 @@
 import { GetStaticProps } from "next"
-import { Nav } from "../../components/Nav";
-import cms from "../../services/cms";
-import { BlogType, FooterType, NavType, PageData } from "../../types/typesdef";
+import { Nav } from "../../../components/Nav";
+import cms from "../../../services/cms";
+import { BlogType, FooterType, NavType, PageData } from "../../../types/typesdef";
 import { Button, Card, Row, Col, Carousel, } from 'react-materialize';
-import style from '../../styles/Blog.module.scss';
-import { ChevronCircleLeft, Clock } from "../../components/Icons";
-import { CardBlog } from "../../components/CardBlog";
-import { Footer } from '../../components/Footer'
+import style from '../../../styles/Blog.module.scss';
+import { ChevronCircleLeft, Clock } from "../../../components/Icons";
+import { CardBlog } from "../../../components/CardBlog";
+import { Footer } from '../../../components/Footer'
 import { useRouter } from 'next/router'
 import Link from 'next/link';
 import Head from 'next/head';
@@ -21,9 +21,10 @@ type BlogProps = {
     blog: BlogType,
     footer: FooterType,
     navBar: NavType,
+    slug: string
 }
 
-export default function Blog({ page_data, blog, footer, navBar }: BlogProps) {
+export default function Blog({ page_data, blog, footer, navBar, slug }: BlogProps) {
     const router = useRouter()
     return (
         <>
@@ -42,13 +43,12 @@ export default function Blog({ page_data, blog, footer, navBar }: BlogProps) {
                     data={navBar}
                 >
                     <li>
-                        <Link href="/">
+                        <Link href={`/${slug}`}>
                             <a>Inicio</a>
-
                         </Link>
                     </li>
                 </Nav>
-                <div className="container" style={{ minHeight: '90vh'}}>
+                <div className="container" style={{ minHeight: '90vh' }}>
 
                     <header>
                         <br />
@@ -77,7 +77,9 @@ export default function Blog({ page_data, blog, footer, navBar }: BlogProps) {
                                 <div className="col s12 m6 ">
                                     <div className={style.InfoEmphasis}>
                                         <div className={style.item}>
-                                            <h3>{blog.data[0].title}</h3>
+                                            <Link href={`/${slug}/blog/${blog.data[0].slug}`}>
+                                               <a style={{color: 'inherit'}}><h3>{blog.data[0].title}</h3></a>
+                                            </Link>
                                             <small >
                                                 <Clock width={20} color="blue" />
                                                 {blog.data[0].date_formatted}
@@ -86,8 +88,8 @@ export default function Blog({ page_data, blog, footer, navBar }: BlogProps) {
 
                                         </div>
                                     </div>
+                                </div>
                             </div>
-                        </div>
                         ) : ''}
                     </header>
                     <main>
@@ -106,7 +108,7 @@ export default function Blog({ page_data, blog, footer, navBar }: BlogProps) {
                                                     <Clock width={10} color="red" />
                                                     {content.date_formatted}
                                                 </small>
-                                                <Link href={`/blog/${content.slug}`}>
+                                                <Link href={`/${slug}/blog/${content.slug}`}>
                                                     <a className={style.title}>{content.title}</a>
                                                 </Link>
                                                 <div className={style.contnt} dangerouslySetInnerHTML={{ __html: `${content.content}` }} />
@@ -126,16 +128,32 @@ export default function Blog({ page_data, blog, footer, navBar }: BlogProps) {
         </>
     )
 }
+export async function getStaticPaths() {
+    return {
+        paths: [],
+        fallback: 'blocking'
+    }
+}
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-    const theme_slug = process.env.THEME_SLUG;
-    const access_token = process.env.USER_ACCESS_TOKEN;
+    if (!ctx.params) throw new Error('Página não encontrada');
+    const slug = ctx.params.slug;
+    const theme_slug = 'padrao';
+
+
+    const userPage = await cms.get(`page/token/${slug}/${theme_slug}`, {
+        headers: { 'access-token': 'GhaehSVvA3caqfQ' }
+    });
+
+    const access_token = userPage.data.response.access_token;
+
+    if (!userPage) throw new Error('Não foi possível se comunicar com o servidor!');
+    if (!userPage.data.result) throw new Error(userPage.data.response);
+
 
     const response = await cms.get(`page/data/${theme_slug}`, {
         headers: { 'access-token': access_token }
     });
-    if (!response || !response.data.result) throw new Error('Impossível carregar a página.');
-
     const page = response.data.response;
     const page_data = page.datas[0] as PageData;
 
@@ -172,7 +190,8 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
             page_data,
             blog,
             navBar,
-            footer
+            footer,
+            slug
         },
         revalidate: 60 * 60 * 8,
     }

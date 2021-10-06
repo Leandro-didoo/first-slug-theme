@@ -4,16 +4,16 @@ import { FormEvent, useEffect, useState } from "react";
 import Head from 'next/head';
 import { format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR'
-import cms from "../../../services/cms";
+import cms from "../../../../services/cms";
 import Link from 'next/link';
 import style from './style.module.scss'
-import { Comment, DataComment, FooterType, NavType, PageData, PostLead, Posts } from "../../../types/typesdef";
+import { Comment, DataComment, FooterType, NavType, PageData, PostLead, Posts } from "../../../../types/typesdef";
 
-import { Footer } from '../../../components/Footer'
-import { ModalLoginLead } from '../../../components/ModalLoginLead';
-import { CardComment } from "../../../components/CardComment";
-import { Nav } from "../../../components/Nav";
-import { ChevronCircleLeft, Clock } from "../../../components/Icons";
+import { Footer } from '../../../../components/Footer'
+import { ModalLoginLead } from '../../../../components/ModalLoginLead';
+import { CardComment } from "../../../../components/CardComment";
+import { Nav } from "../../../../components/Nav";
+import { ChevronCircleLeft, Clock } from "../../../../components/Icons";
 if (process.browser) {
     require('materialize-css');
 }
@@ -28,7 +28,8 @@ type BlogProps = {
     page_data: PageData,
     post: contetPost,
     footer: FooterType,
-    navBar:NavType,
+    navBar: NavType,
+    slug: string
 }
 
 export default function ContentBlog({
@@ -36,9 +37,9 @@ export default function ContentBlog({
     navBar,
     footer,
     post,
+    slug
 }: BlogProps) {
     const router = useRouter()
-
     const [dataComments, setDataComments] = useState<DataComment>({ total: 0, comments: [] });
     const [haveMoreComments, setHaveMoreComments] = useState(true);
     const [responseComment, setResponseComment] = useState({
@@ -159,7 +160,7 @@ export default function ContentBlog({
         let num_unlikes = comment.num_unlikes;
 
         let old_like = '0';
-        if  (comment.ratings && comment.ratings.length > 0) old_like = comment.ratings[0].like;
+        if (comment.ratings && comment.ratings.length > 0) old_like = comment.ratings[0].like;
 
         if (old_like !== '0') {
             if (old_like === '1') {
@@ -341,7 +342,7 @@ export default function ContentBlog({
                 data={navBar}
             >
                 <li>
-                    <Link href="/">
+                    <Link href={`/${slug}`}>
                         <a>Inicio</a>
                     </Link>
                 </li>
@@ -371,10 +372,14 @@ export default function ContentBlog({
                         <div className="col s12">
                             <div className={style.controlPageTow}>
                                 {post.prevPost ? (
-                                    <a href={`/blog/${post.prevPost.slug}`}>Anterior</a>
+                                    <Link href={`/${slug}/blog/${post.prevPost.slug}`}>
+                                        <a>Anterior</a>
+                                    </Link>
                                 ) : <div></div>}
                                 {post.nextPost ? (
-                                    <a href={`/blog/${post.nextPost.slug}`}>Próximo</a>
+                                    <Link href={`/${slug}/blog/${post.nextPost.slug}`}>
+                                        <a >Próximo</a>
+                                    </Link>
                                 ) : ''}
                             </div>
                         </div>
@@ -392,7 +397,7 @@ export default function ContentBlog({
                                                 <Clock width={10} color="blue" />
                                                 {format(parseISO(content.created_at), 'd mmm yy', { locale: ptBR })}
                                             </small>
-                                            <Link href={`/blog/${content.slug}`}>
+                                            <Link href={`/${slug}/blog/${content.slug}`}>
                                                 <a className={style.title}>{content.title}</a>
                                             </Link>
                                             <div className={style.contnt} dangerouslySetInnerHTML={{ __html: `${content.content}` }} />
@@ -554,14 +559,24 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-    const theme_slug = process.env.THEME_SLUG;
-    const access_token = process.env.USER_ACCESS_TOKEN;
     if (!ctx.params) throw new Error('Página não encontrada');
-    // BEGIN:: REQUEST PAGE
+    const slug = ctx.params.slug;
+    const theme_slug = 'padrao';
+
+
+    const userPage = await cms.get(`page/token/${slug}/${theme_slug}`, {
+        headers: { 'access-token': 'GhaehSVvA3caqfQ' }
+    });
+
+    const access_token = userPage.data.response.access_token;
+
+    if (!userPage) throw new Error('Não foi possível se comunicar com o servidor!');
+    if (!userPage.data.result) throw new Error(userPage.data.response);
+
+
     const response = await cms.get(`page/data/${theme_slug}`, {
         headers: { 'access-token': access_token }
     });
-    if (!response || !response.data.result) throw new Error('Impossível carregar a página.');
     const page = response.data.response;
     // END:: REQUEST PAGE | BEGIN:: PARSE PAGE
     const page_data = page.datas[0] as PageData;
@@ -587,6 +602,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
     return {
         props: {
+            slug,
             page_data,
             navBar,
             post,

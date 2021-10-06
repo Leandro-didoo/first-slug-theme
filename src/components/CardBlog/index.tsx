@@ -4,10 +4,11 @@ import style from './style.module.scss';
 import Link from 'next/link';
 
 type Props = {
-    post: Posts
+    post: Posts,
+    slug: string,
 }
 
-export const CardBlog = ({post}:Props) => {
+export const CardBlog = ({post, slug}:Props) => {
     return (
         <div className={style.container}>
           <div className={style.img}>
@@ -19,7 +20,7 @@ export const CardBlog = ({post}:Props) => {
                   {post.date_formatted}
                   {post.slug}
               </small>
-              <Link href={`/blog/${post.slug}`}>
+              <Link href={`/${slug}/blog/${post.slug}`}>
                 <a className={style.title}>{post.title}</a>
               </Link>
               <div className={style.contnt} dangerouslySetInnerHTML={{ __html: `${post.content}` }} />
