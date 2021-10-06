@@ -43,6 +43,12 @@ export default function PrivacyPolicy({ privacityPolicy }: Props) {
         </div>
     )
 }
+export async function getStaticPaths() {
+    return {
+        paths: [],
+        fallback: 'blocking'
+    }
+}
 
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
