@@ -1,6 +1,6 @@
 export type PageData = {
   css?: string;
-  fonts?: string;
+  fonts?: URL;
   icon: string;
   metadescription: string;
   theme_colors: string;

@@ -89,22 +89,24 @@ function Home({
     window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${userMessage}`)
     notify()
   }
-
-
   return (
     <div className={styles.container}>
       <Head>
         <title>{page_data.title}</title>
         <meta name="description" content={page_data.metadescription} />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossOrigin="anonymous" />
         <link rel="icon" href={page_data.icon ?? "/favicon.ico"} />
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         {/* <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" /> */}
         {jivochat.active && jivochat.widget && jivochat.widget.trim() ? (
           <script src={`//code-sa1.jivosite.com/widget/${jivochat.widget}`} async></script>
         ) : ''}
         <link rel="stylesheet" href="/icons/nucleo/css/nucleo.css" type="text/css"/>
+         
+      
+        
         <style>
+        {page_data.fonts}
           {page_data.theme_colors}
           {page_data.css ?? ''}
         </style>
