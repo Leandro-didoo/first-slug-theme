@@ -7,7 +7,7 @@ type props = {
     children: ReactNode,
 }
 
-export const Banner = ({banner, children}: props) => {
+export const Banner = ({ banner, children }: props) => {
     return (
         <div
             style={{
@@ -15,87 +15,78 @@ export const Banner = ({banner, children}: props) => {
             }}
             className={style.containerBanner}
         >
-           
             {children}
-            <div className="container">
-                <div className="row">
-                    <div className={`col s12 m6 ${style.ordem2}`}>
-                        <div className={style.itemRight}>
-                            <div
-                                style={{ backgroundImage: `url(${banner.png_img})` }}
-                                className={style.content}>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={`col s12 m6`}>
-                        <div className={style.itemLeft}>
-                            <div className={style.content}>
-                                <h2 style={{ color: `${banner.color_title}` }} >
-                                    {banner.title}
-                                </h2>
-                                <h3 style={{ color:banner.color_caption }} >
-                                    {banner.caption}
-                                </h3>
-                                {/* texto alternativo iterpletando tag html */}
-                                <div style={{ color: banner.color_txt }}
-                                    className={style.contentTxt}
-                                    dangerouslySetInnerHTML={{ __html: `${banner.txt}` }}
-                                />
-                                <a
-                                href="#schedule"
-                                    style={{
-                                        backgroundColor: banner.button_background,
-                                        color: banner.button_color,
-                                      
-                                    }}
-                                    className={`${style.button} btn`}>
-                                        {banner.txt_button}
-                                </a>
+            <div className={style.contentBanner}>
+                <div className={style.itemLeft}>
+                    <img src={banner.png_img} alt="" />
 
-                            </div>
-                        </div>
+                </div>
+                <div className={style.itemRIght}>
+                    <h2 style={{ color: `${banner.color_title}` }} >
+                        {banner.title}
+                    </h2>
+                    <h3 style={{ color: banner.color_caption }} >
+                        {banner.caption}
+                    </h3>
+                    {/* texto alternativo iterpletando tag html */}
+                    <div style={{ color: banner.color_txt }}
+                        className={style.contentTxt}
+                        dangerouslySetInnerHTML={{ __html: `${banner.txt}` }}
+                    />
+                    <a
+                        href="#schedule"
+                        style={{
+                            backgroundColor: banner.button_background,
+                            color: banner.button_color,
+                            
 
-                    </div>
-                    <div className={`col s12 m6 ${style.ordem1}`}>
-                        <div className={style.itemRight}>
-                            <div
-                                style={{ backgroundImage: `url(${banner.png_img})` }}
-                                className={style.content}>
+                        }}
+                        className={`${style.button} btn`}>
+                        {banner.txt_button}
+                    </a>
 
 
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
-            </div>
-
-
-            <div
-                style={{
-                    backgroundColor: banner.overlay
-                }}
-                className={style.overlay}>
 
             </div>
 
+            <div style={{ backgroundColor: banner.overlay }} className={style.overlay} />
         </div>
     )
 }
 
 
-{/* <div className={`${style.contentBanner} container`}>
-                {/* title */}
+// <div className="container">
+// <div className="row">
+//     <div className={`col s12 m6 ${style.ordem2}`}>
+//         <div className={style.itemRight}>
+//             <div
+//                 style={{ backgroundImage: `url(${banner.png_img})` }}
+//                 className={style.content}>
+//             </div>
+//         </div>
+//     </div>
+//     <div className={`col s12 m6`}>
+//         <div className={style.itemLeft}>
+//             <div className={style.content}>
 
 
-            //     {/* sub title */}
-            //  
+//             </div>
+//         </div>
+
+//     </div>
+//     <div className={`col s12 m6 ${style.ordem1}`}>
+//         <div className={style.itemRight}>
+//             <div
+//                 style={{ backgroundImage: `url(${banner.png_img})` }}
+//                 className={style.content}>
 
 
-            //     {/* button */}
+//             </div>
+//         </div>
+//     </div>
+// </div>
 
-            //     {/* overlay */}
+// </div>
 
-
-            // </div>
-            // */}

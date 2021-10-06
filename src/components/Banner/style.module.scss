@@ -1,78 +1,71 @@
 .containerBanner{
-     min-height: auto;
-    background-color: #333;
+    position: relative;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    position: relative;
-    
-   .itemLeft{
-       width: 100%;
-       position: relative;
-       z-index: 2;
-       &::after{
-           content: '';
-           display: block;
-           padding-top: 100%;
-           @media(min-width: 400px){
-            padding-top: 50%;
-        }
-            @media(min-width:600px){
-                padding-top: 125%;
-            }
-       }
-       .content{
-           position: absolute;
-           top: 0;
-           left: 0;
-           width: 100%;
-           height: 100%;
-           display: flex;
-           flex-direction: column;
-           justify-content: center;
-           align-items: center;
-           h2{
-               font-size: 6rem;
-           }
-           @media(min-width: 600px){
-            align-items: flex-start;
-           }
-       }
-       .button{
-           border-radius: 2rem;
-           margin-top: 2rem;
-           max-width: 200px;
-       }
+    .contentBanner{
+        width: 85%;
+        margin: 0 auto;
+        height: calc(100vh - 10vh);
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr;
+        overflow: hidden;
+        z-index: 1;
+        position: relative;
+        grid-template-areas: 
+          'one one'
+          'two two'
+        ;
+        @media(min-width: 600px){
+            width: 70%;
+            grid-template-rows: 100vh;
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas: 
+            'two one'
+          
+            ;
 
-   }
-//    container da imagem png
-   .itemRight{
-    width: 100%;
-    position: relative;
-    z-index: 2;
-    &::after{
-        content: '';
-        display: block;
-        padding-top: 100%;
-            @media(min-width: 400px){
-                padding-top: 50%;
+        }
+        .itemLeft{
+            grid-area: one;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            img{
+                height: 100%;
+
             }
-            @media(min-width:600px){
-                padding-top: 125%;
+        
+        }
+        .itemRIght{
+            grid-area: two;
+            width: 100%;
+            text-align: center;
+            h2{
+                font-size: 5rem;
             }
+            h3{
+                font-size: 3rem ;
+            }
+            .contentTxt{
+                font-size: 1.5rem;
+            }
+            .button{
+                margin-top: 1rem;
+                border-radius: 2rem;
+                max-width: 200px;
+            }
+            @media(min-width: 600px){
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                text-align: left;
+            }
+        }
     }
-    .content{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-    }
-      
-   }
     .overlay{
         position: absolute;
         top: 0;
@@ -80,20 +73,5 @@
         width: 100%;
         height: 100%;
         z-index: 0;
-    }
-}
-.ordem1{
-    display: none;
-}
-.ordem2{
-    display: block;
-}
-
-@media(min-width: 601px){
-    .ordem1{
-        display: block;
-    }
-    .ordem2{
-        display: none;
     }
 }

@@ -16,7 +16,6 @@ export const BtnCokies = () => {
         localStorage.setItem('@cms:accepted_cookies', 'accepted');
         setAcceptCookies(true)
     }
-    console.log(!process.browser, acceptCookies)
     return (
             <div
                 className={`${style.container} z-depth-3`}

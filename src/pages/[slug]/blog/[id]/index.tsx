@@ -292,7 +292,7 @@ export default function ContentBlog({
             if (arrComments[i - 1].data &&
                 arrComments[i - 1].data?.comments
             ) {
-                console.log(!arrComments[i - 1].data?.comments[arrComments[i].index].answers);
+                // console.log(!arrComments[i - 1].data?.comments[arrComments[i].index].answers);
                 if (!arrComments[i - 1].data?.comments[arrComments[i].index].answers) {
                     // @ts-ignore
                     arrComments[i - 1].data.comments[arrComments[i].index] = {
