@@ -104,6 +104,10 @@ function Home({
           <script src={`//code-sa1.jivosite.com/widget/${jivochat.widget}`} async></script>
         ) : ''}
         <link rel="stylesheet" href="/icons/nucleo/css/nucleo.css" type="text/css"/>
+        <style>
+          {page_data.theme_colors}
+          {page_data.css ?? ''}
+        </style>
       </Head>
       <header id="inicio">
         <Banner banner={banner} >
