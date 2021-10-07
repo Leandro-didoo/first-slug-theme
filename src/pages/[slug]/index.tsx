@@ -599,10 +599,19 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
     if (responseProducts.data.result) {
       dataProducts = responseProducts.data.response.map((product: any) => {
+        let name = product.name
+        try{
+          if(name.indexOf('"pt"') != -1 && JSON.parse(product.name)){
+            name = JSON.parse(product.name).pt
+          }
+        }catch{
+          name = product.name
+
+        }
         return {
           id: product.id,
           img: elements.cms_catalog.data.origin + product.logom,
-          name: product.name,
+          name: name,
           price: Number(product.price),
         }
       });
