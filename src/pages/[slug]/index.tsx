@@ -101,12 +101,12 @@ function Home({
         {jivochat.active && jivochat.widget && jivochat.widget.trim() ? (
           <script src={`//code-sa1.jivosite.com/widget/${jivochat.widget}`} async></script>
         ) : ''}
-        <link rel="stylesheet" href="/icons/nucleo/css/nucleo.css" type="text/css"/>
-         
-      
-        
+        <link rel="stylesheet" href="/icons/nucleo/css/nucleo.css" type="text/css" />
+
+
+
         <style>
-        {page_data.fonts}
+          {page_data.fonts}
           {page_data.theme_colors}
           {page_data.css ?? ''}
         </style>
@@ -154,7 +154,7 @@ function Home({
                         <div className={styles.containerIco}>
                           <i
                             style={{ color: service.card_color_ico }}
-                            className={`${content.ico? content.ico : 'fas fa-map-signs'}  center-align`}
+                            className={`${content.ico ? content.ico : 'fas fa-map-signs'}  center-align`}
                           >
                           </i>
                         </div>
@@ -174,18 +174,25 @@ function Home({
 
             </div>
             <div className={styles.groupBtnService}>
-              <button
-                style={{
-                  backgroundColor: service.buttonTwo_background,
-                  color: service.buttonOne_color
-                }}
-                className="btn">{service.buttonOne}</button>
-              <button
+              {products ? (
+                <a
+                  href={products.linkButton}
+                  style={{
+                    backgroundColor: service.buttonTwo_background,
+                    color: service.buttonOne_color
+                  }}
+                  className="btn">{service.buttonOne}
+                </a>
+
+              ) : ''}
+
+              <a
                 style={{
                   backgroundColor: service.buttonOne_background,
                   color: service.buttonTwo_color
                 }}
-                className="btn">{service.buttonTwo}</button>
+                className="btn">{service.buttonTwo}
+              </a>
             </div>
           </div>
           <div style={{ backgroundColor: service.overlay }} className="overlay" />
@@ -272,7 +279,7 @@ function Home({
             <div className="row center">
               <a
                 href={products.linkButton}
-                style={{ borderRadius: '2rem', backgroundColor: products.backgroundButton, color:products.colorButton }}
+                style={{ borderRadius: '2rem', backgroundColor: products.backgroundButton, color: products.colorButton }}
                 className="btn">Ver catalogo
               </a>
             </div>
@@ -396,7 +403,7 @@ function Home({
               <h4 style={{ color: instagram.colorSubTitle }}>{instagram.subtitle}</h4>
             </div>
             <div className="row">
-              {instagram.data.map((content:any) => {
+              {instagram.data.map((content: any) => {
                 return (
                   <div key={content.id} className="col s12 m6 l4">
                     <div className={`card ${styles.cardImgInsta}`}>
@@ -563,11 +570,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (!userPage) throw new Error('Não foi possível se comunicar com o servidor!');
   if (!userPage.data.result) throw new Error(userPage.data.response);
 
- 
+
   const response = await cms.get(`page/data/${theme_slug}`, {
     headers: { 'access-token': access_token }
   });
-  
+
   if (!response || !response.data.result) throw new Error('Impossível carregar a página.');
   const page = response.data.response;
   // END:: REQUEST PAGE | BEGIN:: PARSE PAGE
@@ -584,13 +591,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const elements = parseElement;
   // END:: PARSE PAGE
 
-  
+
   const navBar = elements.navbar.data;
   const banner = elements.banner.data;
   const service = { ...elements.service.data, active: elements.service.active };
   const about = { ...elements.about.data, active: elements.about.active };
   const callToAction = { ...elements.callToAction.data, active: elements.callToAction.active };
-  
+
   // BEGIN:: HANDLE PRODUCTS
   let dataProducts = [];
   if (elements.cms_catalog.active && elements.cms_catalog.data.api_url) {
@@ -600,11 +607,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     if (responseProducts.data.result) {
       dataProducts = responseProducts.data.response.map((product: any) => {
         let name = product.name
-        try{
-          if(name.indexOf('"pt"') != -1 && JSON.parse(product.name)){
+        try {
+          if (name.indexOf('"pt"') != -1 && JSON.parse(product.name)) {
             name = JSON.parse(product.name).pt
           }
-        }catch{
+        } catch {
           name = product.name
 
         }
@@ -645,18 +652,18 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // BEGIN:: HANDLE INSTAGRAM
   let dataInstagram = []
   if (elements.cms_instagram && elements.cms_instagram.active) {
-    try{
+    try {
       const responseInstagram = await cms.get(`/gallery/show/instagram`, {
         headers: { 'access-token': access_token, 'take': elements.cms_instagram.data.take }
       });
       if (responseInstagram.data.result) {
         dataInstagram = responseInstagram.data.response.images;
       }
-    }catch{}
+    } catch { }
   }
   const instagram = {
     ...elements.cms_instagram?.data,
-    active:  dataInstagram.length === 0 ? false : elements.cms_instagram.active,
+    active: dataInstagram.length === 0 ? false : elements.cms_instagram.active,
     data: dataInstagram
   };
   // END:: HANDLE INSTAGRAM | BEGIN:: HANDLE BLOG
@@ -698,6 +705,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       footer,
       jivochat
     },
-   
+
   }
 }
