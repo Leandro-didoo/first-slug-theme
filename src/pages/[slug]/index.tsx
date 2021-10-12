@@ -225,7 +225,7 @@ function Home({
                     <h2 style={{ color: about.title_color }}>{about.title}</h2>
                     <h3 style={{ color: about.txt_color }}>{about.subTitle}</h3>
                     <div style={{ color: about.txt_color }} className={styles.aboutTxt} dangerouslySetInnerHTML={{ __html: `${about.txt}` }} />
-                    <Link href="#">
+                    <Link href="#schedule">
                       <a style={{ backgroundColor: about.backgroundButton }}
                         className="btn">{about.button}
                       </a>
