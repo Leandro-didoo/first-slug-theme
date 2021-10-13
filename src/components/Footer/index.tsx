@@ -50,6 +50,7 @@ export const Footer = ({ content }: FooterProps) => {
                         <h5>Fale conosco</h5>
                         <p className=" text-lighten-4">{content.phoneOne}</p>
                         <p className=" text-lighten-4">{content.phoneTwo}</p>
+                        <p className=" text-lighten-4">{content.email}</p>
                         <div className="row">
                             <div className="col">
                                 {content.facebook ? (
