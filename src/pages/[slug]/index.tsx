@@ -173,7 +173,7 @@ function Home({
             </div>
             <div className={styles.groupBtnService}>
               <div className="row">
-                {products ? (
+                {products.active == true || products.active == 1 ? (
                   <div className="col s12 m6">
                     <a
                       href={products.linkButton}
@@ -183,13 +183,11 @@ function Home({
                       }}
                       className="btn">{service.buttonOne}
                     </a>
-
                   </div>
-
-
                 ) : ''}
                 <div className="col s12 m6">
                   <a
+                   href="#schedule"
                     style={{
                       backgroundColor: service.buttonOne_background,
                       color: service.buttonTwo_color
