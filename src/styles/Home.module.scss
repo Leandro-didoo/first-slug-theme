@@ -17,14 +17,11 @@
 
     }
     .groupBtnService{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 1.3rem;
         a{
-            margin: 10px;
+            width: 100%;
             flex: 1;
             border-radius: 2rem;
+            margin-bottom: 10px;
         }
     }
 }

@@ -174,25 +174,35 @@ function Home({
 
             </div>
             <div className={styles.groupBtnService}>
-              {products ? (
-                <a
-                  href={products.linkButton}
-                  style={{
-                    backgroundColor: service.buttonTwo_background,
-                    color: service.buttonOne_color
-                  }}
-                  className="btn">{service.buttonOne}
-                </a>
+              <div className="row">
+                {products ? (
+                  <div className="col s12 m6">
+                    <a
+                      href={products.linkButton}
+                      style={{
+                        backgroundColor: service.buttonTwo_background,
+                        color: service.buttonOne_color
+                      }}
+                      className="btn">{service.buttonOne}
+                    </a>
 
-              ) : ''}
+                  </div>
 
-              <a
-                style={{
-                  backgroundColor: service.buttonOne_background,
-                  color: service.buttonTwo_color
-                }}
-                className="btn">{service.buttonTwo}
-              </a>
+
+                ) : ''}
+                <div className="col s12 m6">
+                  <a
+                    style={{
+                      backgroundColor: service.buttonOne_background,
+                      color: service.buttonTwo_color
+                    }}
+                    className="btn">{service.buttonTwo}
+                  </a>
+
+                </div>
+              </div>
+
+
             </div>
           </div>
           <div style={{ backgroundColor: service.overlay }} className="overlay" />
