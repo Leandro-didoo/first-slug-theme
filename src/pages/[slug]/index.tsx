@@ -217,12 +217,8 @@ function Home({
 
               <div className="col s12 m6">
                 <div className={styles.itemLeft}>
-                  <div
-                    style={{
-                      backgroundImage: `url(${about.imgPng})`
-                    }}
-                    className={styles.item}>
-
+                  <div className={styles.item} >
+                      <img src={about.imgPng} alt="" />
                   </div>
                 </div>
               </div>
