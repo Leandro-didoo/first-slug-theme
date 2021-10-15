@@ -134,7 +134,7 @@ function Home({
       </header>
 
       {/* services  */}
-      {service.active ? (
+      {service.active == true || service.active == 1 ? (
         <section
           id="services"
           style={{ backgroundImage: `url(${service.background})` }}
@@ -170,8 +170,6 @@ function Home({
                   </div>
                 )
               })}
-
-
             </div>
             <div className={styles.groupBtnService}>
               <div className="row">
@@ -210,7 +208,8 @@ function Home({
       ) : ''}
 
       {/* about */}
-      {about.active ? (
+      
+      {about.active == true || about.active == 1 ? (
         <section
           id="about"
           className={styles.containerAbout}
@@ -253,7 +252,7 @@ function Home({
         </section>
       ) : ''}
       {/* call-to-action */}
-      {callToAction.active ? (
+      {callToAction.active == true || callToAction.active == 1 ? (
         <section id="call-to-action"
           className={styles.callToAction}
           style={{
@@ -273,7 +272,7 @@ function Home({
           <div style={{ backgroundColor: callToAction.overlay }} className="overlay" />
         </section>) : ''}
       {/*products  */}
-      {products.active ? (
+      {products.active == true || products.active == 1  ? (
         <section id="products">
           <div className="container">
             <h2 className="center-align">Nossos Produtos</h2>
@@ -300,7 +299,7 @@ function Home({
       ) : ''}
 
       {/* testimonial */}
-      {testimonial.active ? (
+      {testimonial.active == true || testimonial.active == 1 ? (
         <section id="testimonial"
           className={styles.testimonial}
           style={{
@@ -349,7 +348,7 @@ function Home({
       ) : ''}
 
       {/* gallery */}
-      {galery.active ? (
+      {galery.active == true || galery.active == 1 ? (
         <section id="gallery"
           className={styles.gallery}
         >
@@ -382,7 +381,7 @@ function Home({
       ) : ''}
 
       {/* video */}
-      {video.active ? (
+      {video.active == true || video.active == 1 ? (
         <section id="video"
           style={{
             backgroundImage: `url(${video.background})`
@@ -403,7 +402,7 @@ function Home({
         </section>
       ) : ''}
       {/* instagram */}
-      {instagram.active ? (
+      {instagram.active == true || instagram.active  == 1? (
         <section id="instagram"
           className={styles.instagram}
         >
@@ -430,7 +429,7 @@ function Home({
       ) : ''}
 
       {/* blog */}
-      {blog.active ? (
+      {blog.active == true || blog.active == 1 ? (
         <section id="blog"
           className={styles.blog}
         >
@@ -456,7 +455,7 @@ function Home({
       ) : ''}
 
       {/*schedule */}
-      {schedule.active ? (
+      {schedule.active == true || schedule.active  == 1? (
         <section id="schedule"
           style={{ backgroundImage: `url(${schedule.background})` }}
           className={styles.shedule}

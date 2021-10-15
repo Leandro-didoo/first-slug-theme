@@ -32,7 +32,7 @@ export type BannerType = {
   color_txt: string
 }
 export type ServiceType = {
-  active: boolean,
+  active: boolean | number,
   background: string,
   overlay: string,
   title: string,
@@ -59,7 +59,7 @@ export type ServiceType = {
   ]
 }
 export type AboutType = {
-  active: boolean,
+  active: boolean | number,
   background: string,
   title: string,
   subTitle: string,
@@ -73,7 +73,7 @@ export type AboutType = {
   overlay: string
 }
 export type CallToActionType = {
-  active: boolean,
+  active: boolean | number,
   background: string,
   title: string,
   subTitle: string,
@@ -86,7 +86,7 @@ export type CallToActionType = {
   colorTxt: string
 }
 export type Products = {
-  active: boolean,
+  active: boolean | number,
   take: number,
   title: string,
   colorTitle: string,
@@ -108,7 +108,7 @@ export type Products = {
 
 }
 export type TestimonialType = {
-  active: boolean,
+  active: boolean | number,
   title: string,
   subTitle: string,
   colorTitle: string,
@@ -130,7 +130,7 @@ export type TestimonialType = {
   ],
 }
 export type Galerytype = {
-  active: boolean,
+  active: boolean | number,
   overlay: string,
   title: string,
   subtitulo: string,
@@ -146,7 +146,7 @@ export type Galerytype = {
   ]
 }
 export type VideoType = {
-  active: boolean,
+  active: boolean | number,
   overlay: string,
   title: string,
   background: string,
@@ -194,7 +194,7 @@ export type SheduleType = {
   placeholder_textarea: string,
 }
 export type InstagramType = {
-  active: boolean,
+  active: boolean | number,
   background: string,
   overlay: string,
   title: string,
@@ -225,7 +225,7 @@ export type Posts = {
   wallpaper: string,
 }
 export type BlogType = {
-  active: boolean,
+  active: boolean | number,
   background: string,
   overlay: string,
   title: string,
@@ -276,7 +276,7 @@ export type PostLead = {
   thumbnail?: string;
 }
 export type JivochatType = {
-  active: boolean,
+  active: boolean | number,
   widget?: string
 }
 export type NavType = {
