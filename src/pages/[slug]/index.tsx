@@ -185,7 +185,7 @@ function Home({
                     </a>
                   </div>
                 ) : ''}
-                <div className="col s12 m6">
+                <div className={`col s12  ${products.active == true || products.active == 1 ? 'm6':'m12' }`}>
                   <a
                    href="#schedule"
                     style={{
