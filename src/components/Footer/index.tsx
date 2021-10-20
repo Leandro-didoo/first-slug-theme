@@ -90,7 +90,7 @@ export const Footer = ({ content }: FooterProps) => {
                 </div>
                 <hr />
                 <div style={{ color: content.colorTxt }} className="row center">
-                    <p>Criado com Tecnologia Didoo Sistemas Digitais</p>
+                    <a href="https://www.didoo.app.br/">Criado com Tecnologia Didoo Sistemas Digitais</a>
                 </div>
             </div>
 
