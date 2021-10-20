@@ -119,9 +119,9 @@ function Home({
             data={navBar}
           >
             {service.active && <li style={{ color: navBar.link_color }}><a href="#services">Serviços</a></li>}
-            {about.active && <li style={{ color: navBar.link_color }} ><a href="#about">sobre</a></li>}
-            {products.active && <li style={{ color: navBar.link_color }}><a href="#products">produtos</a></li>}
-            {galery.active && <li style={{ color: navBar.link_color }} ><a href="#gallery">galeria</a></li>}
+            {about.active && <li style={{ color: navBar.link_color }} ><a href="#about">Sobre</a></li>}
+            {products.active && <li style={{ color: navBar.link_color }}><a href="#products">Produtos</a></li>}
+            {galery.active && <li style={{ color: navBar.link_color }} ><a href="#gallery">Galeria</a></li>}
             {blog.active && <li style={{ color: navBar.link_color }}>
               <Link href={`/${slug}/blog`}>
                 <a style={{ color: navBar.link_color }} >blog</a>
