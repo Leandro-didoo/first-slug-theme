@@ -1,4 +1,6 @@
 export type PageData = {
+  page_id: number;
+  user_id: number;
   css?: string;
   fonts?: URL;
   icon: string;

@@ -38,7 +38,23 @@ type Props = {
   schedule: SheduleType,
   footer: FooterType,
   jivochat: JivochatType,
-  slug: string
+  slug: string,
+  token: string
+}
+
+interface OuthersSendMessage{
+  date?: string;
+  hour?: string;
+}
+
+interface DataSendMessage{
+  name: string;
+  email: string;
+  message: string;
+  phone?: string;
+  page_id: number;
+  page_owner_id: number;
+  outhers?: OuthersSendMessage;
 }
 
 function Home({
@@ -57,7 +73,8 @@ function Home({
   schedule,
   instagram,
   blog,
-  jivochat
+  jivochat,
+  token
 }: Props) {
 
   const srcImagens = galery.data.map(image => image.name)
@@ -81,13 +98,74 @@ function Home({
     })
   }
   const notify = () => toast("Enviado com sucesso!");
-  function handleShedule(event: FormEvent) {
-    let phone = footer.whatsapp;
+  async function handleShedule(event: FormEvent) {
     event.preventDefault();
-    let userMessage = ` *NOME:* ${name} \n\n*E-MAIL:* ${email}\n\n*DATA:* ${data}\n\n*HORÁRIO:* ${hour}\n\n*MENSAGEM:* \n\n ${mesage}`
+    let phone = footer.whatsapp;
+
+    let dataSendMessage: DataSendMessage = {
+      name, email, message: mesage,
+      page_id: page_data.page_id,
+      page_owner_id: page_data.user_id
+      
+    };
+    let outhers: OuthersSendMessage = {};
+    let outhersMessage = '';
+    if(whatsapp) dataSendMessage['phone'] = whatsapp;
+    if(data){
+      let date_broken = data.split('-');
+      if(date_broken.length === 3){
+        let date = new Date(
+          Number(date_broken[0]), 
+          Number(date_broken[1]), 
+          Number(date_broken[2])
+        );
+        let date_formatted = new Intl.DateTimeFormat('pt-BR').format(date);
+        outhers = { date: date_formatted };
+        outhersMessage = `${date_formatted} `;
+      }
+    }
+    if(hour){
+      if(outhers) outhers['hour'] = hour;
+      else outhers = { hour };
+      outhersMessage+=hour;
+    }
+    if(outhers){
+      dataSendMessage['outhers'] = outhers;
+      dataSendMessage['message'] = `${mesage}<br/><br/>Agendado para:<br/>${outhersMessage}`;
+    }
+
+    let userMessage = ` *NOME:* ${name} \n\n*E-MAIL:* ${email}\n\n*DATA:* ${data}\n\n*HORÁRIO:* ${hour}\n\n*MENSAGEM:* \n\n ${mesage}`;
     userMessage = window.encodeURIComponent(userMessage);
-    window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${userMessage}`)
-    notify()
+
+    try{
+      const { data } = await cms.post("/contact/send",dataSendMessage, {
+        headers: { 'access-token': token }
+      });
+      if(data.result){
+        handleSendToWhatsapp(phone,userMessage);
+        notify()
+        handleClearFormContact();
+      }else handleSendToWhatsapp(phone,userMessage, true);
+    }catch(err){
+      console.log(err);
+      handleSendToWhatsapp(phone,userMessage, true);
+    }
+  }
+  function handleSendToWhatsapp(phone: string, text: string, confirm = false){
+    if(confirm &&
+      !window.confirm('Não foi possível armazenar sua mensagem. Deseja enviar mesmo assim?')
+    ) return;
+    
+    window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${text}`);
+    return;
+  }
+  function handleClearFormContact(){
+    setName('');
+    setEmail('');
+    setWhatsapp('');
+    setData('');
+    setHour('');
+    setMesage('');
   }
   return (
     <div className={styles.container}>
@@ -467,36 +545,30 @@ function Home({
                 <form onSubmit={handleShedule} className="grey lighten-5">
                   <input
                     type="text"
-                    name=""
                     onChange={event => setName(event.target.value)}
                     value={name}
-                    id=""
                     placeholder={schedule.placeholder_name ?? "nome"}
+                    required
                   />
                   <input
                     type="email"
-                    name=""
                     onChange={event => setEmail(event.target.value)}
                     value={email}
-                    id=""
                     placeholder={schedule.placeholder_email ?? "e-mail"}
+                    required
                   />
                   <input
                     type="tel"
-                    name=""
                     onChange={event => setWhatsapp(event.target.value)}
                     value={whatsapp}
-                    id=""
                     placeholder={schedule.placeholder_whatsapp ?? "whatsapp"}
                   />
                   <div className="row">
                     <div className="col s12 m6">
                       <input
                         type="date"
-                        name=""
                         onChange={event => setData(event.target.value)}
                         value={data}
-                        id=""
                         placeholder={schedule.placeholder_data}
                       />
 
@@ -505,20 +577,17 @@ function Home({
                       <input
                         type="time"
                         placeholder={schedule.placeholder_hora ?? "Hora"}
-                        name=""
                         onChange={event => setHour(event.target.value)}
                         value={hour}
-                        id=""
                       />
                     </div>
                   </div>
                   <textarea
                     placeholder="Descreva seu pedido"
-                    name=""
                     onChange={event => setMesage(event.target.value)}
                     value={mesage}
-                  >
-                  </textarea>
+                    required
+                  ></textarea>
                   <div className={styles.containerBtn}>
                     <button className="btn" type="submit">Enviar</button>
                   </div>
@@ -706,7 +775,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       blog,
       schedule,
       footer,
-      jivochat
+      jivochat,
+      token: access_token
     },
 
   }
