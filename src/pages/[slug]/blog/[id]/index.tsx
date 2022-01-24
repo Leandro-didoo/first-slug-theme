@@ -540,7 +540,9 @@ export default function ContentBlog({
                     </div>
                 </div>
             </div>
-            <Footer content={footer} />
+            { footer ? (
+                <Footer content={footer} />
+            ):''}
             <ModalLoginLead
                 isOpen={isOpenModalLogin}
                 closeModal={() => setIsOpenModalLogin(false)}
@@ -590,7 +592,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     });
     const elements = parseElement;
     const navBar = elements.navbar.data
-    const footer = elements.footer.data;
+    const footer = elements.footer ? elements.footer.data : null;
 
     const reponsePost = await cms.get(`post/show/${ctx.params.id}`, {
         headers: { 'access-token': access_token }

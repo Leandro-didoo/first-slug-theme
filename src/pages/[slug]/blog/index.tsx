@@ -122,7 +122,9 @@ export default function Blog({ page_data, blog, footer, navBar, slug }: BlogProp
 
                     </main>
                 </div>
-                <Footer content={footer} />
+                {footer ? (
+                    <Footer content={footer} />
+                ) : ''}
 
             </div>
         </>
@@ -168,22 +170,28 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
     const elements = parseElement;
     let dataBlog = [];
-    if (elements.cms_blog.active) {
+    if (elements.cms_blog && elements.cms_blog.active) {
         const responseBlog = await cms.get(`post/feed`, {
             headers: { 'access-token': access_token, 'take': elements.cms_blog.data.take }
         });
         if (responseBlog.data.result) {
             dataBlog = responseBlog.data.response.posts
         }
+    }else return {
+        redirect: {
+            permanent: false,
+            destination: `/${slug}`
+        }
     }
+
     const navBar = elements.navbar.data
 
     const blog = {
-        ...elements.cms_blog.data,
-        active: dataBlog.length === 0 ? false : elements.cms_blog.active,
+        ...elements.cms_blog?.data,
+        active: dataBlog.length === 0 ? false : elements.cms_blog?.active,
         data: dataBlog
     };
-    const footer = elements.footer.data;
+    const footer = elements.footer ? elements.footer.data : null;
 
     return {
         props: {

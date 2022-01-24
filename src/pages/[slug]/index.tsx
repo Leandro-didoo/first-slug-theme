@@ -770,8 +770,12 @@ function Home({
         pauseOnHover
       />
 
-      <Whatsapp phone={footer.whatsapp} />
-      <Footer content={footer} />
+      { footer ? (
+        <>
+          <Whatsapp phone={footer.whatsapp} />
+          <Footer content={footer} />
+        </>
+      ):''}
     </div>
   )
 }
@@ -914,7 +918,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
   // END:: HANDLE INSTAGRAM | BEGIN:: HANDLE BLOG
   let dataBlog = [];
-  if (elements.cms_blog.active) {
+  if (elements.cms_blog && elements.cms_blog.active) {
     try{
       const responseBlog = await cms.get(`post/feed`, {
         headers: { 'access-token': access_token, 'take': elements.cms_blog.data.take }
@@ -925,8 +929,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }catch(e: any){ }
   }
   const blog = {
-    ...elements.cms_blog.data,
-    active: dataBlog.length === 0 ? false : elements.cms_blog.active,
+    ...elements.cms_blog?.data,
+    active: dataBlog.length === 0 ? false : elements.cms_blog?.active,
     data: dataBlog
   };
   // END:: BLOG
@@ -936,7 +940,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const faq = elements.faq ? {
     ...elements.faq.data, active: elements.faq.active 
   } : { active: false };
-  const footer = elements.footer.data;
+  const footer = elements.footer ? elements.footer.data : null;
   const jivochat = elements.jivochat ? {
     active: elements.jivochat.active, ...elements.jivochat.data
   } : { active: false };
