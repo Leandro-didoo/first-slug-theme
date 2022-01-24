@@ -432,8 +432,8 @@ function Home({
               { image_legends.subtitle }
             </h4>
             <div className={styles.flexImages}>
-              { image_legends.images.map(image => { return (
-                <figure style={{ color: image_legends.text_image_color }}>
+              { image_legends.images.map((image, i) => { return (
+                <figure style={{ color: image_legends.text_image_color }} key={`image_legend_${i}`}>
                   <img src={image.image}/>
                   <figcaption>{image.title}</figcaption>
                   <p>{image.description}</p>
