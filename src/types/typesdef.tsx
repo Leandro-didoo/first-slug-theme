@@ -33,6 +33,19 @@ export type BannerType = {
   color_caption: string,
   color_txt: string
 }
+export type NewSectionType = {
+  active: boolean | Number,
+  image: string,
+  overlay: string,
+  title: string,
+  subtitle: string,
+  description: string,
+  text_color: string,
+  button_text: string,
+  button_link: string,
+  button_color: string,
+  button_background: string,
+}
 export type ServiceType = {
   active: boolean | number,
   background: string,
@@ -74,6 +87,21 @@ export type AboutType = {
   txt_color: string,
   overlay: string
 }
+export type SectionListType = {
+  active: boolean | Number,
+  background: string,
+  overlay: string,
+  title: string,
+  subtitle: string,
+  items:{ item: string }[],
+  image: string,
+  text_color: string,
+  button_text: string,
+  button_link: string,
+  button_color: string,
+  button_background: string,
+}
+
 export type CallToActionType = {
   active: boolean | number,
   background: string,
@@ -87,6 +115,26 @@ export type CallToActionType = {
   colorTitle: string,
   colorTxt: string
 }
+
+export type ImageLegendsType = {
+  active: boolean | Number,
+  background: string,
+  overlay: string,
+  title: string,
+  subtitle: string,
+  text_color: string,
+  images: {
+    image: string,
+    title: string,
+    description: string,
+    button_text: string,
+    button_link: string,
+    button_color: string,
+    button_background: string,
+  }[],
+  text_image_color: string
+}
+
 export type Products = {
   active: boolean | number,
   take: number,
@@ -157,6 +205,22 @@ export type VideoType = {
   colorSubTitulo: string,
   txt: string,
   src: string,
+}
+
+export type FaqType ={
+  active: boolean | Number,
+  background: string;
+  overlay: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  text_color: string;
+  questions: {
+    title: string;
+    description: string;
+  }[];
+  question_background: string;
+  question_color: string;
 }
 
 export type FooterType = {

@@ -5,7 +5,7 @@ import styles from '../../styles/Home.module.scss';
 import { Button, Card, Row, Col, Carousel, Modal } from 'react-materialize';
 import { Footer } from '../../components/Footer';
 import { Banner } from '../../components/Banner';
-import { PageData, AboutType, BannerType, BlogType, CallToActionType, FooterType, Galerytype, InstagramType, ServiceType, SheduleType, TestimonialType, VideoType, Products, JivochatType, NavType } from '../../types/typesdef';
+import { PageData, AboutType, BannerType, BlogType, CallToActionType, FooterType, Galerytype, InstagramType, ServiceType, SheduleType, TestimonialType, VideoType, Products, JivochatType, NavType, FaqType, ImageLegendsType, SectionListType, NewSectionType } from '../../types/typesdef';
 import { CardContent, Carrousel } from '../../components/Carrosel';
 import { ChevronDoubleUp, Heart, Stars } from '../../components/Icons';
 import cms from '../../services/cms';
@@ -26,9 +26,12 @@ type Props = {
   page_data: PageData,
   navBar: NavType,
   banner: BannerType,
+  new_section: NewSectionType,
   service: ServiceType,
   about: AboutType,
+  section_list: SectionListType,
   callToAction: CallToActionType,
+  image_legends: ImageLegendsType,
   products: Products,
   testimonial: TestimonialType,
   galery: Galerytype,
@@ -36,6 +39,7 @@ type Props = {
   instagram: InstagramType,
   blog: BlogType,
   schedule: SheduleType,
+  faq: FaqType,
   footer: FooterType,
   jivochat: JivochatType,
   slug: string,
@@ -59,21 +63,25 @@ interface DataSendMessage{
 
 function Home({
   page_data,
-  slug,
   navBar,
   banner,
+  new_section,
   service,
   about,
+  section_list,
   callToAction,
+  image_legends,
   products,
   testimonial,
   galery,
   video,
+  faq,
   footer,
   schedule,
   instagram,
   blog,
   jivochat,
+  slug,
   token
 }: Props) {
 
@@ -206,11 +214,41 @@ function Home({
               </Link>
             </li>}
             <li style={{ color: navBar.link_color }}><a href="#schedule">Contato</a></li>
-            <li style={{ color: navBar.link_color }}><a style={{ borderRadius: '2rem', backgroundColor: banner.button_background, color: banner.button_color }} href="#schedule" className="btn">Agendar horario</a></li>
+            <li style={{ color: navBar.link_color }}><a style={{ borderRadius: '2rem', backgroundColor: banner.button_background, color: banner.button_color }} href="#schedule" className="btn">Agendar Horario</a></li>
           </Nav>
         </Banner>
       </header>
 
+      {new_section.active == true || new_section.active == 1 ? (
+        <section
+          id="new_section"
+          className={styles.newSection}
+          style={{ backgroundImage: `url('${new_section.image}')` }}
+        >
+          <div className={styles.overlay} style={{ background: new_section.overlay }}></div>
+          <div className={styles.content}>
+            <h2 className={styles.title} style={{ color: new_section.text_color }}>
+              { new_section.title }
+            </h2>
+            <h4 className={styles.subtitle} style={{ color: new_section.text_color }}>
+              { new_section.subtitle }
+            </h4>
+            <p style={{ color: new_section.text_color }}>
+              { new_section.description }
+            </p>
+            <a
+              className={styles.btnAction}
+              href={ new_section.button_link }
+              style={{
+                background: new_section.button_background,
+                color: new_section.button_color
+              }}
+            >
+              { new_section.button_text }
+            </a>
+          </div>
+        </section>
+      ):''}
       {/* services  */}
       {service.active == true || service.active == 1 ? (
         <section
@@ -323,6 +361,41 @@ function Home({
 
         </section>
       ) : ''}
+
+      {section_list.active == true || section_list.active == 1 ? (
+        <section
+          id="section_list"
+          className={styles.sectionList}
+          style={{ backgroundImage: `url('${section_list.background}')` }}
+        >
+          <div className={styles.overlay} style={{ background: section_list.overlay }}></div>
+          <div className={styles.content}>
+            <h2 className={styles.title} style={{ color: section_list.text_color }}>
+              { section_list.title }
+            </h2>
+            <h4 className={styles.subtitle} style={{ color: section_list.text_color }}>
+              { section_list.subtitle }
+            </h4>
+            <div className={styles.row}>
+              <ul style={{ color: section_list.text_color }}>
+                {section_list.items.map((item, i) => { return(
+                  <li key={`item-${i}`}>{item.item}</li>
+                );})}
+              </ul>
+              <img src={section_list.image} className={styles.image}/>
+            </div>
+            <a
+              className={styles.btnAction}
+              href={ section_list.button_link }
+              style={{
+                background: section_list.button_background,
+                color: section_list.button_color
+              }}
+            >{ section_list.button_text }</a>
+          </div>
+        </section>
+      ): ''}
+      
       {/* call-to-action */}
       {callToAction.active == true || callToAction.active == 1 ? (
         <section id="call-to-action"
@@ -343,6 +416,44 @@ function Home({
 
           <div style={{ backgroundColor: callToAction.overlay }} className="overlay" />
         </section>) : ''}
+
+      {image_legends.active == true || image_legends.active == 1 ? (
+        <section
+          id="image_legends"
+          className={styles.imageLegends}
+          style={{ backgroundImage: `url('${image_legends.background}')` }}
+        >
+          <div className={styles.overlay} style={{ background: image_legends.overlay }}></div>
+          <div className={styles.content}>
+            <h2 className={styles.title} style={{ color: image_legends.text_color }}>
+              { image_legends.title }
+            </h2>
+            <h4 className={styles.subtitle} style={{ color: image_legends.text_color }}>
+              { image_legends.subtitle }
+            </h4>
+            <div className={styles.flexImages}>
+              { image_legends.images.map(image => { return (
+                <figure style={{ color: image_legends.text_image_color }}>
+                  <img src={image.image}/>
+                  <figcaption>{image.title}</figcaption>
+                  <p>{image.description}</p>
+                  <a
+                    className={styles.btnAction}
+                    href={ image.button_link }
+                    style={{
+                      background: image.button_background,
+                      color: image.button_color
+                    }}
+                  >
+                    { image.button_text }
+                  </a>
+                </figure>
+              ); })}
+            </div>
+          </div>
+        </section>
+      ) : ''}
+
       {/*products  */}
       {products.active == true || products.active == 1  ? (
         <section id="products">
@@ -598,6 +709,47 @@ function Home({
           <div style={{ backgroundColor: schedule.overlay }} className="overlay" />
         </section>
       ) : ''}
+
+      {faq.active == true || faq.active == 1 ? (
+        <section
+          id="faq"
+          className={styles.faq}
+          style={{ backgroundImage: `url('${faq.background}')` }}
+        >
+          <div className={styles.overlay} style={{ background: faq.overlay }}></div>
+          <div className={styles.content}>
+            <hgroup>
+              <h2 className={styles.title} style={{ color: faq.text_color }}>
+                { faq.title }
+              </h2>
+              <h4 className={styles.subtitle} style={{ color: faq.text_color }}>
+                { faq.subtitle }
+              </h4>
+            </hgroup>
+            <p style={{ color: faq.text_color }}>
+              { faq.description }
+            </p>
+
+            <div className={styles.card} style={{
+              background: faq.question_background, 
+              color: faq.question_color,
+            }}>
+              { faq.questions.map((question, i) => { return (
+                <div key={`question_${i}`}>
+                  <strong
+                    onClick={(e: any) => {
+                      let description = e.target.nextSibling;
+                      description.style.display = description.style.display == 'block' ? 'none':'block';
+                    }}
+                  >{question.title}</strong>
+                  <div style={{ display: 'none' }}>{question.description}</div>
+                </div>
+              ); })}
+            </div>
+          </div>
+        </section>
+      ):''}
+
       {scroll > 700 ? (
         <a href="#inicio" className="upPage">
           <ChevronDoubleUp width={18} color="white" />
@@ -663,64 +815,86 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const elements = parseElement;
   // END:: PARSE PAGE
 
-
-  const navBar = elements.navbar.data;
-  const banner = elements.banner.data;
-  const service = { ...elements.service.data, active: elements.service.active };
-  const about = { ...elements.about.data, active: elements.about.active };
-  const callToAction = { ...elements.callToAction.data, active: elements.callToAction.active };
+  const navBar = elements.navbar ? elements.navbar.data : { active: false };
+  const banner = elements.banner ? elements.banner.data : { active: false };
+  const new_section = elements.new_section ? {
+    ...elements.new_section.data, active: elements.new_section.active
+  } : { active: false };
+  const service = elements.service ? { 
+    ...elements.service.data, active: elements.service.active
+  } : { active: false };
+  const about = elements.about ? {
+    ...elements.about.data, active: elements.about.active
+  } : { active: false };
+  const section_list = elements.section_list ? {
+    ...elements.section_list.data, active: elements.section_list.active
+  } : { active: false };
+  const callToAction = elements.callToAction ? {
+    ...elements.callToAction.data, active: elements.callToAction.active
+  } : { active: false };
+  const image_legends = elements.image_legends ? {
+    ...elements.image_legends.data, active: elements.image_legends.active
+  } : { active: false };
 
   // BEGIN:: HANDLE PRODUCTS
   let dataProducts = [];
-  if (elements.cms_catalog.active && elements.cms_catalog.data.api_url) {
-    const take = elements.cms_catalog.data.take ?? '';
-    const responseProducts = await axios.get(`${elements.cms_catalog.data.api_url}/${take}`);
+  if (elements.cms_catalog && elements.cms_catalog.active && elements.cms_catalog.data.api_url) {
+    try{
+      const take = elements.cms_catalog.data.take ?? '';
+      const responseProducts = await axios.get(`${elements.cms_catalog.data.api_url}/${take}`);
 
-    if (responseProducts.data.result) {
-      dataProducts = responseProducts.data.response.map((product: any) => {
-        let name = product.name
-        try {
-          if (name.indexOf('"pt"') != -1 && JSON.parse(product.name)) {
-            name = JSON.parse(product.name).pt
+      if (responseProducts.data.result) {
+        dataProducts = responseProducts.data.response.map((product: any) => {
+          let name = product.name
+          try {
+            if (name.indexOf('"pt"') != -1 && JSON.parse(product.name)) {
+              name = JSON.parse(product.name).pt
+            }
+          } catch {
+            name = product.name
+
           }
-        } catch {
-          name = product.name
-
-        }
-        return {
-          id: product.id,
-          img: elements.cms_catalog.data.origin + product.logom,
-          name: name,
-          price: Number(product.price),
-        }
-      });
-    }
+          return {
+            id: product.id,
+            img: elements.cms_catalog.data.origin + product.logom,
+            name: name,
+            price: Number(product.price),
+          }
+        });
+      }
+    }catch(e: any) {}
   }
   const products = {
-    ...elements.cms_catalog.data,
+    ...elements.cms_catalog?.data,
     active: dataProducts.length === 0 ? false : elements.cms_catalog.active,
     data: dataProducts
   };
   // END:: HANDLE PRODUCTS
-  const testimonial = { ...elements.testimonial.data, active: elements.testimonial.active };
+  const testimonial = elements.testimonial ? {
+    ...elements.testimonial.data, active: elements.testimonial.active
+  } : { active: false };
   // BEGIN:: HANDLE GALLERY
   let dataGallery = [];
-  if (elements.cms_gallery.active && elements.cms_gallery.data.slug) {
-    const responseGallery = await cms.get(`/gallery/show/${elements.cms_gallery.data.slug}`, {
-      headers: { 'access-token': access_token, 'take': elements.cms_gallery.data.take }
-    });
-    if (responseGallery.data.result) {
-      dataGallery = responseGallery.data.response.images;
-    }
+  if (elements.cms_gallery && elements.cms_gallery.active && elements.cms_gallery.data.slug) {
+    try {
+      const responseGallery = await cms.get(`/gallery/show/${elements.cms_gallery.data.slug}`, {
+        headers: { 'access-token': access_token, 'take': elements.cms_gallery.data.take }
+      });
+      if (responseGallery.data.result) {
+        dataGallery = responseGallery.data.response.images;
+      }
+    }catch(e: any){ }
   }
 
   const galery = {
-    ...elements.cms_gallery.data,
+    ...elements.cms_gallery?.data,
     active: dataGallery.length === 0 ? false : elements.cms_gallery.active,
     data: dataGallery
   };
   // END:: HANDLE GALLERY
-  const video = { ...elements.video.data, active: elements.video.active };
+  const video = elements.video ? {
+    ...elements.video.data, active: elements.video.active
+  } : { active: false };
   // BEGIN:: HANDLE INSTAGRAM
   let dataInstagram = []
   if (elements.cms_instagram && elements.cms_instagram.active) {
@@ -731,7 +905,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       if (responseInstagram.data.result) {
         dataInstagram = responseInstagram.data.response.images;
       }
-    } catch { }
+    }catch(e: any){ }
   }
   const instagram = {
     ...elements.cms_instagram?.data,
@@ -741,12 +915,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // END:: HANDLE INSTAGRAM | BEGIN:: HANDLE BLOG
   let dataBlog = [];
   if (elements.cms_blog.active) {
-    const responseBlog = await cms.get(`post/feed`, {
-      headers: { 'access-token': access_token, 'take': elements.cms_blog.data.take }
-    });
-    if (responseBlog.data.result) {
-      dataBlog = responseBlog.data.response.posts
-    }
+    try{
+      const responseBlog = await cms.get(`post/feed`, {
+        headers: { 'access-token': access_token, 'take': elements.cms_blog.data.take }
+      });
+      if (responseBlog.data.result) {
+        dataBlog = responseBlog.data.response.posts
+      }
+    }catch(e: any){ }
   }
   const blog = {
     ...elements.cms_blog.data,
@@ -754,19 +930,28 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     data: dataBlog
   };
   // END:: BLOG
-  const schedule = { ...elements.schedule.data, active: elements.schedule.active };
+  const schedule = elements.schedule ? {
+    ...elements.schedule.data, active: elements.schedule.active 
+  } : { active: false };
+  const faq = elements.faq ? {
+    ...elements.faq.data, active: elements.faq.active 
+  } : { active: false };
   const footer = elements.footer.data;
-  const jivochat = { active: elements.jivochat.active, ...elements.jivochat.data };
+  const jivochat = elements.jivochat ? {
+    active: elements.jivochat.active, ...elements.jivochat.data
+  } : { active: false };
 
   return {
     props: {
       page_data,
-      slug,
       navBar,
       banner,
+      new_section,
       service,
       about,
+      section_list,
       callToAction,
+      image_legends,
       products,
       testimonial,
       galery,
@@ -774,8 +959,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       instagram,
       blog,
       schedule,
+      faq,
       footer,
       jivochat,
+      slug,
       token: access_token
     },
 

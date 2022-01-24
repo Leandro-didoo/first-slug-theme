@@ -18,12 +18,11 @@ export const CardBlog = ({post, slug}:Props) => {
               <small>
                   <Clock width={10} color="red" />
                   {post.date_formatted}
-                  {post.slug}
               </small>
               <Link href={`/${slug}/blog/${post.slug}`}>
                 <a className={style.title}>{post.title}</a>
               </Link>
-              <div className={style.contnt} dangerouslySetInnerHTML={{ __html: `${post.content}` }} />
+              <div className={style.contnt} dangerouslySetInnerHTML={{ __html: `${post.excerpt}` }} />
           </div>
 
         </div>

@@ -84,7 +84,7 @@ export default function Blog({ page_data, blog, footer, navBar, slug }: BlogProp
                                                 <Clock width={20} color="blue" />
                                                 {blog.data[0].date_formatted}
                                             </small>
-                                            <div className={style.contnt} dangerouslySetInnerHTML={{ __html: `${blog.data[0].content}` }} />
+                                            <div className={style.contnt} dangerouslySetInnerHTML={{ __html: `${blog.data[0].excerpt}` }} />
 
                                         </div>
                                     </div>
@@ -111,7 +111,7 @@ export default function Blog({ page_data, blog, footer, navBar, slug }: BlogProp
                                                 <Link href={`/${slug}/blog/${content.slug}`}>
                                                     <a className={style.title}>{content.title}</a>
                                                 </Link>
-                                                <div className={style.contnt} dangerouslySetInnerHTML={{ __html: `${content.content}` }} />
+                                                <div className={style.contnt} dangerouslySetInnerHTML={{ __html: `${content.excerpt}` }} />
                                             </div>
                                         </div>
                                     </div>
@@ -151,7 +151,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     if (!userPage.data.result) throw new Error(userPage.data.response);
 
 
-    const response = await cms.get(`page/data/${theme_slug}`, {
+    const response = await cms.get(`page/data-select/${theme_slug}&cms_blog,footer,navbar`, {
         headers: { 'access-token': access_token }
     });
     const page = response.data.response;

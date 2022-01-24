@@ -66,7 +66,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     if (!userPage.data.result) throw new Error(userPage.data.response);
 
 
-    const response = await cms.get(`page/data/${theme_slug}`, {
+    const response = await cms.get(`page/data-select/${theme_slug}&privacity_policy`, {
         headers: { 'access-token': access_token }
     });
 

@@ -319,7 +319,6 @@ export default function ContentBlog({
         }
         setDataComments({ ...temp });
     }
-    const mpublicationDatee = format(parseISO(post.post.created_at), 'd mmm yy', { locale: ptBR })
 
     return (
         <div className={style.container}>
@@ -361,7 +360,7 @@ export default function ContentBlog({
 
                         <div className={style.topPost}>
                             <p><strong>Autor:</strong> {post.post.author}</p>
-                            <p> {mpublicationDatee} </p>
+                            <p> {post.post.date_formatted} </p>
                         </div>
                         {/* content Post */}
                         <main>
@@ -395,12 +394,12 @@ export default function ContentBlog({
                                         <div className={style.info}>
                                             <small>
                                                 <Clock width={10} color="blue" />
-                                                {format(parseISO(content.created_at), 'd mmm yy', { locale: ptBR })}
+                                                {content.date_formatted}
                                             </small>
                                             <Link href={`/${slug}/blog/${content.slug}`}>
                                                 <a className={style.title}>{content.title}</a>
                                             </Link>
-                                            <div className={style.contnt} dangerouslySetInnerHTML={{ __html: `${content.content}` }} />
+                                            <div className={style.contnt} dangerouslySetInnerHTML={{ __html: `${content.excerpt}` }} />
                                         </div>
                                     </div>
                                 </div>
