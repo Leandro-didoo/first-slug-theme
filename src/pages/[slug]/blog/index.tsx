@@ -177,11 +177,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
         if (responseBlog.data.result) {
             dataBlog = responseBlog.data.response.posts
         }
-    }else return {
-        redirect: {
-            permanent: false,
-            destination: `/${slug}`
-        }
     }
 
     const navBar = elements.navbar.data
