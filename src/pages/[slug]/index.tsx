@@ -210,7 +210,7 @@ function Home({
             {galery.active && <li style={{ color: navBar.link_color }} ><a href="#gallery">Galeria</a></li>}
             {blog.active && <li style={{ color: navBar.link_color }}>
               <Link href={`/${slug}/blog`}>
-                <a style={{ color: navBar.link_color }} >Blog</a>
+                <a>Blog</a>
               </Link>
             </li>}
             <li style={{ color: navBar.link_color }}><a href="#schedule">Contato</a></li>

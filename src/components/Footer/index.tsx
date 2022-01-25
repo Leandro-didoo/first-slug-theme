@@ -24,7 +24,7 @@ export const Footer = ({ content }: FooterProps) => {
                             </li>
                             <li>
                                 <Link href="/blog">
-                                    <a style={{ color: content.colorTxt }} className=" text-lighten-3">blog</a>
+                                    <a style={{ color: content.colorTxt }} className=" text-lighten-3">Blog</a>
                                 </Link>
                             </li>
                             <li>
@@ -51,7 +51,7 @@ export const Footer = ({ content }: FooterProps) => {
                         <p className=" text-lighten-4">{content.phoneOne}</p>
                         <p className=" text-lighten-4">{content.phoneTwo}</p>
                         <p className=" text-lighten-4">{content.email}</p>
-                        <div className="row">
+                        <div className="row" style={{ marginTop: '1rem' }}>
                             <div className="col">
                                 {content.facebook ? (
                                     <a href={content.facebook}>
