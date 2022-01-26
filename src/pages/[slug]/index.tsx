@@ -522,7 +522,12 @@ function Home({
                   )
                 })}
               </div>
-
+              {testimonial.buttonLink ? (
+                <a href={testimonial.buttonLink} className={styles.btnAction} style={{
+                  color: testimonial.colorButton,
+                  background: testimonial.backgroundButton
+                }} target="_blank">{ testimonial.button }</a>
+              ):''}
             </div>
 
           </div>

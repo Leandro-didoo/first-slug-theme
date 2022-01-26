@@ -166,6 +166,7 @@ export type TestimonialType = {
   txt: string,
   colorTxt: string,
   button: string,
+  buttonLink: string,
   colorButton: string,
   backgroundButton: string,
   overlay: string,
