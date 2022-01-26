@@ -608,6 +608,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
             navBar,
             post,
             footer
-        }
+        },
+        revalidate: 60 * 60 * 3,
     }
 }

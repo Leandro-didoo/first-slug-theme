@@ -186,6 +186,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
         active: dataBlog.length === 0 ? false : elements.cms_blog?.active,
         data: dataBlog
     };
+    console.log(dataBlog);
     const footer = elements.footer ? elements.footer.data : null;
 
     return {
@@ -196,6 +197,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
             footer,
             slug
         },
-        revalidate: 60 * 60 * 8,
+        revalidate: 60 * 60 * 3,
     }
 }
