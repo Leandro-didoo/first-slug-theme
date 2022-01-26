@@ -526,7 +526,7 @@ function Home({
                 <a href={testimonial.buttonLink} className={styles.btnAction} style={{
                   color: testimonial.colorButton,
                   background: testimonial.backgroundButton
-                }} target="_blank">{ testimonial.button }</a>
+                }} target="_blank" rel="noreferrer">{ testimonial.button }</a>
               ):''}
             </div>
 
